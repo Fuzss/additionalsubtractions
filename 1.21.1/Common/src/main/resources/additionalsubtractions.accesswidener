@@ -1,0 +1,23 @@
+accessWidener   v2  named
+accessible  field   net/minecraft/data/registries/RegistriesDatapackGenerator   registries  Ljava/util/concurrent/CompletableFuture;
+mutable field   net/minecraft/data/registries/RegistriesDatapackGenerator   registries  Ljava/util/concurrent/CompletableFuture;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_HELMET   Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_CHESTPLATE   Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_LEGGINGS Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_BOOTS    Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_HOE  Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_AXE  Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_SWORD    Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_SHOVEL   Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_PICKAXE  Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_INGOT    Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_REDSTONE_DUST    Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_QUARTZ   Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_EMERALD  Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_DIAMOND  Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_LAPIS_LAZULI Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_AMETHYST_SHARD   Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createTrimmableArmorIconList    ()Ljava/util/List;
+transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createTrimmableMaterialIconList ()Ljava/util/List;
+transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createNetheriteUpgradeIconList  ()Ljava/util/List;
+transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createNetheriteUpgradeMaterialList  ()Ljava/util/List;
