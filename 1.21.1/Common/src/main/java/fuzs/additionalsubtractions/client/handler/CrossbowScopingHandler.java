@@ -1,6 +1,6 @@
 package fuzs.additionalsubtractions.client.handler;
 
-import dqu.additionaladditions.registry.ModItems;
+import fuzs.additionalsubtractions.init.ModItems;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;

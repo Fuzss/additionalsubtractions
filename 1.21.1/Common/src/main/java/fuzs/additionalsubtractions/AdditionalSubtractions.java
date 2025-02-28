@@ -1,11 +1,14 @@
 package fuzs.additionalsubtractions;
 
-import dqu.additionaladditions.item.WrenchItem;
-import dqu.additionaladditions.registry.ModItems;
-import dqu.additionaladditions.registry.ModRegistry;
+import fuzs.additionalsubtractions.world.item.WrenchItem;
+import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
+import fuzs.puzzleslib.api.core.v1.context.CompostableBlocksContext;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
+import fuzs.puzzleslib.api.event.v1.entity.ServerEntityLevelEvents;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
 import fuzs.puzzleslib.api.event.v1.server.RegisterPotionBrewingMixesCallback;
 import net.minecraft.core.BlockPos;
@@ -65,6 +68,7 @@ public class AdditionalSubtractions implements ModConstructor {
             }
             return EventResultHolder.pass();
         });
+        ServerEntityLevelEvents.SPAWN.register(MobSpawnPreventionHandler::onEntitySpawn);
     }
 
     private static boolean playerHasShieldUseIntent(Player player, InteractionHand interactionHand) {
@@ -85,6 +89,11 @@ public class AdditionalSubtractions implements ModConstructor {
                 return itemStack;
             }
         });
+    }
+
+    @Override
+    public void onRegisterCompostableBlocks(CompostableBlocksContext context) {
+        context.registerCompostable(0.3F, Items.ROTTEN_FLESH.builtInRegistryHolder());
     }
 
     public static ResourceLocation id(String path) {

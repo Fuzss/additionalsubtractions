@@ -1,7 +1,7 @@
 package fuzs.additionalsubtractions.data.loot;
 
-import dqu.additionaladditions.registry.ModItems;
-import dqu.additionaladditions.registry.ModLootTables;
+import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.init.ModLootTables;
 import fuzs.puzzleslib.api.data.v2.AbstractLootProvider;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -18,7 +18,7 @@ public class ModEntityInjectionLootProvider extends AbstractLootProvider.Simple 
 
     @Override
     public void addLootTables() {
-        this.add(ModLootTables.ELDER_GUARDIAN_INJECTION_LOOT_TABLE,
+        this.add(ModLootTables.ELDER_GUARDIAN_INJECTION,
                 LootTable.lootTable()
                         .withPool(LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))

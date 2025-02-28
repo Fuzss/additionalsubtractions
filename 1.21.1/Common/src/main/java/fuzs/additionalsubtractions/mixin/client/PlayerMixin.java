@@ -1,6 +1,6 @@
 package fuzs.additionalsubtractions.mixin.client;
 
-import fuzs.additionalsubtractions.fabric.client.handler.CrossbowScopingHandler;
+import fuzs.additionalsubtractions.client.handler.CrossbowScopingHandler;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

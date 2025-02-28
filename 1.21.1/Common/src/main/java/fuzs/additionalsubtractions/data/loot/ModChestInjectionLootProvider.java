@@ -1,8 +1,7 @@
 package fuzs.additionalsubtractions.data.loot;
 
-import dqu.additionaladditions.registry.AdditionalMusicDiscs;
-import dqu.additionaladditions.registry.ModItems;
-import dqu.additionaladditions.registry.ModLootTables;
+import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.init.ModLootTables;
 import fuzs.puzzleslib.api.data.v2.AbstractLootProvider;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import net.minecraft.world.item.Items;
@@ -23,38 +22,33 @@ public class ModChestInjectionLootProvider extends AbstractLootProvider.Simple {
 
     @Override
     public void addLootTables() {
-        this.add(ModLootTables.SIMPLE_DUNGEON_INJECTION_LOOT_TABLE,
+        this.add(ModLootTables.SIMPLE_DUNGEON_INJECTION,
                 LootTable.lootTable()
                         .withPool(this.rope())
                         .withPool(this.glowStick())
                         .withPool(this.depthMeter())
                         .withPool(this.musicDiscs()));
-        this.add(ModLootTables.ABANDONED_MINESHAFT_INJECTION_LOOT_TABLE,
+        this.add(ModLootTables.ABANDONED_MINESHAFT_INJECTION,
                 LootTable.lootTable().withPool(this.rope()).withPool(this.glowStick()).withPool(this.depthMeter()));
-        this.add(ModLootTables.STRONGHOLD_CORRIDOR_INJECTION_LOOT_TABLE,
+        this.add(ModLootTables.STRONGHOLD_CORRIDOR_INJECTION,
                 LootTable.lootTable().withPool(this.rope()).withPool(this.glowStick()).withPool(this.depthMeter()));
-        this.add(ModLootTables.WOODLAND_MANSION_INJECTION_LOOT_TABLE,
-                LootTable.lootTable().withPool(this.musicDiscs()));
-        this.add(ModLootTables.SHIPWRECK_SUPPLY_INJECTION_LOOT_TABLE,
+        this.add(ModLootTables.WOODLAND_MANSION_INJECTION, LootTable.lootTable().withPool(this.musicDiscs()));
+        this.add(ModLootTables.SHIPWRECK_SUPPLY_INJECTION,
                 LootTable.lootTable()
                         .withPool(LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .when(LootItemRandomChanceCondition.randomChance(0.5F))
                                 .add(LootItem.lootTableItem(Items.SPYGLASS))));
-        this.add(ModLootTables.PIGLIN_BARTERING_INJECTION_LOOT_TABLE,
+        this.add(ModLootTables.PIGLIN_BARTERING_INJECTION,
                 LootTable.lootTable()
                         .withPool(LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .when(LootItemRandomChanceCondition.randomChance(0.015F))
                                 .add(LootItem.lootTableItem(ModItems.GOLDEN_RING.value()))));
-        this.add(ModLootTables.PILLAGER_OUTPOST_INJECTION_LOOT_TABLE,
-                LootTable.lootTable().withPool(this.roseGoldUpgrade()));
-        this.add(ModLootTables.UNDERWATER_RUIN_SMALL_INJECTION_LOOT_TABLE,
-                LootTable.lootTable().withPool(this.roseGoldUpgrade()));
-        this.add(ModLootTables.UNDERWATER_RUIN_BIG_INJECTION_LOOT_TABLE,
-                LootTable.lootTable().withPool(this.roseGoldUpgrade()));
-        this.add(ModLootTables.SHIPWRECK_TREASURE_INJECTION_LOOT_TABLE,
-                LootTable.lootTable().withPool(this.roseGoldUpgrade()));
+        this.add(ModLootTables.PILLAGER_OUTPOST_INJECTION, LootTable.lootTable().withPool(this.roseGoldUpgrade()));
+        this.add(ModLootTables.UNDERWATER_RUIN_SMALL_INJECTION, LootTable.lootTable().withPool(this.roseGoldUpgrade()));
+        this.add(ModLootTables.UNDERWATER_RUIN_BIG_INJECTION, LootTable.lootTable().withPool(this.roseGoldUpgrade()));
+        this.add(ModLootTables.SHIPWRECK_TREASURE_INJECTION, LootTable.lootTable().withPool(this.roseGoldUpgrade()));
     }
 
     private LootPool.Builder rope() {
@@ -82,9 +76,9 @@ public class ModChestInjectionLootProvider extends AbstractLootProvider.Simple {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
                 .when(LootItemRandomChanceCondition.randomChance(0.25F))
-                .add(LootItem.lootTableItem(AdditionalMusicDiscs.MUSIC_DISC_0308.value()))
-                .add(LootItem.lootTableItem(AdditionalMusicDiscs.MUSIC_DISC_1007.value()))
-                .add(LootItem.lootTableItem(AdditionalMusicDiscs.MUSIC_DISC_1507.value()));
+                .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_0308.value()))
+                .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_1007.value()))
+                .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_1507.value()));
     }
 
     private LootPool.Builder roseGoldUpgrade() {

@@ -21,3 +21,5 @@ transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   
 transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createTrimmableMaterialIconList ()Ljava/util/List;
 transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createNetheriteUpgradeIconList  ()Ljava/util/List;
 transitive-accessible   method  net/minecraft/world/item/SmithingTemplateItem   createNetheriteUpgradeMaterialList  ()Ljava/util/List;
+accessible  field   net/minecraft/world/level/storage/loot/parameters/LootContextParamSets  REGISTRY    Lcom/google/common/collect/BiMap;
+transitive-accessible   method  net/minecraft/server/commands/GiveCommand   giveItem    (Lnet/minecraft/commands/CommandSourceStack;Lnet/minecraft/commands/arguments/item/ItemInput;Ljava/util/Collection;I)I
