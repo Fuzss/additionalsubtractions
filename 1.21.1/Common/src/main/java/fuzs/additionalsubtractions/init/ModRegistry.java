@@ -2,13 +2,19 @@ package fuzs.additionalsubtractions.init;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.entity.projectile.GlowStickEntity;
+import fuzs.additionalsubtractions.world.item.PocketJukeboxSongPlayer;
+import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
+import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
 import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,10 +24,17 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class ModRegistry {
     static final RegistryManager REGISTRIES = RegistryManager.from(AdditionalSubtractions.MOD_ID);
+    public static final Holder.Reference<DataComponentType<PocketJukeboxSongPlayer>> POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
+            "pocket_jukebox_song_player",
+            (DataComponentType.Builder<PocketJukeboxSongPlayer> builder) -> builder.networkSynchronized(
+                    PocketJukeboxSongPlayer.STREAM_CODEC));
     public static final Holder.Reference<EntityType<GlowStickEntity>> GLOW_STICK_ENTITY_TYPE = REGISTRIES.registerEntityType(
             "glow_stick",
             () -> EntityType.Builder.<GlowStickEntity>of(GlowStickEntity::new, MobCategory.MISC)
@@ -44,6 +57,10 @@ public class ModRegistry {
 
     static final TagFactory TAGS = TagFactory.make(AdditionalSubtractions.MOD_ID);
     public static final TagKey<Item> MUSIC_DISCS_ITEM_TAG = TagFactory.COMMON.registerItemTag("music_discs");
+
+    public static final DataAttachmentType<Entity, Map<UUID, SoundInstance>> PLAYING_POCKET_JUKEBOX_SONGS_ATTACHMENT_TYPE = DataAttachmentRegistry.<Map<UUID, SoundInstance>>entityBuilder()
+            .defaultValue(Collections.emptyMap())
+            .build(AdditionalSubtractions.id("playing_pocket_jukebox_songs"));
 
     public static void bootstrap() {
         ModBlocks.bootstrap();

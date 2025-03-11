@@ -1,118 +1,112 @@
 package fuzs.additionalsubtractions.world.item;
 
-import dqu.additionaladditions.config.Config;
-import dqu.additionaladditions.config.ConfigValues;
-import fuzs.additionalsubtractions.client.resources.sounds.PocketMusicSoundInstance;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
+import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.init.ModRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
 
-public class PocketJukeboxItem extends Item {
-    public PocketJukeboxItem(Properties settings) {
-        super(settings);
-    }
+import java.util.List;
+import java.util.Optional;
 
-    private static String nbtGetDisc(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTag();
-        if (tag.contains("musicdisc")) {
-            return tag.get("musicdisc").getAsString();
-        } else return null;
-    }
+public class PocketJukeboxItem extends BundleItem {
 
-    private static void nbtRemoveDisc(ItemStack stack) {
-        String disc = nbtGetDisc(stack);
-        if (disc == null) return;
-
-        CompoundTag tag = stack.getOrCreateTag();
-        tag.remove("musicdisc");
-        stack.setTag(tag);
-    }
-
-    private static void nbtPutDisc(ItemStack stack, String disc) {
-        String currentDisc = nbtGetDisc(stack);
-        if (currentDisc != null) return;
-
-        CompoundTag tag = stack.getOrCreateTag();
-        tag.putString("musicdisc", disc);
-        stack.setTag(tag);
-    }
-
-    public static boolean hasDisc(ItemStack stack) {
-        return (nbtGetDisc(stack) != null);
+    public PocketJukeboxItem(Properties properties) {
+        super(properties);
     }
 
     @Override
-    public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction clickType, Player player, SlotAccess cursorStackReference) {
-        if (!Config.getBool(ConfigValues.POCKET_JUKEBOX)) return false;
-        if (clickType != ClickAction.SECONDARY) return false;
-        Level world = player.level();
+    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slotId, boolean isSelected) {
+        PocketJukeboxSongPlayer jukeboxSongPlayer = itemStack.get(ModRegistry.POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE.value());
+        if (jukeboxSongPlayer != null) {
+            jukeboxSongPlayer.tick(level, entity);
+        }
+    }
 
-        if (nbtGetDisc(stack) == null) {
-            ItemStack cursor = cursorStackReference.get();
-            if (cursor.getItem() instanceof RecordItem) {
-                ResourceLocation id = BuiltInRegistries.ITEM.getKey(cursor.getItem());
-                RecordItem discItem = (RecordItem) BuiltInRegistries.ITEM.get(id);
-                nbtPutDisc(stack, id.toString());
-                cursorStackReference.set(ItemStack.EMPTY);
-
-                if (world.isClientSide()) {
-                    if (PocketMusicSoundInstance.instance != null) {
-                        PocketMusicSoundInstance.instance.cancel();
-                        PocketMusicSoundInstance.instance = null;
-                    }
-
-                    PocketMusicSoundInstance.instance = new PocketMusicSoundInstance(discItem.getSound(), player, stack, false, 0.8f);
-                    PocketMusicSoundInstance.instance.play();
-                }
-            }
-            return true;
+    public static ItemStack getJukeboxPlayableItem(ItemStack itemStack) {
+        BundleContents bundleContents = itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
+        if (bundleContents.isEmpty()) {
+            return ItemStack.EMPTY;
         } else {
-            ItemStack cursor = cursorStackReference.get();
-            if (!cursor.isEmpty()) return false;
-
-            String disc = nbtGetDisc(stack);
-            RecordItem discItem = (RecordItem) BuiltInRegistries.ITEM.get(new ResourceLocation(disc));
-            ItemStack discStack = new ItemStack(discItem, 1);
-            cursorStackReference.set(discStack);
-
-            if (world.isClientSide()) {
-                if (PocketMusicSoundInstance.instance != null) {
-                    PocketMusicSoundInstance.instance.cancel();
-                    PocketMusicSoundInstance.instance = null;
-                }
-            }
-
-            nbtRemoveDisc(stack);
-            return true;
+            return bundleContents.items().iterator().next();
         }
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
-        String disc = nbtGetDisc(stack);
-        if (disc == null) {
-            tooltip.add(MutableComponent.create(new TranslatableContents("additionaladditions.gui.pocket_jukebox.tooltip", null, new String[]{})).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+    public boolean overrideStackedOnOther(ItemStack itemStack, Slot slot, ClickAction action, Player player) {
+        if (!slot.hasItem() || JukeboxSong.fromStack(player.registryAccess(), slot.getItem()).isPresent()) {
+            if (super.overrideStackedOnOther(itemStack, slot, action, player)) {
+                this.triggerJukeboxSongPlayer(itemStack, player);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            Item discItem = BuiltInRegistries.ITEM.get(new ResourceLocation(disc));
-            String description = discItem.getDescriptionId() + ".desc";
-            tooltip.add(MutableComponent.create(new TranslatableContents(description, null, new String[]{})));
+            return false;
         }
+    }
+
+    @Override
+    public boolean overrideOtherStackedOnMe(ItemStack itemStack, ItemStack itemStackOnMe, Slot slot, ClickAction action, Player player, SlotAccess slotAccess) {
+        if (itemStackOnMe.isEmpty() || JukeboxSong.fromStack(player.registryAccess(), itemStackOnMe).isPresent()) {
+            if (super.overrideOtherStackedOnMe(itemStack, itemStackOnMe, slot, action, player, slotAccess)) {
+                this.triggerJukeboxSongPlayer(itemStack, player);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private void triggerJukeboxSongPlayer(ItemStack itemStack, Player player) {
+        Optional<Holder<JukeboxSong>> optional = JukeboxSong.fromStack(player.registryAccess(),
+                getJukeboxPlayableItem(itemStack));
+        if (optional.isPresent()) {
+            PocketJukeboxSongPlayer jukeboxSongPlayer = new PocketJukeboxSongPlayer();
+            jukeboxSongPlayer.play(player.level(), player, optional.get());
+            itemStack.set(ModRegistry.POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE.value(), jukeboxSongPlayer);
+        } else {
+            PocketJukeboxSongPlayer jukeboxSongPlayer = itemStack.remove(ModRegistry.POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE.value());
+            if (jukeboxSongPlayer != null) {
+                jukeboxSongPlayer.stop(player.level(), player);
+            }
+        }
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        JukeboxPlayable jukeboxPlayable = getJukeboxPlayableItem(itemStack).get(DataComponents.JUKEBOX_PLAYABLE);
+        if (jukeboxPlayable != null) {
+            jukeboxPlayable.addToTooltip(context, tooltipComponents::add, tooltipFlag);
+        } else {
+            tooltipComponents.add(getDescriptionComponent());
+        }
+    }
+
+    public static Component getDescriptionComponent() {
+        return Component.translatable(ModItems.POCKET_JUKEBOX.value().getDescriptionId() + ".description")
+                .withStyle(ChatFormatting.GRAY);
     }
 }

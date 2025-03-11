@@ -1,10 +1,10 @@
 package fuzs.additionalsubtractions.client;
 
+import fuzs.additionalsubtractions.AdditionalSubtractions;
+import fuzs.additionalsubtractions.client.handler.CrossbowScopingHandler;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
-import fuzs.additionalsubtractions.AdditionalSubtractions;
-import fuzs.additionalsubtractions.client.handler.CrossbowScopingHandler;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.api.client.core.v1.context.EntityRenderersContext;
 import fuzs.puzzleslib.api.client.core.v1.context.ItemModelPropertiesContext;
@@ -98,7 +98,8 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
                     } else {
                         return 0.3125F;
                     }
-                });
+                },
+                ModItems.DEPTH_METER.value());
     }
 
     static ClampedItemPropertyFunction getItemPropertyFunction(Item item, ResourceLocation resourceLocation) {

@@ -1,16 +1,18 @@
 package fuzs.additionalsubtractions;
 
-import fuzs.additionalsubtractions.world.item.WrenchItem;
+import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
-import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
+import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
+import fuzs.additionalsubtractions.world.item.WrenchItem;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.api.core.v1.context.CompostableBlocksContext;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
-import fuzs.puzzleslib.api.event.v1.entity.ServerEntityLevelEvents;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
+import fuzs.puzzleslib.api.event.v1.level.GatherPotentialSpawnsCallback;
 import fuzs.puzzleslib.api.event.v1.server.RegisterPotionBrewingMixesCallback;
+import fuzs.puzzleslib.api.network.v3.NetworkHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -35,6 +37,10 @@ public class AdditionalSubtractions implements ModConstructor {
     public static final String MOD_ID = "additionalsubtractions";
     public static final String MOD_NAME = "Additional Subtractions";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+
+    public static final NetworkHandler NETWORK = NetworkHandler.builder(MOD_ID)
+            .registerSerializer(ClientboundJukeboxSongMessage.class, ClientboundJukeboxSongMessage.STREAM_CODEC)
+            .registerClientbound(ClientboundJukeboxSongMessage.class);
 
     @Override
     public void onConstructMod() {
@@ -68,7 +74,7 @@ public class AdditionalSubtractions implements ModConstructor {
             }
             return EventResultHolder.pass();
         });
-        ServerEntityLevelEvents.SPAWN.register(MobSpawnPreventionHandler::onEntitySpawn);
+        GatherPotentialSpawnsCallback.EVENT.register(MobSpawnPreventionHandler::onGatherPotentialSpawns);
     }
 
     private static boolean playerHasShieldUseIntent(Player player, InteractionHand interactionHand) {

@@ -5,10 +5,12 @@ import fuzs.additionalsubtractions.util.SmithingTemplateItemHelper;
 import fuzs.additionalsubtractions.world.item.*;
 import fuzs.puzzleslib.api.item.v2.ItemEquipmentFactories;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Collections;
@@ -70,7 +72,7 @@ public class ModItems {
             () -> new Item.Properties().stacksTo(1));
     public static final Holder.Reference<Item> POCKET_JUKEBOX = ModRegistry.REGISTRIES.registerItem("pocket_jukebox",
             PocketJukeboxItem::new,
-            () -> new Item.Properties().stacksTo(1));
+            () -> new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
     public static final Holder.Reference<Item> ROSE_GOLD_ALLOY = ModRegistry.REGISTRIES.registerItem("rose_gold_alloy");
     public static final Holder.Reference<Item> FRIED_EGG = ModRegistry.REGISTRIES.registerSimpleItem("fried_egg",
             () -> new Item.Properties().food(FRIED_EGG_FOOD));
