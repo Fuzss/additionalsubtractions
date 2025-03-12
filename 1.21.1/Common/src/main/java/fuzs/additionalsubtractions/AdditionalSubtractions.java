@@ -16,8 +16,11 @@ import fuzs.puzzleslib.api.network.v3.NetworkHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +32,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +97,25 @@ public class AdditionalSubtractions implements ModConstructor {
                 BlockState blockState = blockSource.level().getBlockState(blockPos);
                 ((WrenchItem) itemStack.getItem()).dispenserUse(blockSource.level(), blockPos, blockState, itemStack);
                 return itemStack;
+            }
+        });
+        DispenserBlock.registerBehavior(ModItems.NETHERITE_HORSE_ARMOR.value(), new OptionalDispenseItemBehavior() {
+            @Override
+            protected ItemStack execute(BlockSource blockSource, ItemStack item) {
+                BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
+                for (AbstractHorse abstractHorse : blockSource.level()
+                        .getEntitiesOfClass(AbstractHorse.class,
+                                new AABB(blockPos),
+                                abstractHorsex -> abstractHorsex.isAlive() &&
+                                        abstractHorsex.canUseSlot(EquipmentSlot.BODY))) {
+                    if (abstractHorse.isBodyArmorItem(item) && !abstractHorse.isWearingBodyArmor() &&
+                            abstractHorse.isTamed()) {
+                        abstractHorse.setBodyArmorItem(item.split(1));
+                        this.setSuccess(true);
+                        return item;
+                    }
+                }
+                return super.execute(blockSource, item);
             }
         });
     }

@@ -5,13 +5,16 @@ import fuzs.additionalsubtractions.client.handler.CrossbowInHandHandler;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.api.client.core.v1.context.EntityRenderersContext;
 import fuzs.puzzleslib.api.client.core.v1.context.ItemModelPropertiesContext;
 import fuzs.puzzleslib.api.client.core.v1.context.RenderTypesContext;
 import fuzs.puzzleslib.api.client.event.v1.renderer.RenderHandEvents;
+import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -23,18 +26,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Objects;
 
 public class AdditionalSubtractionsClient implements ClientModConstructor {
-    public static final ResourceLocation PULL_ITEM_MODEL_PROPERTY = ResourceLocation.withDefaultNamespace("pull");
-    public static final ResourceLocation PULLING_ITEM_MODEL_PROPERTY = ResourceLocation.withDefaultNamespace("pulling");
-    public static final ResourceLocation CHARGED_ITEM_MODEL_PROPERTY = ResourceLocation.withDefaultNamespace("charged");
-    public static final ResourceLocation FIREWORK_ITEM_MODEL_PROPERTY = ResourceLocation.withDefaultNamespace("firework");
+    public static final ResourceLocation PULL_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("pull");
+    public static final ResourceLocation PULLING_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("pulling");
+    public static final ResourceLocation CHARGED_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("charged");
+    public static final ResourceLocation FIREWORK_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("firework");
     public static final ResourceLocation ANGLE_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("angle");
-    public static final ResourceLocation DISC_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("disc");
+    public static final ResourceLocation DISC_ITEM_MODEL_PROPERTY = AdditionalSubtractions.id("filled");
 
     @Override
     public void onConstructMod() {
@@ -49,6 +51,7 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
     @Override
     public void onRegisterEntityRenderers(EntityRenderersContext context) {
         context.registerEntityRenderer(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), ThrownItemRenderer::new);
+        context.registerEntityRenderer(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), FallingBlockRenderer::new);
     }
 
     @Override
@@ -75,7 +78,7 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
                 ModItems.CROSSBOW_WITH_SPYGLASS.value());
         context.registerItemProperty(DISC_ITEM_MODEL_PROPERTY,
                 (ItemStack itemStack, ClientLevel clientLevel, LivingEntity livingEntity, int i) -> {
-                    return !itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).isEmpty() ?
+                    return PocketJukeboxItem.getJukeboxPlayableItem(itemStack).has(DataComponents.JUKEBOX_PLAYABLE) ?
                             1.0F : 0.0F;
                 },
                 ModItems.POCKET_JUKEBOX.value());
@@ -105,6 +108,7 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
     }
 
     static ClampedItemPropertyFunction getItemPropertyFunction(Item item, ResourceLocation resourceLocation) {
+        resourceLocation = ResourceLocationHelper.withDefaultNamespace(resourceLocation.getPath());
         ClampedItemPropertyFunction itemPropertyFunction = (ClampedItemPropertyFunction) ItemProperties.getProperty(new ItemStack(
                 item), resourceLocation);
         Objects.requireNonNull(itemPropertyFunction, "item property function " + resourceLocation + " is null");

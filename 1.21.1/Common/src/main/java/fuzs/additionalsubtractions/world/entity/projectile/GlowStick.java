@@ -3,8 +3,9 @@ package fuzs.additionalsubtractions.world.entity.projectile;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,7 +14,9 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -53,20 +56,38 @@ public class GlowStick extends ThrowableItemProjectile {
         if (blockPlaceContext.canPlace()) {
             BlockState blockState = ModBlocks.GLOW_STICK.value().getStateForPlacement(blockPlaceContext);
             if (blockState != null) {
-                this.level().setBlockAndUpdate(hitResult.getBlockPos().relative(hitResult.getDirection()), blockState);
-                this.playSound(SoundEvents.GLASS_PLACE, 1.0F, 1.0F);
+                BlockPos blockPos = hitResult.getBlockPos().relative(hitResult.getDirection());
+                this.level().setBlockAndUpdate(blockPos, blockState);
+                SoundType soundType = blockState.getSoundType();
+                this.playSound(soundType.getPlaceSound(),
+                        (soundType.getVolume() + 1.0F) / 2.0F,
+                        soundType.getPitch() * 0.8F);
                 return;
             }
         }
 
-        this.level()
-                .addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
+        this.dropItem();
+    }
+
+    @Override
+    public SoundSource getSoundSource() {
+        return SoundSource.BLOCKS;
     }
 
     @Override
     protected void onHitEntity(EntityHitResult hitResult) {
         super.onHitEntity(hitResult);
-        this.level()
-                .addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getItem()));
+        this.dropItem();
+    }
+
+    protected void dropItem() {
+        if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+            this.level()
+                    .addFreshEntity(new ItemEntity(this.level(),
+                            this.getX(),
+                            this.getY(),
+                            this.getZ(),
+                            this.getItem()));
+        }
     }
 }

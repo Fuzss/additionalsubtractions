@@ -155,6 +155,10 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern(" # ")
                 .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
                 .save(recipeOutput);
+        netheriteSmithing(recipeOutput,
+                Items.DIAMOND_HORSE_ARMOR,
+                RecipeCategory.COMBAT,
+                ModItems.NETHERITE_HORSE_ARMOR.value());
     }
 
     public static void roseGoldSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {

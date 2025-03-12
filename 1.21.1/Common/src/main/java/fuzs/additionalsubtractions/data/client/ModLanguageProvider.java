@@ -29,6 +29,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addBlock(ModBlocks.GLOW_STICK, "Glow Stick");
         translationBuilder.addBlock(ModBlocks.PATINA_BLOCK, "Patina Block");
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
+        translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");
 
         translationBuilder.addItem(ModItems.SWEET_BERRY_PIE, "Sweet Berry Pie");
         translationBuilder.addItem(ModItems.WATERING_CAN, "Watering Can");
@@ -56,6 +57,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.ROSE_GOLD_CHESTPLATE, "Rose Gold Chestplate");
         translationBuilder.addItem(ModItems.ROSE_GOLD_LEGGINGS, "Rose Gold Leggings");
         translationBuilder.addItem(ModItems.ROSE_GOLD_BOOTS, "Rose Gold Boots");
+        translationBuilder.addItem(ModItems.NETHERITE_HORSE_ARMOR, "Netherite Horse Armor");
 
         translationBuilder.addPotion(ModRegistry.HURRY_POTION, "Hurry");
         translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).appliesTo,

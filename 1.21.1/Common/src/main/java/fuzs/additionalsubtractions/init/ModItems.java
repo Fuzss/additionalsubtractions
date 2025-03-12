@@ -141,6 +141,15 @@ public class ModItems {
     public static final Holder.Reference<Item> ROSE_GOLD_BOOTS = ModRegistry.REGISTRIES.registerItem("rose_gold_boots",
             (Item.Properties properties) -> new ArmorItem(ROSE_GOLD_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, properties),
             () -> new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(24)));
+    public static final Holder.Reference<Item> NETHERITE_HORSE_ARMOR = ModRegistry.REGISTRIES.registerItem(
+            "netherite_horse_armor",
+            (Item.Properties properties) -> {
+                return new AnimalArmorItem(ArmorMaterials.NETHERITE,
+                        AnimalArmorItem.BodyType.EQUESTRIAN,
+                        false,
+                        properties);
+            },
+            () -> new Item.Properties().stacksTo(1));
 
     public static void bootstrap() {
         // NO-OP

@@ -11,6 +11,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -38,7 +39,7 @@ public class CopperPatinaItem extends BlockItem {
             }
 
             level.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.levelEvent(player, 3005, blockPos, 0);
+            level.levelEvent(player, LevelEvent.PARTICLES_SCRAPE, blockPos, 0);
             level.setBlock(blockPos, optional.get(), 11);
             context.getItemInHand().shrink(1);
 

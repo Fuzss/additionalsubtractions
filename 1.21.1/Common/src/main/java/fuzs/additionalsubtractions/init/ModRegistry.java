@@ -1,6 +1,7 @@
 package fuzs.additionalsubtractions.init;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
+import fuzs.additionalsubtractions.world.entity.item.PatinaBlockEntity;
 import fuzs.additionalsubtractions.world.entity.projectile.GlowStick;
 import fuzs.additionalsubtractions.world.item.PocketJukeboxSongPlayer;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
@@ -41,6 +42,12 @@ public class ModRegistry {
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10));
+    public static final Holder.Reference<EntityType<PatinaBlockEntity>> PATINA_BLOCK_ENTITY_TYPE = REGISTRIES.registerEntityType(
+            "patina_block",
+            () -> EntityType.Builder.<PatinaBlockEntity>of(PatinaBlockEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(20));
     public static final Holder.Reference<Potion> HURRY_POTION = REGISTRIES.registerPotion("hurry",
             () -> new Potion(new MobEffectInstance(MobEffects.DIG_SPEED, 3600)));
     public static final Holder.Reference<Potion> STRONG_HURRY_POTION = REGISTRIES.registerPotion("strong_hurry",

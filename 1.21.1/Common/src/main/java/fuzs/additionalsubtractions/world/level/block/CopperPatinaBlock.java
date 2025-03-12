@@ -36,6 +36,7 @@ import java.util.Random;
 import java.util.Set;
 
 // Modified RedstoneWireBlock
+@Deprecated(forRemoval = true)
 public class CopperPatinaBlock extends Block {
     public static final EnumProperty<RedstoneSide> WIRE_CONNECTION_NORTH;
     public static final EnumProperty<RedstoneSide> WIRE_CONNECTION_EAST;

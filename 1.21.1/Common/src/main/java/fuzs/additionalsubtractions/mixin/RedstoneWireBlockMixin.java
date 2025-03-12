@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Deprecated(forRemoval = true)
 @Mixin(RedStoneWireBlock.class)
 public class RedstoneWireBlockMixin {
 
