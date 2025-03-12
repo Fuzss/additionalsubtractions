@@ -1,9 +1,9 @@
 package fuzs.additionalsubtractions.init;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
-import fuzs.additionalsubtractions.util.SmithingTemplateItemHelper;
 import fuzs.additionalsubtractions.world.item.*;
 import fuzs.puzzleslib.api.item.v2.ItemEquipmentFactories;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
@@ -33,7 +33,7 @@ public class ModItems {
     static final FoodProperties FRIED_EGG_FOOD = new FoodProperties.Builder().nutrition(6)
             .saturationModifier(FoodConstants.FOOD_SATURATION_GOOD)
             .build();
-    static final FoodProperties BERRY_PIE_FOOD = new FoodProperties.Builder().nutrition(8)
+    static final FoodProperties SWEET_BERRY_PIE_FOOD = new FoodProperties.Builder().nutrition(8)
             .saturationModifier(FoodConstants.FOOD_SATURATION_NORMAL)
             .build();
     static final FoodProperties HONEYED_APPLE_FOOD = new FoodProperties.Builder().nutrition(8)
@@ -60,7 +60,7 @@ public class ModItems {
             CrossbowItem::new,
             () -> new Item.Properties().stacksTo(1).durability(350));
     public static final Holder.Reference<Item> TRIDENT_SHARD = ModRegistry.REGISTRIES.registerItem("trident_shard");
-    public static final Holder.Reference<Item> GLOW_STICK = ModRegistry.REGISTRIES.registerItem("glow_stick",
+    public static final Holder.Reference<Item> GLOW_STICK = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.GLOW_STICK,
             GlowStickItem::new);
     public static final Holder.Reference<Item> DEPTH_METER = ModRegistry.REGISTRIES.registerItem("depth_meter",
             DepthMeterItem::new);
@@ -72,21 +72,24 @@ public class ModItems {
             () -> new Item.Properties().stacksTo(1));
     public static final Holder.Reference<Item> POCKET_JUKEBOX = ModRegistry.REGISTRIES.registerItem("pocket_jukebox",
             PocketJukeboxItem::new,
-            () -> new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+            () -> new Item.Properties().stacksTo(1)
+                    .component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
+                    .component(ModRegistry.POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE.value(), Util.NIL_UUID));
     public static final Holder.Reference<Item> ROSE_GOLD_ALLOY = ModRegistry.REGISTRIES.registerItem("rose_gold_alloy");
     public static final Holder.Reference<Item> FRIED_EGG = ModRegistry.REGISTRIES.registerSimpleItem("fried_egg",
             () -> new Item.Properties().food(FRIED_EGG_FOOD));
-    public static final Holder.Reference<Item> BERRY_PIE = ModRegistry.REGISTRIES.registerSimpleItem("berry_pie",
-            () -> new Item.Properties().food(BERRY_PIE_FOOD));
+    public static final Holder.Reference<Item> SWEET_BERRY_PIE = ModRegistry.REGISTRIES.registerSimpleItem(
+            "sweet_berry_pie",
+            () -> new Item.Properties().food(SWEET_BERRY_PIE_FOOD));
     public static final Holder.Reference<Item> HONEYED_APPLE = ModRegistry.REGISTRIES.registerSimpleItem("honeyed_apple",
             () -> new Item.Properties().food(HONEYED_APPLE_FOOD));
     public static final Holder.Reference<Item> CHICKEN_NUGGET = ModRegistry.REGISTRIES.registerSimpleItem(
             "chicken_nugget",
             () -> new Item.Properties().food(CHICKEN_NUGGET_FOOD));
-    public static final Holder.Reference<Item> ROSE_GOLD_UPGRADE = ModRegistry.REGISTRIES.registerItem(
-            "rose_gold_upgrade",
+    public static final Holder.Reference<Item> ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE = ModRegistry.REGISTRIES.registerItem(
+            "rose_gold_upgrade_smithing_template",
             (Item.Properties properties) -> SmithingTemplateItemHelper.createUpgradeTemplate(AdditionalSubtractions.id(
-                            "rose_gold_upgrade"),
+                            "rose_gold_upgrade_smithing_template"),
                     Collections.singletonList(AdditionalSubtractions.id("item/empty_slot_alloy"))));
     public static final Holder.Reference<Item> MUSIC_DISC_0308 = ModRegistry.REGISTRIES.registerSimpleItem(
             "music_disc_0308",

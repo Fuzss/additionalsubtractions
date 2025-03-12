@@ -5,17 +5,22 @@ import fuzs.additionalsubtractions.client.handler.CrossbowScopingHandler;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.api.client.core.v1.context.EntityRenderersContext;
 import fuzs.puzzleslib.api.client.core.v1.context.ItemModelPropertiesContext;
 import fuzs.puzzleslib.api.client.core.v1.context.RenderTypesContext;
+import fuzs.puzzleslib.api.client.event.v1.entity.player.ClientPlayerNetworkEvents;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerTickEvents;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.Connection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,6 +47,9 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
 
     private static void registerEventHandlers() {
         PlayerTickEvents.END.register(CrossbowScopingHandler::onEndPlayerTick);
+        ClientPlayerNetworkEvents.LOGGED_OUT.register((LocalPlayer player, MultiPlayerGameMode multiPlayerGameMode, Connection connection) -> {
+            PocketJukeboxItem.POCKET_JUKEBOX_SONG_PLAYERS.clear();
+        });
     }
 
     @Override

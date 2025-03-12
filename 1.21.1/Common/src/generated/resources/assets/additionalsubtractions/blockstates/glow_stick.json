@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "additionalsubtractions:block/glow_stick",
+      "x": 270,
+      "y": 180
+    },
+    "facing=east": {
+      "model": "additionalsubtractions:block/glow_stick",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "additionalsubtractions:block/glow_stick",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "additionalsubtractions:block/glow_stick"
+    },
+    "facing=up": {
+      "model": "additionalsubtractions:block/glow_stick",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "additionalsubtractions:block/glow_stick",
+      "y": 90
+    }
+  }
+}

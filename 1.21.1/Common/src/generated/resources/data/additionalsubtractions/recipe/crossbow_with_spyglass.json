@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:spyglass"
+    },
+    {
+      "item": "minecraft:crossbow"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "additionalsubtractions:crossbow_with_spyglass"
+  }
+}

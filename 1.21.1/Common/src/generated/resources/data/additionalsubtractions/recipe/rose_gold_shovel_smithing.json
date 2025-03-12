@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "additionalsubtractions:rose_gold_alloy"
+  },
+  "base": {
+    "item": "minecraft:iron_shovel"
+  },
+  "result": {
+    "count": 1,
+    "id": "additionalsubtractions:rose_gold_shovel"
+  },
+  "template": {
+    "item": "additionalsubtractions:rose_gold_upgrade_smithing_template"
+  }
+}

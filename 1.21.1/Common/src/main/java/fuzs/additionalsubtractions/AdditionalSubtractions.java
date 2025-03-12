@@ -4,6 +4,7 @@ import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
+import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.additionalsubtractions.world.item.WrenchItem;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.api.core.v1.context.CompostableBlocksContext;
@@ -12,11 +13,13 @@ import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
 import fuzs.puzzleslib.api.event.v1.level.GatherPotentialSpawnsCallback;
 import fuzs.puzzleslib.api.event.v1.server.RegisterPotionBrewingMixesCallback;
+import fuzs.puzzleslib.api.event.v1.server.ServerLifecycleEvents;
 import fuzs.puzzleslib.api.network.v3.NetworkHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -75,6 +78,9 @@ public class AdditionalSubtractions implements ModConstructor {
             return EventResultHolder.pass();
         });
         GatherPotentialSpawnsCallback.EVENT.register(MobSpawnPreventionHandler::onGatherPotentialSpawns);
+        ServerLifecycleEvents.STOPPED.register((MinecraftServer server) -> {
+            PocketJukeboxItem.POCKET_JUKEBOX_SONG_PLAYERS.clear();
+        });
     }
 
     private static boolean playerHasShieldUseIntent(Player player, InteractionHand interactionHand) {

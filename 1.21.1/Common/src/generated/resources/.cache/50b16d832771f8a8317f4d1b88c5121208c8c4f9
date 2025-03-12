@@ -1,0 +1,5 @@
+// 1.21.1	2025-03-12T01:33:37.107826	Tags for minecraft:block mod id vanilla
+aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/climbable.json
+aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/mineable/axe.json
+87f91ad36ffdf82b90f1340dba3ad55eaf5eec13 data/minecraft/tags/block/mineable/pickaxe.json
+aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/sword_efficient.json

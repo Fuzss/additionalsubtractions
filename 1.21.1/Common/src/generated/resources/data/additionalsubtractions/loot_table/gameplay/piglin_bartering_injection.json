@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.015,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "additionalsubtractions:golden_ring"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "additionalsubtractions:gameplay/piglin_bartering_injection"
+}

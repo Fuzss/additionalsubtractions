@@ -85,6 +85,6 @@ public class ModChestInjectionLootProvider extends AbstractLootProvider.Simple {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
                 .when(LootItemRandomChanceCondition.randomChance(0.25F))
-                .add(LootItem.lootTableItem(ModItems.ROSE_GOLD_UPGRADE.value()));
+                .add(LootItem.lootTableItem(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()));
     }
 }

@@ -1,14 +1,14 @@
 package fuzs.additionalsubtractions.init;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
-import fuzs.additionalsubtractions.world.entity.projectile.GlowStickEntity;
-import fuzs.additionalsubtractions.world.item.PocketJukeboxSongPlayer;
+import fuzs.additionalsubtractions.world.entity.projectile.GlowStick;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
 import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -31,22 +31,21 @@ import java.util.function.Consumer;
 
 public class ModRegistry {
     static final RegistryManager REGISTRIES = RegistryManager.from(AdditionalSubtractions.MOD_ID);
-    public static final Holder.Reference<DataComponentType<PocketJukeboxSongPlayer>> POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
+    public static final Holder.Reference<DataComponentType<UUID>> POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
             "pocket_jukebox_song_player",
-            (DataComponentType.Builder<PocketJukeboxSongPlayer> builder) -> builder.networkSynchronized(
-                    PocketJukeboxSongPlayer.STREAM_CODEC));
-    public static final Holder.Reference<EntityType<GlowStickEntity>> GLOW_STICK_ENTITY_TYPE = REGISTRIES.registerEntityType(
+            (DataComponentType.Builder<UUID> builder) -> builder.networkSynchronized(UUIDUtil.STREAM_CODEC));
+    public static final Holder.Reference<EntityType<GlowStick>> GLOW_STICK_ENTITY_TYPE = REGISTRIES.registerEntityType(
             "glow_stick",
-            () -> EntityType.Builder.<GlowStickEntity>of(GlowStickEntity::new, MobCategory.MISC)
+            () -> EntityType.Builder.<GlowStick>of(GlowStick::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10));
     public static final Holder.Reference<Potion> HURRY_POTION = REGISTRIES.registerPotion("hurry",
             () -> new Potion(new MobEffectInstance(MobEffects.DIG_SPEED, 3600)));
     public static final Holder.Reference<Potion> STRONG_HURRY_POTION = REGISTRIES.registerPotion("strong_hurry",
-            () -> new Potion(new MobEffectInstance(MobEffects.DIG_SPEED, 1600, 1)));
+            () -> new Potion("hurry", new MobEffectInstance(MobEffects.DIG_SPEED, 1600, 1)));
     public static final Holder.Reference<Potion> LONG_HURRY_POTION = REGISTRIES.registerPotion("long_hurry",
-            () -> new Potion(new MobEffectInstance(MobEffects.DIG_SPEED, 9600)));
+            () -> new Potion("hurry", new MobEffectInstance(MobEffects.DIG_SPEED, 9600)));
     public static final Holder.Reference<CreativeModeTab> CREATIVE_MODE_TAB = REGISTRIES.registerCreativeModeTab(
             ModItems.CROSSBOW_WITH_SPYGLASS);
 

@@ -1,15 +1,11 @@
 package fuzs.additionalsubtractions.world.item;
 
 import com.google.common.util.concurrent.Runnables;
-import com.mojang.serialization.Codec;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
 import fuzs.puzzleslib.api.network.v3.PlayerSet;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.UUIDUtil;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.JukeboxSong;
@@ -22,16 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class PocketJukeboxSongPlayer extends JukeboxSongPlayer {
-    public static final Codec<PocketJukeboxSongPlayer> CODEC = Codec.unit(PocketJukeboxSongPlayer::new);
-    public static final StreamCodec<ByteBuf, PocketJukeboxSongPlayer> STREAM_CODEC = UUIDUtil.STREAM_CODEC.map(
-            PocketJukeboxSongPlayer::new,
-            (PocketJukeboxSongPlayer jukeboxSongPlayer) -> jukeboxSongPlayer.uuid);
-
     private final UUID uuid;
-
-    public PocketJukeboxSongPlayer() {
-        this(UUID.randomUUID());
-    }
 
     public PocketJukeboxSongPlayer(UUID uuid) {
         super(Runnables::doNothing, BlockPos.ZERO);
@@ -87,7 +74,8 @@ public class PocketJukeboxSongPlayer extends JukeboxSongPlayer {
                     level.gameEvent(GameEvent.JUKEBOX_PLAY, entity.blockPosition(), GameEvent.Context.of(entity));
                     // allow particle spawning all around the entity up to one block away for a height of two blocks
                     int offset = entity.getRandom().nextInt(18);
-                    spawnMusicParticles(level, entity.blockPosition().offset(offset / 6 - 1, offset / 9 - 1, offset % 3 - 1));
+                    spawnMusicParticles(level,
+                            entity.blockPosition().offset(offset / 6 - 1, offset / 9 - 1, offset % 3 - 1));
                 }
 
                 this.ticksSinceSongStarted++;
