@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "client.PlayerMixin"
+    "client.ItemInHandRendererMixin",
+    "client.PlayerMixin",
+    "client.PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

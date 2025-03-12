@@ -4,8 +4,11 @@ import com.google.common.util.concurrent.Runnables;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
 import fuzs.puzzleslib.api.network.v3.PlayerSet;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.JukeboxSong;
@@ -18,9 +21,17 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class PocketJukeboxSongPlayer extends JukeboxSongPlayer {
+    public static final StreamCodec<ByteBuf, PocketJukeboxSongPlayer> STREAM_CODEC = UUIDUtil.STREAM_CODEC.map(
+            PocketJukeboxSongPlayer::new,
+            (PocketJukeboxSongPlayer jukeboxSongPlayer) -> jukeboxSongPlayer.uuid);
+
     private final UUID uuid;
 
-    public PocketJukeboxSongPlayer(UUID uuid) {
+    public PocketJukeboxSongPlayer() {
+        this(UUID.randomUUID());
+    }
+
+    private PocketJukeboxSongPlayer(UUID uuid) {
         super(Runnables::doNothing, BlockPos.ZERO);
         this.uuid = uuid;
     }
@@ -50,7 +61,9 @@ public class PocketJukeboxSongPlayer extends JukeboxSongPlayer {
     }
 
     public void stop(LevelAccessor level, Entity entity) {
-        if (this.song != null) {
+        // the client component is likely to have been replaced from the server again, missing out on the song field
+        // so just allow it to bypass that check, so that music may stop properly once a music disc is removed from the jukebox
+        if (this.song != null || level.isClientSide()) {
             this.song = null;
             this.ticksSinceSongStarted = 0L;
             level.gameEvent(GameEvent.JUKEBOX_STOP_PLAY, entity.blockPosition(), GameEvent.Context.of(entity));

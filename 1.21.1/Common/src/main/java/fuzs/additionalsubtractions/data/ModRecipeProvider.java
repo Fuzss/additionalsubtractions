@@ -148,7 +148,7 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern(" # ")
                 .unlockedBy(getHasName(Items.BUCKET), has(Items.BUCKET))
                 .save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.WRENCH.value())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.COPPER_WRENCH.value())
                 .define('#', Items.COPPER_INGOT)
                 .pattern("# #")
                 .pattern(" # ")

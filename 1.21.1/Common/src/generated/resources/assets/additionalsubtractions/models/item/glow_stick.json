@@ -1,3 +1,6 @@
 {
-  "parent": "additionalsubtractions:block/glow_stick"
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "additionalsubtractions:item/glow_stick"
+  }
 }

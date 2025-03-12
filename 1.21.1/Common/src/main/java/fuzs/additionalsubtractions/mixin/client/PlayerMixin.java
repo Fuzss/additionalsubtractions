@@ -1,6 +1,7 @@
 package fuzs.additionalsubtractions.mixin.client;
 
-import fuzs.additionalsubtractions.client.handler.CrossbowScopingHandler;
+import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.world.item.CrossbowWithSpyglassItem;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,8 +20,13 @@ abstract class PlayerMixin extends LivingEntity {
 
     @Inject(method = "isScoping", at = @At("HEAD"), cancellable = true)
     public void isScoping(CallbackInfoReturnable<Boolean> callback) {
-        if (CrossbowScopingHandler.isCurrentlyScoping()) {
-            callback.setReturnValue(true);
+        if (this.isUsingItem() && this.getUseItem().is(ModItems.CROSSBOW_WITH_SPYGLASS)) {
+            if (((CrossbowWithSpyglassItem) this.getUseItem().getItem()).isScoping(this.level(),
+                    this,
+                    this.getUseItem(),
+                    this.getUseItemRemainingTicks())) {
+                callback.setReturnValue(true);
+            }
         }
     }
 }

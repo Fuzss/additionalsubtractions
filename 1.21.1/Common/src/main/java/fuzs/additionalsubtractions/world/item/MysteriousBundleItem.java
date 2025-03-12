@@ -26,6 +26,7 @@ public class MysteriousBundleItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
 
         ItemStack itemInHand = player.getItemInHand(interactionHand);
+        // consume first, so the slot can potentially be used for received items
         itemInHand.consume(1, player);
 
         if (level instanceof ServerLevel serverLevel) {

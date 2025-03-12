@@ -1,3 +1,15 @@
-// 1.21.1	2025-03-12T01:33:37.1085	Tags for minecraft:item mod id vanilla
+// 1.21.1	2025-03-12T11:47:58.776539	Tags for minecraft:item mod id vanilla
 b1c3138f834da8b7e93c5e55800cbf8954844ba8 data/c/tags/item/music_discs.json
+2ab7ca82c9d273c0a48fabe9a9fc05f0ab5d79bd data/minecraft/tags/item/axes.json
+0ec1a45605dcca0c227b00838b7c56ef9481b243 data/minecraft/tags/item/chest_armor.json
+39ccb0b48489e15d00765941761105248bda33e3 data/minecraft/tags/item/cluster_max_harvestables.json
+d665aa53a03bdc5312ee2a0c49a73e3f4a2e0c90 data/minecraft/tags/item/enchantable/crossbow.json
+d665aa53a03bdc5312ee2a0c49a73e3f4a2e0c90 data/minecraft/tags/item/enchantable/durability.json
+b4858dd0b33849b483edfb8fb13f9e70400cef93 data/minecraft/tags/item/foot_armor.json
+d98eb47e5142ac9e09b09b36e38466eb81ed067a data/minecraft/tags/item/head_armor.json
+81c6d282e147ec3452fd8d6bf2ce06e53249d762 data/minecraft/tags/item/hoes.json
+774cae722ca1dc189d6ad3cadd138fd9e057aec7 data/minecraft/tags/item/leg_armor.json
+39ccb0b48489e15d00765941761105248bda33e3 data/minecraft/tags/item/pickaxes.json
+6cb17c489284920232ad6cec473ca2269219b44b data/minecraft/tags/item/shovels.json
+bb42b7b302687c239c2c724398a9531b6dcebe24 data/minecraft/tags/item/swords.json
 2ce0812d78f93f950cdb8c6a0f77f54713c1ff22 data/minecraft/tags/item/wolf_food.json

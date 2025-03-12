@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class GlowStickBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<GlowStickBlock> CODEC = simpleCodec(GlowStickBlock::new);
-    public static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 2.0, 14.0);
+    public static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 1.0, 14.0);
     public static final Map<Direction, VoxelShape> SHAPES = ShapesHelper.rotate(SHAPE);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
@@ -72,17 +72,15 @@ public class GlowStickBlock extends Block implements SimpleWaterloggedBlock {
         BlockState blockState = this.defaultBlockState()
                 .setValue(WATERLOGGED,
                         Boolean.valueOf(levelAccessor.getFluidState(blockPos).getType() == Fluids.WATER));
-        if (context.getPlayer() != null) {
-            for (Direction direction : context.getNearestLookingDirections()) {
-                BlockState newBlockState = blockState.setValue(FACING, direction.getOpposite());
-                if (newBlockState.canSurvive(levelAccessor, blockPos)) {
-                    return newBlockState;
-                }
+        Direction[] directions = context.getPlayer() != null ? context.getNearestLookingDirections() :
+                new Direction[]{context.getClickedFace().getOpposite()};
+        for (Direction direction : directions) {
+            BlockState newBlockState = blockState.setValue(FACING, direction.getOpposite());
+            if (newBlockState.canSurvive(levelAccessor, blockPos)) {
+                return newBlockState;
             }
-            return null;
-        } else {
-            return blockState.setValue(FACING, context.getClickedFace());
         }
+        return null;
     }
 
     @Override

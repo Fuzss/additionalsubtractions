@@ -3,7 +3,6 @@ package fuzs.additionalsubtractions.init;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.item.*;
 import fuzs.puzzleslib.api.item.v2.ItemEquipmentFactories;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
@@ -11,6 +10,7 @@ import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Collections;
@@ -52,13 +52,15 @@ public class ModItems {
     public static final Holder.Reference<Item> WATERING_CAN = ModRegistry.REGISTRIES.registerItem("watering_can",
             WateringCanItem::new,
             () -> new Item.Properties().stacksTo(1).durability(101));
-    public static final Holder.Reference<Item> WRENCH = ModRegistry.REGISTRIES.registerItem("wrench",
+    public static final Holder.Reference<Item> COPPER_WRENCH = ModRegistry.REGISTRIES.registerItem("copper_wrench",
             WrenchItem::new,
-            () -> new Item.Properties().stacksTo(1).durability(256));
+            () -> new Item.Properties().stacksTo(1));
     public static final Holder.Reference<Item> CROSSBOW_WITH_SPYGLASS = ModRegistry.REGISTRIES.registerItem(
             "crossbow_with_spyglass",
-            CrossbowItem::new,
-            () -> new Item.Properties().stacksTo(1).durability(350));
+            CrossbowWithSpyglassItem::new,
+            () -> new Item.Properties().stacksTo(1)
+                    .durability(465)
+                    .component(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY));
     public static final Holder.Reference<Item> TRIDENT_SHARD = ModRegistry.REGISTRIES.registerItem("trident_shard");
     public static final Holder.Reference<Item> GLOW_STICK = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.GLOW_STICK,
             GlowStickItem::new);
@@ -72,9 +74,7 @@ public class ModItems {
             () -> new Item.Properties().stacksTo(1));
     public static final Holder.Reference<Item> POCKET_JUKEBOX = ModRegistry.REGISTRIES.registerItem("pocket_jukebox",
             PocketJukeboxItem::new,
-            () -> new Item.Properties().stacksTo(1)
-                    .component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
-                    .component(ModRegistry.POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE.value(), Util.NIL_UUID));
+            () -> new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
     public static final Holder.Reference<Item> ROSE_GOLD_ALLOY = ModRegistry.REGISTRIES.registerItem("rose_gold_alloy");
     public static final Holder.Reference<Item> FRIED_EGG = ModRegistry.REGISTRIES.registerSimpleItem("fried_egg",
             () -> new Item.Properties().food(FRIED_EGG_FOOD));

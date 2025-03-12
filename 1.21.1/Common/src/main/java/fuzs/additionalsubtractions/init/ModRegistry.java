@@ -2,13 +2,13 @@ package fuzs.additionalsubtractions.init;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.entity.projectile.GlowStick;
+import fuzs.additionalsubtractions.world.item.PocketJukeboxSongPlayer;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
 import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
-import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -31,9 +31,10 @@ import java.util.function.Consumer;
 
 public class ModRegistry {
     static final RegistryManager REGISTRIES = RegistryManager.from(AdditionalSubtractions.MOD_ID);
-    public static final Holder.Reference<DataComponentType<UUID>> POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
+    public static final Holder.Reference<DataComponentType<PocketJukeboxSongPlayer>> POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
             "pocket_jukebox_song_player",
-            (DataComponentType.Builder<UUID> builder) -> builder.networkSynchronized(UUIDUtil.STREAM_CODEC));
+            (DataComponentType.Builder<PocketJukeboxSongPlayer> builder) -> builder.networkSynchronized(
+                    PocketJukeboxSongPlayer.STREAM_CODEC));
     public static final Holder.Reference<EntityType<GlowStick>> GLOW_STICK_ENTITY_TYPE = REGISTRIES.registerEntityType(
             "glow_stick",
             () -> EntityType.Builder.<GlowStick>of(GlowStick::new, MobCategory.MISC)

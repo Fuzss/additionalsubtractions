@@ -1,3 +1,6 @@
 {
-  "parent": "additionalsubtractions:block/copper_patina"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "additionalsubtractions:item/copper_patina"
+  }
 }

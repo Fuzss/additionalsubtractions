@@ -33,7 +33,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.SWEET_BERRY_PIE, "Sweet Berry Pie");
         translationBuilder.addItem(ModItems.WATERING_CAN, "Watering Can");
         translationBuilder.addItem(ModItems.CROSSBOW_WITH_SPYGLASS, "Crossbow with Spyglass");
-        translationBuilder.addItem(ModItems.WRENCH, "Wrench");
+        translationBuilder.addItem(ModItems.COPPER_WRENCH, "Copper Wrench");
         translationBuilder.addItem(ModItems.FRIED_EGG, "Fried Egg");
         translationBuilder.addItem(ModItems.TRIDENT_SHARD, "Trident Shard");
         translationBuilder.addItem(ModItems.HONEYED_APPLE, "Honeyed Apple");
@@ -45,6 +45,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.POCKET_JUKEBOX, "Pocket Jukebox");
         translationBuilder.addItem(ModItems.CHICKEN_NUGGET, "Chicken Nugget");
         translationBuilder.addItem(ModItems.GOLDEN_RING, "Golden Ring");
+        translationBuilder.addItem(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE, "Smithing Template");
         translationBuilder.addItem(ModItems.ROSE_GOLD_ALLOY, "Rose Gold Alloy");
         translationBuilder.addItem(ModItems.ROSE_GOLD_SWORD, "Rose Gold Sword");
         translationBuilder.addItem(ModItems.ROSE_GOLD_AXE, "Rose Gold Axe");
@@ -57,17 +58,25 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.ROSE_GOLD_BOOTS, "Rose Gold Boots");
 
         translationBuilder.addPotion(ModRegistry.HURRY_POTION, "Hurry");
-        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).appliesTo, "Iron Equipment");
-        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).ingredients, "Rose Gold Alloy");
-        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).upgradeDescription, "Rose Gold Upgrade");
-        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).getBaseSlotDescription(), "Add iron armor, weapon, or tool");
-        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).getAdditionSlotDescription(), "Add Rose Gold Alloy");
+        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).appliesTo,
+                "Iron Equipment");
+        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).ingredients,
+                "Rose Gold Alloy");
+        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).upgradeDescription,
+                "Rose Gold Upgrade");
+        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).getBaseSlotDescription(),
+                "Add iron armor, weapon, or tool");
+        translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).getAdditionSlotDescription(),
+                "Add Rose Gold Alloy");
         translationBuilder.add(DepthMeterItem.getElevationComponent(-1), "Altitude: %s");
         translationBuilder.add(PocketJukeboxItem.getDescriptionComponent(), "Can hold a music disc");
 
-        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG), "Adoghr - 0308");
-        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ONE_ZERO_ZERO_SEVEN_JUKEBOX_SONG), "Adoghr - 1007");
-        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ONE_FIVE_ZERO_SEVEN_JUKEBOX_SONG), "Adoghr - 1507");
+        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG),
+                "Adoghr - 0308");
+        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ONE_ZERO_ZERO_SEVEN_JUKEBOX_SONG),
+                "Adoghr - 1007");
+        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ONE_FIVE_ZERO_SEVEN_JUKEBOX_SONG),
+                "Adoghr - 1507");
 
         translationBuilder.add(ModAdvancementProvider.ROOT_ADVANCEMENT.title(), AdditionalSubtractions.MOD_NAME);
         translationBuilder.add(ModAdvancementProvider.ROOT_ADVANCEMENT.description(), "To vanilla and beyond!");

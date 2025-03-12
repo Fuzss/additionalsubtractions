@@ -41,6 +41,9 @@ public class ModModelProvider extends AbstractModelProvider {
                 blockModelGenerators.modelOutput);
         blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.GLOW_STICK.value(),
                 Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createFacingDispatch()));
+        blockModelGenerators.skipAutoItemBlock(ModBlocks.GLOW_STICK.value());
+        blockModelGenerators.createSimpleFlatItemModel(ModItems.COPPER_PATINA.value());
+        blockModelGenerators.createSimpleFlatItemModel(ModItems.ROPE.value());
     }
 
     public static PropertyDispatch createFacingDispatch() {
@@ -78,5 +81,31 @@ public class ModModelProvider extends AbstractModelProvider {
     public void addItemModels(ItemModelGenerators itemModelGenerators) {
         // TODO implement this properly for 1.21.4
         this.skipItem(ModItems.CROSSBOW_WITH_SPYGLASS.value());
+        itemModelGenerators.generateFlatItem(ModItems.GLOW_STICK.value(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.SWEET_BERRY_PIE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.CHICKEN_NUGGET.value(), ModelTemplates.FLAT_ITEM);
+        // TODO depth meter
+        itemModelGenerators.generateFlatItem(ModItems.FRIED_EGG.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.GOLDEN_RING.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.HONEYED_APPLE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.MUSIC_DISC_0308.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.MUSIC_DISC_1007.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.MUSIC_DISC_1507.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.MYSTERIOUS_BUNDLE.value(), ModelTemplates.FLAT_ITEM);
+        // TODO pocket jukebox
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_ALLOY.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_AXE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_BOOTS.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_CHESTPLATE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_HELMET.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_HOE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_LEGGINGS.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_PICKAXE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_SHOVEL.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_SWORD.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.TRIDENT_SHARD.value(), ModelTemplates.FLAT_ITEM);
+        // TODO watering can
+        itemModelGenerators.generateFlatItem(ModItems.COPPER_WRENCH.value(), ModelTemplates.FLAT_ITEM);
     }
 }

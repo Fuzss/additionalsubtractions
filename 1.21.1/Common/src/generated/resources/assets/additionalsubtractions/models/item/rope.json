@@ -1,3 +1,6 @@
 {
-  "parent": "additionalsubtractions:block/rope"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "additionalsubtractions:item/rope"
+  }
 }
