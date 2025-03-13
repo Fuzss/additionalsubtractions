@@ -56,10 +56,7 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
 
     @Override
     public void onRegisterBlockRenderTypes(RenderTypesContext<Block> context) {
-        context.registerRenderType(RenderType.cutout(),
-                ModBlocks.COPPER_PATINA.value(),
-                ModBlocks.ROPE.value(),
-                ModBlocks.GLOW_STICK.value());
+        context.registerRenderType(RenderType.cutout(), ModBlocks.ROPE.value(), ModBlocks.GLOW_STICK.value());
     }
 
     @Override

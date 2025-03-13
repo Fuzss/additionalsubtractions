@@ -1,12 +1,14 @@
 package fuzs.additionalsubtractions;
 
 import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
+import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
+import fuzs.additionalsubtractions.world.item.BatBucketItem;
 import fuzs.additionalsubtractions.world.item.WrenchItem;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
-import fuzs.puzzleslib.api.core.v1.context.CompostableBlocksContext;
+import fuzs.puzzleslib.api.core.v1.context.GameplayContentContext;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
@@ -79,6 +82,7 @@ public class AdditionalSubtractions implements ModConstructor {
             return EventResultHolder.pass();
         });
         GatherPotentialSpawnsCallback.EVENT.register(MobSpawnPreventionHandler::onGatherPotentialSpawns);
+        PlayerInteractEvents.USE_ENTITY.register(BatBucketItem::onUseEntity);
     }
 
     private static boolean playerHasShieldUseIntent(Player player, InteractionHand interactionHand) {
@@ -91,11 +95,9 @@ public class AdditionalSubtractions implements ModConstructor {
         DispenserBlock.registerBehavior(ModItems.COPPER_WRENCH.value(), new DefaultDispenseItemBehavior() {
             @Override
             public ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
-                BlockState dispenserBlockState = blockSource.state();
                 BlockPos blockPos = blockSource.pos()
-                        .relative(dispenserBlockState.getValue(BlockStateProperties.FACING));
-                BlockState blockState = blockSource.level().getBlockState(blockPos);
-                ((WrenchItem) itemStack.getItem()).dispenserUse(blockSource.level(), blockPos, blockState, itemStack);
+                        .relative(blockSource.state().getValue(BlockStateProperties.FACING));
+                ((WrenchItem) itemStack.getItem()).useOn(blockSource.level(), blockPos, null);
                 return itemStack;
             }
         });
@@ -118,11 +120,36 @@ public class AdditionalSubtractions implements ModConstructor {
                 return super.execute(blockSource, item);
             }
         });
+        DispenserBlock.registerBehavior(ModItems.BAT_BUCKET.value(), new DefaultDispenseItemBehavior() {
+            private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+            @Override
+            public ItemStack execute(BlockSource blockSource, ItemStack item) {
+                DispensibleContainerItem dispensibleContainerItem = (DispensibleContainerItem) item.getItem();
+                BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
+                Level level = blockSource.level();
+                if (dispensibleContainerItem.emptyContents(null, level, blockPos, null)) {
+                    dispensibleContainerItem.checkExtraContent(null, level, item, blockPos);
+                    return this.consumeWithRemainder(blockSource, item, new ItemStack(Items.BUCKET));
+                } else {
+                    return this.defaultDispenseItemBehavior.dispense(blockSource, item);
+                }
+            }
+        });
     }
 
     @Override
-    public void onRegisterCompostableBlocks(CompostableBlocksContext context) {
-        context.registerCompostable(0.3F, Items.ROTTEN_FLESH.builtInRegistryHolder());
+    public void onRegisterGameplayContent(GameplayContentContext context) {
+        context.registerCompostable(Items.ROTTEN_FLESH.builtInRegistryHolder(), 0.3F);
+        context.registerOxidizable(ModBlocks.COPPER_PRESSURE_PLATE, ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE);
+        context.registerOxidizable(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE, ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE);
+        context.registerOxidizable(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE, ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE);
+        context.registerWaxable(ModBlocks.COPPER_PRESSURE_PLATE, ModBlocks.WAXED_COPPER_PRESSURE_PLATE);
+        context.registerWaxable(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE, ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE);
+        context.registerWaxable(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE,
+                ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE);
+        context.registerWaxable(ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
+                ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE);
     }
 
     public static ResourceLocation id(String path) {

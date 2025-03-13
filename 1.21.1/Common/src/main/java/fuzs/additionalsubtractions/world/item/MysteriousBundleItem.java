@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import java.util.List;
 
 public class MysteriousBundleItem extends Item {
+
     public MysteriousBundleItem(Properties properties) {
         super(properties);
     }
@@ -30,6 +31,7 @@ public class MysteriousBundleItem extends Item {
         itemInHand.consume(1, player);
 
         if (level instanceof ServerLevel serverLevel) {
+
             LootTable lootTable = serverLevel.getServer()
                     .reloadableRegistries()
                     .getLootTable(ModLootTables.MYSTERIOUS_BUNDLE);

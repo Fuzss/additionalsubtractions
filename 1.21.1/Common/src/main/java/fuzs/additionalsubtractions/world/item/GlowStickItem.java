@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
@@ -20,6 +22,11 @@ public class GlowStickItem extends BlockItem {
 
     public GlowStickItem(Block block, Properties properties) {
         super(block, properties);
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -44,7 +51,7 @@ public class GlowStickItem extends BlockItem {
                         livingEntity.getXRot(),
                         livingEntity.getYRot(),
                         0.0F,
-                        1.5F + powerForTime,
+                        0.5F + 2.0F * powerForTime,
                         0.0F);
                 serverLevel.addFreshEntity(glowStick);
             }

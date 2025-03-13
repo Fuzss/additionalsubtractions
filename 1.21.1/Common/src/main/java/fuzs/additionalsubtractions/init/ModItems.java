@@ -6,12 +6,15 @@ import fuzs.puzzleslib.api.item.v2.ItemEquipmentFactories;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.Collections;
 
@@ -45,13 +48,29 @@ public class ModItems {
 
     public static final Holder.Reference<Item> ROPE = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.ROPE);
     public static final Holder.Reference<Item> AMETHYST_LAMP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.AMETHYST_LAMP);
-    public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.COPPER_PATINA,
+    public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
             CopperPatinaItem::new);
     public static final Holder.Reference<Item> PATINA_BLOCK = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.PATINA_BLOCK);
+    public static final Holder.Reference<Item> COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> EXPOSED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> WEATHERED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> OXIDIZED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> WAXED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.WAXED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE);
 
     public static final Holder.Reference<Item> WATERING_CAN = ModRegistry.REGISTRIES.registerItem("watering_can",
             WateringCanItem::new,
-            () -> new Item.Properties().stacksTo(1).durability(101));
+            () -> new Item.Properties().stacksTo(1));
     public static final Holder.Reference<Item> COPPER_WRENCH = ModRegistry.REGISTRIES.registerItem("copper_wrench",
             WrenchItem::new,
             () -> new Item.Properties().stacksTo(1));
@@ -144,12 +163,20 @@ public class ModItems {
     public static final Holder.Reference<Item> NETHERITE_HORSE_ARMOR = ModRegistry.REGISTRIES.registerItem(
             "netherite_horse_armor",
             (Item.Properties properties) -> {
-                return new AnimalArmorItem(ArmorMaterials.NETHERITE,
+                return new ModAnimalArmorItem(ArmorMaterials.NETHERITE,
                         AnimalArmorItem.BodyType.EQUESTRIAN,
                         false,
                         properties);
             },
             () -> new Item.Properties().stacksTo(1));
+    public static final Holder.Reference<Item> BAT_BUCKET = ModRegistry.REGISTRIES.registerItem("bat_bucket",
+            (Item.Properties properties) -> new BatBucketItem(EntityType.BAT,
+                    Fluids.WATER,
+                    SoundEvents.BAT_AMBIENT,
+                    properties
+
+            ),
+            () -> new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY));
 
     public static void bootstrap() {
         // NO-OP

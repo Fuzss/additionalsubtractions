@@ -11,6 +11,7 @@ import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,6 +22,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -57,12 +60,18 @@ public class ModRegistry {
     public static final Holder.Reference<CreativeModeTab> CREATIVE_MODE_TAB = REGISTRIES.registerCreativeModeTab(
             ModItems.CROSSBOW_WITH_SPYGLASS);
 
+    public static final ResourceKey<Enchantment> POTENCY_ENCHANTMENT = REGISTRIES.registerEnchantment("potency");
+    public static final ResourceKey<Enchantment> SUSTAINABILITY_ENCHANTMENT = REGISTRIES.registerEnchantment(
+            "sustainability");
+    public static final ResourceKey<Enchantment> FERTILITY_ENCHANTMENT = REGISTRIES.registerEnchantment("fertility");
+
     public static final LootContextParamSet MYSTERIOUS_BUNDLE_LOOT_CONTEXT_PARAM_SET = registerLootContextParamSet(
             AdditionalSubtractions.id("mysterious_bundle"),
             (LootContextParamSet.Builder builder) -> builder.required(LootContextParams.ORIGIN)
                     .optional(LootContextParams.THIS_ENTITY));
 
     static final TagFactory TAGS = TagFactory.make(AdditionalSubtractions.MOD_ID);
+    public static final TagKey<Block> ROTATABLE_BLOCK_TAG = TAGS.registerBlockTag("rotatable");
     public static final TagKey<Item> MUSIC_DISCS_ITEM_TAG = TagFactory.COMMON.registerItemTag("music_discs");
 
     public static final DataAttachmentType<Entity, Map<UUID, SoundInstance>> PLAYING_POCKET_JUKEBOX_SONGS_ATTACHMENT_TYPE = DataAttachmentRegistry.<Map<UUID, SoundInstance>>entityBuilder()

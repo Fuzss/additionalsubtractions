@@ -2,7 +2,6 @@ package fuzs.additionalsubtractions.data.client;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.data.ModAdvancementProvider;
-import fuzs.additionalsubtractions.data.ResourceKeyHelper;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
@@ -11,6 +10,7 @@ import fuzs.additionalsubtractions.world.item.DepthMeterItem;
 import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.data.v2.AbstractLanguageProvider;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
+import fuzs.puzzleslib.api.init.v3.registry.ResourceKeyHelper;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 public class ModLanguageProvider extends AbstractLanguageProvider {
@@ -25,9 +25,20 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(ModRegistry.CREATIVE_MODE_TAB.value(), AdditionalSubtractions.MOD_NAME);
         translationBuilder.addBlock(ModBlocks.ROPE, "Rope");
         translationBuilder.addBlock(ModBlocks.AMETHYST_LAMP, "Amethyst Lamp");
-        translationBuilder.addBlock(ModBlocks.COPPER_PATINA, "Copper Patina");
+        translationBuilder.addItem(ModItems.COPPER_PATINA, "Copper Patina");
         translationBuilder.addBlock(ModBlocks.GLOW_STICK, "Glow Stick");
         translationBuilder.addBlock(ModBlocks.PATINA_BLOCK, "Patina Block");
+        translationBuilder.addBlock(ModBlocks.COPPER_PRESSURE_PLATE, "Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE, "Exposed Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE, "Weathered Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE, "Oxidized Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.WAXED_COPPER_PRESSURE_PLATE, "Waxed Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
+                "Waxed Exposed Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE,
+                "Waxed Weathered Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE,
+                "Waxed Oxidized Copper Pressure Plate");
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
         translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");
 
@@ -58,6 +69,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.ROSE_GOLD_LEGGINGS, "Rose Gold Leggings");
         translationBuilder.addItem(ModItems.ROSE_GOLD_BOOTS, "Rose Gold Boots");
         translationBuilder.addItem(ModItems.NETHERITE_HORSE_ARMOR, "Netherite Horse Armor");
+        translationBuilder.addItem(ModItems.BAT_BUCKET, "Bat Bucket");
 
         translationBuilder.addPotion(ModRegistry.HURRY_POTION, "Hurry");
         translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).appliesTo,
@@ -103,7 +115,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(ModAdvancementProvider.SHOOT_SELF_SCOPED_CROSSBOW_ADVANCEMENT.title(),
                 "Self-Employed Hitman");
         translationBuilder.add(ModAdvancementProvider.SHOOT_SELF_SCOPED_CROSSBOW_ADVANCEMENT.description(),
-                "Hit yourself with your own arrow using Crossbow with Spyglass");
+                "Hit yourself with your own arrow using a Crossbow with Spyglass");
         translationBuilder.add(ModAdvancementProvider.USE_WATERING_CAN_ADVANCEMENT.title(), "Water It Can");
         translationBuilder.add(ModAdvancementProvider.USE_WATERING_CAN_ADVANCEMENT.description(),
                 "Obtain and use a Watering Can to fertilize your crops");

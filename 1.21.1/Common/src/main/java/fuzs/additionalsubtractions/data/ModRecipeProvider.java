@@ -52,9 +52,11 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
                 .save(recipeOutput);
         this.foodCooking(recipeOutput, ModItems.FRIED_EGG.value(), Items.EGG);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ModItems.GLOW_STICK.value(), 4)
-                .requires(Items.GLOW_INK_SAC)
-                .requires(Items.STICK)
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.GLOW_STICK.value(), 6)
+                .define('#', Items.GLOW_INK_SAC)
+                .define('X', Items.STICK)
+                .pattern("#")
+                .pattern("X")
                 .unlockedBy(getHasName(Items.GLOW_INK_SAC), has(Items.GLOW_INK_SAC))
                 .save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.CHICKEN_NUGGET.value(), 3)
@@ -159,6 +161,26 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 Items.DIAMOND_HORSE_ARMOR,
                 RecipeCategory.COMBAT,
                 ModItems.NETHERITE_HORSE_ARMOR.value());
+        pressurePlate(recipeOutput, ModItems.COPPER_PRESSURE_PLATE.value(), Items.COPPER_INGOT);
+        waxing(recipeOutput, ModItems.COPPER_PRESSURE_PLATE.value(), ModItems.WAXED_COPPER_PRESSURE_PLATE.value());
+        waxing(recipeOutput,
+                ModItems.EXPOSED_COPPER_PRESSURE_PLATE.value(),
+                ModItems.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value());
+        waxing(recipeOutput,
+                ModItems.WEATHERED_COPPER_PRESSURE_PLATE.value(),
+                ModItems.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value());
+        waxing(recipeOutput,
+                ModItems.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
+                ModItems.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value());
+    }
+
+    public static void waxing(RecipeOutput recipeOutput, ItemLike ingredientItem, ItemLike resultItem) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, resultItem)
+                .requires(ingredientItem)
+                .requires(Items.HONEYCOMB)
+                .group(getItemName(resultItem))
+                .unlockedBy(getHasName(ingredientItem), has(ingredientItem))
+                .save(recipeOutput, getConversionRecipeName(resultItem, Items.HONEYCOMB));
     }
 
     public static void roseGoldSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {

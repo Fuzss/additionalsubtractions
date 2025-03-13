@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_copper_pressure_plate",
+  "ingredients": [
+    {
+      "item": "additionalsubtractions:copper_pressure_plate"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "additionalsubtractions:waxed_copper_pressure_plate"
+  }
+}

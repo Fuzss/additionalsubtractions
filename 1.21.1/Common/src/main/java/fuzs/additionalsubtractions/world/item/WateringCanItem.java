@@ -91,13 +91,13 @@ public class WateringCanItem extends Item {
     }
 
     @Override
-    public int getBarColor(ItemStack stack) {
-        return FastColor.ARGB32.color(0, 65, 135, 235);
+    public int getBarColor(ItemStack itemStack) {
+        return FastColor.ARGB32.color(65, 135, 235);
     }
 
     @Override
-    public int getBarWidth(ItemStack stack) {
-        return Math.min(Math.round(13 * stack.getDamageValue() / 100.0F), 13);
+    public int getBarWidth(ItemStack itemStack) {
+        return Math.min(Math.round(13.0F * itemStack.getDamageValue() / 100.0F), 13);
     }
 
     @Override

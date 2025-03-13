@@ -1,11 +1,11 @@
 package fuzs.additionalsubtractions.data.client;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
-import fuzs.additionalsubtractions.data.client.models.ModelLocationHelper;
-import fuzs.additionalsubtractions.data.client.models.ModelTemplateHelper;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.puzzleslib.api.client.data.v2.AbstractModelProvider;
+import fuzs.puzzleslib.api.client.data.v2.models.ModelLocationHelper;
+import fuzs.puzzleslib.api.client.data.v2.models.ModelTemplateHelper;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import net.minecraft.core.Direction;
@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.Locale;
@@ -53,6 +54,51 @@ public class ModModelProvider extends AbstractModelProvider {
         blockModelGenerators.skipAutoItemBlock(ModBlocks.GLOW_STICK.value());
         blockModelGenerators.createSimpleFlatItemModel(ModItems.COPPER_PATINA.value());
         blockModelGenerators.createSimpleFlatItemModel(ModItems.ROPE.value());
+        this.createPressurePlate(ModBlocks.COPPER_PRESSURE_PLATE.value(), Blocks.COPPER_BLOCK, blockModelGenerators);
+        this.createPressurePlate(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value(),
+                Blocks.EXPOSED_COPPER,
+                blockModelGenerators);
+        this.createPressurePlate(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value(),
+                Blocks.WEATHERED_COPPER,
+                blockModelGenerators);
+        this.createPressurePlate(ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
+                Blocks.OXIDIZED_COPPER,
+                blockModelGenerators);
+        this.copyPressurePlateModel(ModBlocks.WAXED_COPPER_PRESSURE_PLATE.value(),
+                ModBlocks.COPPER_PRESSURE_PLATE.value(),
+                blockModelGenerators);
+        this.copyPressurePlateModel(ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value(),
+                ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value(),
+                blockModelGenerators);
+        this.copyPressurePlateModel(ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value(),
+                ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value(),
+                blockModelGenerators);
+        this.copyPressurePlateModel(ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value(),
+                ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
+                blockModelGenerators);
+    }
+
+    public final void createPressurePlate(Block pressurePlateBlock, Block plateMaterialBlock, BlockModelGenerators blockModelGenerators) {
+        TextureMapping textureMapping = TextureMapping.defaultTexture(plateMaterialBlock);
+        ResourceLocation resourceLocation = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlateBlock,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlateBlock,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlateBlock,
+                resourceLocation,
+                resourceLocation2));
+    }
+
+    public final void copyPressurePlateModel(Block pressurePlateBlock, Block sourceBlock, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation resourceLocation = ModelTemplates.PRESSURE_PLATE_UP.getDefaultModelLocation(sourceBlock);
+        ResourceLocation resourceLocation2 = ModelTemplates.PRESSURE_PLATE_DOWN.getDefaultModelLocation(sourceBlock);
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlateBlock,
+                resourceLocation,
+                resourceLocation2));
+        blockModelGenerators.delegateItemModel(pressurePlateBlock,
+                ModelLocationUtils.getModelLocation(sourceBlock.asItem()));
     }
 
     public static PropertyDispatch createFacingDispatch() {
@@ -92,6 +138,7 @@ public class ModModelProvider extends AbstractModelProvider {
         this.skipItem(ModItems.CROSSBOW_WITH_SPYGLASS.value());
         this.skipItem(ModItems.DEPTH_METER.value());
         this.skipItem(ModItems.POCKET_JUKEBOX.value());
+
         itemModelGenerators.generateFlatItem(ModItems.GLOW_STICK.value(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.SWEET_BERRY_PIE.value(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.CHICKEN_NUGGET.value(), ModelTemplates.FLAT_ITEM);
@@ -118,6 +165,7 @@ public class ModModelProvider extends AbstractModelProvider {
         // TODO watering can
         itemModelGenerators.generateFlatItem(ModItems.COPPER_WRENCH.value(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.NETHERITE_HORSE_ARMOR.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.BAT_BUCKET.value(), ModelTemplates.FLAT_ITEM);
     }
 
     public final void generateDepthMeterItem(Item item, ItemModelGenerators itemModelGenerators) {

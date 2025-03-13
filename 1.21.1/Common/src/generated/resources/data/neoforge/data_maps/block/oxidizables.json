@@ -1,0 +1,13 @@
+{
+  "values": {
+    "additionalsubtractions:copper_pressure_plate": {
+      "next_oxidation_stage": "additionalsubtractions:exposed_copper_pressure_plate"
+    },
+    "additionalsubtractions:exposed_copper_pressure_plate": {
+      "next_oxidation_stage": "additionalsubtractions:weathered_copper_pressure_plate"
+    },
+    "additionalsubtractions:weathered_copper_pressure_plate": {
+      "next_oxidation_stage": "additionalsubtractions:oxidized_copper_pressure_plate"
+    }
+  }
+}

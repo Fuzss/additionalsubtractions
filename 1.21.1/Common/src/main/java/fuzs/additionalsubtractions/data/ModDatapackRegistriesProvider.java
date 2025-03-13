@@ -1,6 +1,7 @@
 package fuzs.additionalsubtractions.data;
 
 import fuzs.additionalsubtractions.init.ModSoundEvents;
+import fuzs.puzzleslib.api.data.v2.AbstractDatapackRegistriesProvider;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

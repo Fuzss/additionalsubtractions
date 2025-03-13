@@ -1,16 +1,20 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "ingredients": [
-    {
+  "key": {
+    "#": {
       "item": "minecraft:glow_ink_sac"
     },
-    {
+    "X": {
       "item": "minecraft:stick"
     }
+  },
+  "pattern": [
+    "#",
+    "X"
   ],
   "result": {
-    "count": 4,
+    "count": 6,
     "id": "additionalsubtractions:glow_stick"
   }
 }

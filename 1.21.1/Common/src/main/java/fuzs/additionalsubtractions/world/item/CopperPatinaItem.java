@@ -7,20 +7,22 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.Optional;
 
-public class CopperPatinaItem extends BlockItem {
+public class CopperPatinaItem extends Item {
 
-    public CopperPatinaItem(Block block, Properties properties) {
-        super(block, properties);
+    public CopperPatinaItem(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -33,19 +35,23 @@ public class CopperPatinaItem extends BlockItem {
 
         Optional<BlockState> optional = WeatheringCopper.getNext(blockState.getBlock())
                 .map((Block block) -> block.withPropertiesOf(blockState));
-        if (optional.isPresent() && player != null && !player.isShiftKeyDown()) {
+
+        if (optional.isPresent()) {
+
+            ItemStack itemInHand = context.getItemInHand();
             if (player instanceof ServerPlayer serverPlayer) {
-                CriteriaTriggers.USING_ITEM.trigger(serverPlayer, context.getItemInHand());
+                CriteriaTriggers.USING_ITEM.trigger(serverPlayer, itemInHand);
             }
 
             level.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.levelEvent(player, LevelEvent.PARTICLES_SCRAPE, blockPos, 0);
             level.setBlock(blockPos, optional.get(), 11);
-            context.getItemInHand().shrink(1);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(player, optional.get()));
+            itemInHand.shrink(1);
 
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        } else {
+            return super.useOn(context);
         }
-
-        return super.useOn(context);
     }
 }

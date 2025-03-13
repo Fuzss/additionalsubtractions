@@ -1,5 +1,7 @@
-// 1.21.1	2025-03-12T01:33:37.107826	Tags for minecraft:block mod id vanilla
+// 1.21.1	2025-03-13T11:39:16.180262	Tags for minecraft:block mod id vanilla
+2249c5cc652f65c62db7861573a3bc77b4ae83d1 data/additionalsubtractions/tags/block/rotatable.json
 aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/climbable.json
 aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/mineable/axe.json
-87f91ad36ffdf82b90f1340dba3ad55eaf5eec13 data/minecraft/tags/block/mineable/pickaxe.json
+ce9720f3c6d5e7f49372097ee57ca3f7d60c5f67 data/minecraft/tags/block/mineable/pickaxe.json
+ded9eca2bd7766d080012bceb6ac526c7e2c1468 data/minecraft/tags/block/pressure_plates.json
 aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/sword_efficient.json

@@ -1,6 +1,0 @@
-{
-    "parent": "additionaladditions:block/copper_patina/copper_patina_side",
-    "textures": {
-        "line": "additionaladditions:block/copper_patina_line0"
-    }
-}

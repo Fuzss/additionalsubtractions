@@ -4,9 +4,14 @@ import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -16,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -35,6 +39,23 @@ public class GlowStick extends ThrowableItemProjectile {
     @Override
     protected Item getDefaultItem() {
         return ModItems.GLOW_STICK.value();
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 3) {
+            ParticleOptions particleOptions = new ItemParticleOption(ParticleTypes.ITEM, this.getItem());
+            for (int i = 0; i < 8; i++) {
+                this.level()
+                        .addParticle(particleOptions,
+                                this.getX(),
+                                this.getY(),
+                                this.getZ(),
+                                (this.random.nextFloat() - 0.5) * 0.08,
+                                (this.random.nextFloat() - 0.5) * 0.08,
+                                (this.random.nextFloat() - 0.5) * 0.08);
+            }
+        }
     }
 
     @Override
@@ -58,10 +79,6 @@ public class GlowStick extends ThrowableItemProjectile {
             if (blockState != null) {
                 BlockPos blockPos = hitResult.getBlockPos().relative(hitResult.getDirection());
                 this.level().setBlockAndUpdate(blockPos, blockState);
-                SoundType soundType = blockState.getSoundType();
-                this.playSound(soundType.getPlaceSound(),
-                        (soundType.getVolume() + 1.0F) / 2.0F,
-                        soundType.getPitch() * 0.8F);
                 return;
             }
         }
@@ -77,6 +94,10 @@ public class GlowStick extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult hitResult) {
         super.onHitEntity(hitResult);
+        hitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
+        if (hitResult.getEntity() instanceof LivingEntity livingEntity) {
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20), this);
+        }
         this.dropItem();
     }
 
@@ -89,5 +110,6 @@ public class GlowStick extends ThrowableItemProjectile {
                             this.getZ(),
                             this.getItem()));
         }
+        this.level().broadcastEntityEvent(this, (byte) 3);
     }
 }
