@@ -1,7 +1,7 @@
 package fuzs.additionalsubtractions.fabric;
 
-import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
+import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;

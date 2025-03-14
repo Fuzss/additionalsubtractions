@@ -5,18 +5,18 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.25,
+          "chance": 0.5,
           "condition": "minecraft:random_chance"
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "additionalsubtractions:rose_gold_upgrade_smithing_template"
+          "name": "minecraft:spyglass"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "additionalsubtractions:chests/shipwreck_treasure_injection"
+  "random_sequence": "additionalsubtractions:inject/chests/shipwreck_supply"
 }

@@ -4,10 +4,7 @@ import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.data.ModAdvancementProvider;
 import fuzs.additionalsubtractions.data.ModDatapackRegistriesProvider;
 import fuzs.additionalsubtractions.data.ModRecipeProvider;
-import fuzs.additionalsubtractions.data.loot.ModBlockLootProvider;
-import fuzs.additionalsubtractions.data.loot.ModChestInjectionLootProvider;
-import fuzs.additionalsubtractions.data.loot.ModEntityInjectionLootProvider;
-import fuzs.additionalsubtractions.data.loot.ModMysteriousBundleLootProvider;
+import fuzs.additionalsubtractions.data.loot.*;
 import fuzs.additionalsubtractions.data.tags.ModBlockTagProvider;
 import fuzs.additionalsubtractions.data.tags.ModItemTagProvider;
 import fuzs.additionalsubtractions.init.ModItems;
@@ -29,6 +26,7 @@ public class AdditionalSubtractionsNeoForge {
                 ModDatapackRegistriesProvider::new,
                 ModBlockLootProvider::new,
                 ModChestInjectionLootProvider::new,
+                ModBlockInjectionLootProvider::new,
                 ModEntityInjectionLootProvider::new,
                 ModMysteriousBundleLootProvider::new,
                 ModBlockTagProvider::new,

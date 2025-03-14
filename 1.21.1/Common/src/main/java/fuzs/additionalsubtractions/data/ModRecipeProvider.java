@@ -1,6 +1,8 @@
 package fuzs.additionalsubtractions.data;
 
+import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.world.item.crafting.ModFireworkStarRecipe;
 import fuzs.puzzleslib.api.data.v2.AbstractRecipeProvider;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -172,6 +174,8 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
         waxing(recipeOutput,
                 ModItems.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
                 ModItems.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value());
+        SpecialRecipeBuilder.special(ModFireworkStarRecipe::new)
+                .save(recipeOutput, AdditionalSubtractions.id("firework_star"));
     }
 
     public static void waxing(RecipeOutput recipeOutput, ItemLike ingredientItem, ItemLike resultItem) {

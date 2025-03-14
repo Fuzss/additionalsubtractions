@@ -6,4 +6,7 @@ dependencies {
 
     // Puzzles Lib
     modApi libs.puzzleslib.fabric
+
+    // Fabric ASM
+    modApi(include(libs.fabricasm.fabric.get()))
 }

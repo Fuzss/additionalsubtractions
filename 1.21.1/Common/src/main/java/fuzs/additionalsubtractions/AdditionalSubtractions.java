@@ -3,6 +3,7 @@ package fuzs.additionalsubtractions;
 import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.init.ModLootTables;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
 import fuzs.additionalsubtractions.world.item.BatBucketItem;
@@ -13,6 +14,7 @@ import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
 import fuzs.puzzleslib.api.event.v1.level.GatherPotentialSpawnsCallback;
+import fuzs.puzzleslib.api.event.v1.server.LootTableLoadEvents;
 import fuzs.puzzleslib.api.event.v1.server.RegisterPotionBrewingMixesCallback;
 import fuzs.puzzleslib.api.network.v3.NetworkHandler;
 import net.minecraft.core.BlockPos;
@@ -35,10 +37,16 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Consumer;
+import java.util.function.IntPredicate;
 
 public class AdditionalSubtractions implements ModConstructor {
     public static final String MOD_ID = "additionalsubtractions";
@@ -83,6 +91,14 @@ public class AdditionalSubtractions implements ModConstructor {
         });
         GatherPotentialSpawnsCallback.EVENT.register(MobSpawnPreventionHandler::onGatherPotentialSpawns);
         PlayerInteractEvents.USE_ENTITY.register(BatBucketItem::onUseEntity);
+        LootTableLoadEvents.MODIFY.register((ResourceLocation resourceLocation, Consumer<LootPool> addLootPool, IntPredicate removeLootPool) -> {
+            if (ModLootTables.LOOT_TABLE_INJECTIONS.containsKey(resourceLocation)) {
+                addLootPool.accept(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(NestedLootTable.lootTableReference(ModLootTables.LOOT_TABLE_INJECTIONS.get(resourceLocation)))
+                        .build());
+            }
+        });
     }
 
     private static boolean playerHasShieldUseIntent(Player player, InteractionHand interactionHand) {
@@ -141,6 +157,8 @@ public class AdditionalSubtractions implements ModConstructor {
     @Override
     public void onRegisterGameplayContent(GameplayContentContext context) {
         context.registerCompostable(Items.ROTTEN_FLESH.builtInRegistryHolder(), 0.3F);
+        context.registerCompostable(Items.POISONOUS_POTATO.builtInRegistryHolder(), 0.65F);
+        context.registerCompostable(ModItems.HEARTBEET, 0.65F);
         context.registerOxidizable(ModBlocks.COPPER_PRESSURE_PLATE, ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE);
         context.registerOxidizable(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE, ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE);
         context.registerOxidizable(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE, ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE);

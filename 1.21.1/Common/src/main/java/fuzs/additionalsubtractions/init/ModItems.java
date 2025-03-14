@@ -45,6 +45,9 @@ public class ModItems {
     static final FoodProperties CHICKEN_NUGGET_FOOD = new FoodProperties.Builder().nutrition(1)
             .saturationModifier(FoodConstants.FOOD_SATURATION_POOR)
             .build();
+    static final FoodProperties HEARTBEET_FOOD = new FoodProperties.Builder().nutrition(2)
+            .saturationModifier(0.6F)
+            .build();
 
     public static final Holder.Reference<Item> ROPE = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.ROPE);
     public static final Holder.Reference<Item> AMETHYST_LAMP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.AMETHYST_LAMP);
@@ -105,6 +108,8 @@ public class ModItems {
     public static final Holder.Reference<Item> CHICKEN_NUGGET = ModRegistry.REGISTRIES.registerSimpleItem(
             "chicken_nugget",
             () -> new Item.Properties().food(CHICKEN_NUGGET_FOOD));
+    public static final Holder.Reference<Item> HEARTBEET = ModRegistry.REGISTRIES.registerSimpleItem("heartbeet",
+            () -> new Item.Properties().food(HEARTBEET_FOOD));
     public static final Holder.Reference<Item> ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE = ModRegistry.REGISTRIES.registerItem(
             "rose_gold_upgrade_smithing_template",
             (Item.Properties properties) -> SmithingTemplateItemHelper.createUpgradeTemplate(AdditionalSubtractions.id(

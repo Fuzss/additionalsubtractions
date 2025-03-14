@@ -5,18 +5,18 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.25,
+          "chance": 0.015,
           "condition": "minecraft:random_chance"
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "additionalsubtractions:rose_gold_upgrade_smithing_template"
+          "name": "additionalsubtractions:golden_ring"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "additionalsubtractions:chests/underwater_ruin_big_injection"
+  "random_sequence": "additionalsubtractions:inject/gameplay/piglin_bartering"
 }

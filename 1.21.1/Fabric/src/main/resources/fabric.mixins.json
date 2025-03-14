@@ -6,6 +6,7 @@
   "mixins": [
   ],
   "client": [
+    "client.FireworkParticles\u0024StarterFabricMixin"
   ],
   "injectors": {
     "defaultRequire": 1

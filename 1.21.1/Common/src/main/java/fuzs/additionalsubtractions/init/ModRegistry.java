@@ -1,9 +1,11 @@
 package fuzs.additionalsubtractions.init;
 
+import com.google.common.base.Suppliers;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.entity.item.PatinaBlockEntity;
 import fuzs.additionalsubtractions.world.entity.projectile.GlowStick;
 import fuzs.additionalsubtractions.world.item.PocketJukeboxSongPlayer;
+import fuzs.additionalsubtractions.world.item.crafting.ModFireworkStarRecipe;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
 import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
@@ -11,6 +13,7 @@ import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -22,6 +25,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
@@ -29,11 +35,23 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class ModRegistry {
+    public static final ResourceLocation BOLT_EXPLOSION_SHAPE_RESOURCE_LOCATION = AdditionalSubtractions.id("bolt");
+    public static final ResourceLocation HEART_EXPLOSION_SHAPE_RESOURCE_LOCATION = AdditionalSubtractions.id("heart");
+    public static final Supplier<FireworkExplosion.Shape> BOLT_EXPLOSION_SHAPE = getEnumValue(
+            BOLT_EXPLOSION_SHAPE_RESOURCE_LOCATION,
+            FireworkExplosion.Shape::valueOf);
+    public static final Supplier<FireworkExplosion.Shape> HEART_EXPLOSION_SHAPE = getEnumValue(
+            HEART_EXPLOSION_SHAPE_RESOURCE_LOCATION,
+            FireworkExplosion.Shape::valueOf);
+
     static final RegistryManager REGISTRIES = RegistryManager.from(AdditionalSubtractions.MOD_ID);
     public static final Holder.Reference<DataComponentType<PocketJukeboxSongPlayer>> POCKET_JUKEBOX_SONG_PLAYER_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
             "pocket_jukebox_song_player",
@@ -59,6 +77,10 @@ public class ModRegistry {
             () -> new Potion("hurry", new MobEffectInstance(MobEffects.DIG_SPEED, 9600)));
     public static final Holder.Reference<CreativeModeTab> CREATIVE_MODE_TAB = REGISTRIES.registerCreativeModeTab(
             ModItems.CROSSBOW_WITH_SPYGLASS);
+    public static final Holder.Reference<RecipeSerializer<ModFireworkStarRecipe>> FIREWORK_STAR_RECIPE_SERIALIZER = REGISTRIES.register(
+            Registries.RECIPE_SERIALIZER,
+            "crafting_special_firework_star",
+            () -> new SimpleCraftingRecipeSerializer<>(ModFireworkStarRecipe::new));
 
     public static final ResourceKey<Enchantment> POTENCY_ENCHANTMENT = REGISTRIES.registerEnchantment("potency");
     public static final ResourceKey<Enchantment> SUSTAINABILITY_ENCHANTMENT = REGISTRIES.registerEnchantment(
@@ -83,6 +105,11 @@ public class ModRegistry {
         ModItems.bootstrap();
         ModSoundEvents.bootstrap();
         ModLootTables.bootstrap();
+    }
+
+    static <E extends Enum<E>> Supplier<E> getEnumValue(ResourceLocation resourceLocation, Function<String, E> valueOfInvoker) {
+        return Suppliers.memoize(() -> valueOfInvoker.apply(resourceLocation.toDebugFileName()
+                .toUpperCase(Locale.ROOT)));
     }
 
     @Deprecated

@@ -66,31 +66,7 @@
         }
       ],
       "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "chance": 0.25,
-          "condition": "minecraft:random_chance"
-        }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "additionalsubtractions:music_disc_0308"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "additionalsubtractions:music_disc_1007"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "additionalsubtractions:music_disc_1507"
-        }
-      ],
-      "rolls": 1.0
     }
   ],
-  "random_sequence": "additionalsubtractions:chests/simple_dungeon_injection"
+  "random_sequence": "additionalsubtractions:inject/chests/abandoned_mineshaft"
 }

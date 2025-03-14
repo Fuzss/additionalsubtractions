@@ -11,6 +11,7 @@ import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.data.v2.AbstractLanguageProvider;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import fuzs.puzzleslib.api.init.v3.registry.ResourceKeyHelper;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 public class ModLanguageProvider extends AbstractLanguageProvider {
@@ -47,6 +48,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.CROSSBOW_WITH_SPYGLASS, "Crossbow with Spyglass");
         translationBuilder.addItem(ModItems.COPPER_WRENCH, "Copper Wrench");
         translationBuilder.addItem(ModItems.FRIED_EGG, "Fried Egg");
+        translationBuilder.addItem(ModItems.HEARTBEET, "Heartbeet");
         translationBuilder.addItem(ModItems.TRIDENT_SHARD, "Trident Shard");
         translationBuilder.addItem(ModItems.HONEYED_APPLE, "Honeyed Apple");
         translationBuilder.addItem(ModItems.DEPTH_METER, "Depth Meter");
@@ -84,6 +86,12 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
                 "Add Rose Gold Alloy");
         translationBuilder.add(DepthMeterItem.getElevationComponent(-1), "Altitude: %s");
         translationBuilder.add(PocketJukeboxItem.getDescriptionComponent(), "Can hold a music disc");
+        translationBuilder.add(Items.FIREWORK_STAR,
+                "shape." + ModRegistry.BOLT_EXPLOSION_SHAPE.get().getSerializedName(),
+                "Bolt");
+        translationBuilder.add(Items.FIREWORK_STAR,
+                "shape." + ModRegistry.HEART_EXPLOSION_SHAPE.get().getSerializedName(),
+                "Heart");
 
         translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG),
                 "Adoghr - 0308");

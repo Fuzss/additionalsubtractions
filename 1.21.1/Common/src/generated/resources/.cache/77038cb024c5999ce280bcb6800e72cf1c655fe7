@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-13T08:29:25.348442	Model Definitions
+// 1.21.1	2025-03-14T00:35:57.390935	Model Definitions
 16e15b1c70e9a24120b296e0871c8fd068884b95 assets/additionalsubtractions/blockstates/amethyst_lamp.json
 30be905094f22eff9630251c4b926b72d8d4b57a assets/additionalsubtractions/blockstates/copper_pressure_plate.json
 fec8137efba12fb316cbef8b84792e2b23cfbd08 assets/additionalsubtractions/blockstates/exposed_copper_pressure_plate.json
@@ -48,6 +48,7 @@ c15da7aef8b7099b99fd1a1093ff30120e47b6ec assets/additionalsubtractions/models/it
 4b6542949daeeeb9b5c8fb8642531f6ad11da94d assets/additionalsubtractions/models/item/fried_egg.json
 b1f7916ae2171b90f067a6c8fa099d4fe8bf2627 assets/additionalsubtractions/models/item/glow_stick.json
 c0bfd7617cf362e310dbb1c46248e757e336b05a assets/additionalsubtractions/models/item/golden_ring.json
+ac1f5e982d527e3f106689461f1fae9eaa1c9a50 assets/additionalsubtractions/models/item/heartbeet.json
 f8bcc4485758b3eb56d06f81cbe42a12704c4970 assets/additionalsubtractions/models/item/honeyed_apple.json
 c49ed236f274c6493955aa1ff61cd4e89911d0b0 assets/additionalsubtractions/models/item/music_disc_0308.json
 289453473c636fbf199a0f548fdf435779d54f2d assets/additionalsubtractions/models/item/music_disc_1007.json

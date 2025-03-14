@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 public class ModItemTagProvider extends AbstractTagProvider<Item> {
 
@@ -34,5 +35,6 @@ public class ModItemTagProvider extends AbstractTagProvider<Item> {
         this.add(ItemTags.PICKAXES).add(ModItems.ROSE_GOLD_PICKAXE.value());
         this.add(ItemTags.SHOVELS).add(ModItems.ROSE_GOLD_SHOVEL.value());
         this.add(ItemTags.HOES).add(ModItems.ROSE_GOLD_HOE.value());
+        this.add(ItemTags.PIG_FOOD).add(Items.POISONOUS_POTATO, ModItems.HEARTBEET.value());
     }
 }
