@@ -2,12 +2,14 @@ package fuzs.additionalsubtractions.init;
 
 import com.google.common.collect.ImmutableSet;
 import fuzs.additionalsubtractions.world.level.block.*;
+import fuzs.additionalsubtractions.world.level.block.entity.CopperHopperBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -62,55 +64,34 @@ public class ModBlocks {
                     .instrument(NoteBlockInstrument.SNARE)
                     .sound(SoundType.ROOTED_DIRT)
                     .strength(0.5F));
-    public static final Holder.Reference<Block> COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new WeatheringCopperPressurePlateBlock(BlockSetType.COPPER,
-                    WeatheringCopper.WeatherState.UNAFFECTED,
+    public static final Holder.Reference<Block> OBSIDIAN_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
+            "obsidian_pressure_plate",
+            (BlockBehaviour.Properties properties) -> new PlayerPressurePlateBlock(BlockSetType.POLISHED_BLACKSTONE,
                     properties),
             () -> BlockBehaviour.Properties.of()
-                    .mapColor(Blocks.COPPER_BLOCK.defaultMapColor())
+                    .mapColor(MapColor.COLOR_BLACK)
                     .forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
                     .noCollission()
                     .strength(0.5F)
                     .pushReaction(PushReaction.DESTROY));
-    public static final Holder.Reference<Block> EXPOSED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "exposed_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new WeatheringCopperPressurePlateBlock(BlockSetType.COPPER,
-                    WeatheringCopper.WeatherState.EXPOSED,
-                    properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(COPPER_PRESSURE_PLATE.value())
-                    .mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
-    public static final Holder.Reference<Block> WEATHERED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "weathered_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new WeatheringCopperPressurePlateBlock(BlockSetType.COPPER,
-                    WeatheringCopper.WeatherState.WEATHERED,
-                    properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(COPPER_PRESSURE_PLATE.value())
-                    .mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
-    public static final Holder.Reference<Block> OXIDIZED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "oxidized_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new WeatheringCopperPressurePlateBlock(BlockSetType.COPPER,
-                    WeatheringCopper.WeatherState.OXIDIZED,
-                    properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(COPPER_PRESSURE_PLATE.value())
-                    .mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
-    public static final Holder.Reference<Block> WAXED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "waxed_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new PlayerPressurePlateBlock(BlockSetType.COPPER, properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(COPPER_PRESSURE_PLATE.value()));
-    public static final Holder.Reference<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "waxed_exposed_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new PlayerPressurePlateBlock(BlockSetType.COPPER, properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(EXPOSED_COPPER_PRESSURE_PLATE.value()));
-    public static final Holder.Reference<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "waxed_weathered_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new PlayerPressurePlateBlock(BlockSetType.COPPER, properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(WEATHERED_COPPER_PRESSURE_PLATE.value()));
-    public static final Holder.Reference<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlock(
-            "waxed_oxidized_copper_pressure_plate",
-            (BlockBehaviour.Properties properties) -> new PlayerPressurePlateBlock(BlockSetType.COPPER, properties),
-            () -> BlockBehaviour.Properties.ofFullCopy(OXIDIZED_COPPER_PRESSURE_PLATE.value()));
+    public static final Holder.Reference<Block> COPPER_RAIL = ModRegistry.REGISTRIES.whenOnFabricLike()
+            .registerBlock("copper_rail",
+                    PoweredRailBlock::new,
+                    () -> BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.METAL));
+    public static final Holder.Reference<Block> COPPER_HOPPER = ModRegistry.REGISTRIES.registerBlock("copper_hopper",
+            CopperHopperBlock::new,
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 4.8F)
+                    .sound(SoundType.COPPER)
+                    .noOcclusion());
+
+    public static final Holder.Reference<BlockEntityType<CopperHopperBlockEntity>> COPPER_HOPPER_BLOCK_ENTITY_TYPE = ModRegistry.REGISTRIES.registerBlockEntityType(
+            "copper_hopper",
+            () -> BlockEntityType.Builder.of(CopperHopperBlockEntity::new, COPPER_HOPPER.value()));
 
     public static final Holder.Reference<PoiType> AMETHYST_LAMP_POI_TYPE = ModRegistry.REGISTRIES.registerPoiType(
             "amethyst_lamp",

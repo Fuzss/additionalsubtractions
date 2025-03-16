@@ -2,13 +2,7 @@
   "values": [
     "additionalsubtractions:amethyst_lamp",
     "minecraft:redstone_lamp",
-    "additionalsubtractions:copper_pressure_plate",
-    "additionalsubtractions:exposed_copper_pressure_plate",
-    "additionalsubtractions:weathered_copper_pressure_plate",
-    "additionalsubtractions:oxidized_copper_pressure_plate",
-    "additionalsubtractions:waxed_copper_pressure_plate",
-    "additionalsubtractions:waxed_exposed_copper_pressure_plate",
-    "additionalsubtractions:waxed_weathered_copper_pressure_plate",
-    "additionalsubtractions:waxed_oxidized_copper_pressure_plate"
+    "additionalsubtractions:obsidian_pressure_plate",
+    "additionalsubtractions:copper_hopper"
   ]
 }

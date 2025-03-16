@@ -87,7 +87,7 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern(" # ")
                 .unlockedBy(getHasName(Items.JUKEBOX), has(Items.JUKEBOX))
                 .save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, Blocks.POWERED_RAIL, 6)
+        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, ModItems.COPPER_RAIL.value(), 6)
                 .define('R', Items.REDSTONE)
                 .define('#', Items.STICK)
                 .define('X', Items.COPPER_INGOT)
@@ -163,41 +163,25 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 Items.DIAMOND_HORSE_ARMOR,
                 RecipeCategory.COMBAT,
                 ModItems.NETHERITE_HORSE_ARMOR.value());
-        pressurePlate(recipeOutput, ModItems.COPPER_PRESSURE_PLATE.value(), Items.COPPER_INGOT);
-        waxing(recipeOutput, ModItems.COPPER_PRESSURE_PLATE.value(), ModItems.WAXED_COPPER_PRESSURE_PLATE.value());
-        waxing(recipeOutput,
-                ModItems.EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                ModItems.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value());
-        waxing(recipeOutput,
-                ModItems.WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                ModItems.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value());
-        waxing(recipeOutput,
-                ModItems.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
-                ModItems.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value());
+        pressurePlate(recipeOutput, ModItems.OBSIDIAN_PRESSURE_PLATE.value(), Items.OBSIDIAN);
         SpecialRecipeBuilder.special(ModFireworkStarRecipe::new)
                 .save(recipeOutput, AdditionalSubtractions.id("firework_star"));
-    }
-
-    public static void waxing(RecipeOutput recipeOutput, ItemLike ingredientItem, ItemLike resultItem) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, resultItem)
-                .requires(ingredientItem)
-                .requires(Items.HONEYCOMB)
-                .group(getItemName(resultItem))
-                .unlockedBy(getHasName(ingredientItem), has(ingredientItem))
-                .save(recipeOutput, getConversionRecipeName(resultItem, Items.HONEYCOMB));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.COPPER_HOPPER.value())
+                .define('C', Blocks.CHEST)
+                .define('I', Items.COPPER_INGOT)
+                .pattern("I I")
+                .pattern("ICI")
+                .pattern(" I ")
+                .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
+                .save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, ModItems.COPPER_HOPPER_MINECART.value())
+                .requires(ModItems.COPPER_HOPPER.value())
+                .requires(Items.MINECART)
+                .unlockedBy(getHasName(Items.MINECART), has(Items.MINECART))
+                .save(recipeOutput);
     }
 
     public static void roseGoldSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {
-        SmithingTransformRecipeBuilder.smithing(Ingredient.of(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()),
-                        Ingredient.of(ingredientItem),
-                        Ingredient.of(ModItems.ROSE_GOLD_ALLOY.value()),
-                        category,
-                        resultItem)
-                .unlocks(getHasName(ModItems.ROSE_GOLD_ALLOY.value()), has(ModItems.ROSE_GOLD_ALLOY.value()))
-                .save(recipeOutput, getSmithingRecipeName(resultItem));
-    }
-
-    public static void smithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()),
                         Ingredient.of(ingredientItem),
                         Ingredient.of(ModItems.ROSE_GOLD_ALLOY.value()),

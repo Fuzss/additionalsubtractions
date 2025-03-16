@@ -100,8 +100,6 @@ public class WrenchItem extends Item {
             return blockState.cycle(BlockStateProperties.FACING);
         } else if (blockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
             return blockState.cycle(BlockStateProperties.HORIZONTAL_FACING);
-        } else if (blockState.hasProperty(BlockStateProperties.FACING_HOPPER)) {
-            return blockState.cycle(BlockStateProperties.FACING_HOPPER);
         } else if (blockState.hasProperty(BlockStateProperties.SLAB_TYPE)) {
             SlabType slabType = blockState.getValue(BlockStateProperties.SLAB_TYPE);
             if (slabType != SlabType.DOUBLE) {

@@ -5,7 +5,7 @@ import fuzs.additionalsubtractions.client.AdditionalSubtractionsClient;
 import fuzs.additionalsubtractions.client.handler.FireworkExplosionShapeClientHelper;
 import fuzs.additionalsubtractions.data.client.ModLanguageProvider;
 import fuzs.additionalsubtractions.data.client.ModModelProvider;
-import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.init.ModEnumConstants;
 import fuzs.additionalsubtractions.neoforge.data.client.ModSoundProvider;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
@@ -33,7 +33,7 @@ public class AdditionalSubtractionsNeoForgeClient {
     private static void registerLoadingHandlers(IEventBus eventBus) {
         eventBus.addListener((final FMLClientSetupEvent evt) -> {
             evt.enqueueWork(() -> {
-                FireworkShapeFactoryRegistry.register(ModRegistry.BOLT_EXPLOSION_SHAPE.get(),
+                FireworkShapeFactoryRegistry.register(ModEnumConstants.BOLT_EXPLOSION_SHAPE,
                         (FireworkParticles.Starter starter, boolean trail, boolean flicker, int[] colors, int[] fadeColors) -> {
                             FireworkExplosionShapeClientHelper.createBoltParticleShape(starter,
                                     IntArrayList.of(colors),
@@ -41,7 +41,7 @@ public class AdditionalSubtractionsNeoForgeClient {
                                     trail,
                                     flicker);
                         });
-                FireworkShapeFactoryRegistry.register(ModRegistry.HEART_EXPLOSION_SHAPE.get(),
+                FireworkShapeFactoryRegistry.register(ModEnumConstants.HEART_EXPLOSION_SHAPE,
                         (FireworkParticles.Starter starter, boolean trail, boolean flicker, int[] colors, int[] fadeColors) -> {
                             FireworkExplosionShapeClientHelper.createHeartParticleShape(starter,
                                     IntArrayList.of(colors),

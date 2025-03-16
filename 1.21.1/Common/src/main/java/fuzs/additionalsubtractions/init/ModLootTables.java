@@ -6,13 +6,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.IntPredicate;
 
 public class ModLootTables {
-    public static final Map<ResourceLocation, ResourceKey<LootTable>> LOOT_TABLE_INJECTIONS = new HashMap<>();
+    static final Map<ResourceLocation, ResourceKey<LootTable>> LOOT_TABLE_INJECTIONS = new HashMap<>();
     public static final ResourceKey<LootTable> MYSTERIOUS_BUNDLE = ModRegistry.REGISTRIES.registerLootTable(
             "gameplay/mysterious_bundle");
     public static final ResourceKey<LootTable> BEETROOTS_INJECTION = registerLootTableInjection(Blocks.BEETROOTS.getLootTable());
@@ -42,5 +47,14 @@ public class ModLootTables {
                 "inject/" + resourceKey.location().getPath());
         LOOT_TABLE_INJECTIONS.put(resourceKey.location(), newResourceKey);
         return newResourceKey;
+    }
+
+    public static void onModifyLootTable(ResourceLocation resourceLocation, Consumer<LootPool> addLootPool, IntPredicate removeLootPool) {
+        if (LOOT_TABLE_INJECTIONS.containsKey(resourceLocation)) {
+            addLootPool.accept(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(NestedLootTable.lootTableReference(LOOT_TABLE_INJECTIONS.get(resourceLocation)))
+                    .build());
+        }
     }
 }

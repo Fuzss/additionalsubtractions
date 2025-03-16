@@ -1,7 +1,7 @@
 package fuzs.additionalsubtractions.fabric.mixin.client;
 
 import fuzs.additionalsubtractions.client.handler.FireworkExplosionShapeClientHelper;
-import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.init.ModEnumConstants;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FireworkParticles;
@@ -41,13 +41,13 @@ abstract class FireworkParticles$StarterFabricMixin extends NoRenderParticle {
             if (colors.isEmpty()) {
                 colors = IntList.of(DyeColor.BLACK.getFireworkColor());
             }
-            if (fireworkExplosion.shape() == ModRegistry.BOLT_EXPLOSION_SHAPE.get()) {
+            if (fireworkExplosion.shape() == ModEnumConstants.BOLT_EXPLOSION_SHAPE) {
                 FireworkExplosionShapeClientHelper.createBoltParticleShape(FireworkParticles.Starter.class.cast(this),
                         colors,
                         fadeColors,
                         trail,
                         twinkle);
-            } else if (fireworkExplosion.shape() == ModRegistry.HEART_EXPLOSION_SHAPE.get()) {
+            } else if (fireworkExplosion.shape() == ModEnumConstants.HEART_EXPLOSION_SHAPE) {
                 FireworkExplosionShapeClientHelper.createHeartParticleShape(FireworkParticles.Starter.class.cast(this),
                         colors,
                         fadeColors,

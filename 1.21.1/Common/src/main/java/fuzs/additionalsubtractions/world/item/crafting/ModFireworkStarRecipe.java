@@ -1,10 +1,11 @@
 package fuzs.additionalsubtractions.world.item.crafting;
 
+import com.google.common.collect.ImmutableMap;
+import fuzs.additionalsubtractions.init.ModEnumConstants;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.DyeItem;
@@ -15,23 +16,36 @@ import net.minecraft.world.item.component.FireworkExplosion;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Copied from super, only altering shape ingredients.
+ */
 public class ModFireworkStarRecipe extends FireworkStarRecipe {
-    private static final Ingredient SHAPE_INGREDIENT = Ingredient.of(ModItems.COPPER_PATINA.value(),
-            ModItems.HEARTBEET.value());
-    private static final Ingredient TRAIL_INGREDIENT = Ingredient.of(Items.DIAMOND);
-    private static final Ingredient TWINKLE_INGREDIENT = Ingredient.of(Items.GLOWSTONE_DUST);
-    private static final Map<Item, FireworkExplosion.Shape> SHAPE_BY_ITEM = Util.make(new HashMap<>(),
-            (Map<Item, FireworkExplosion.Shape> shapeMap) -> {
-                shapeMap.put(ModItems.COPPER_PATINA.value(), ModRegistry.BOLT_EXPLOSION_SHAPE.get());
-                shapeMap.put(ModItems.HEARTBEET.value(), ModRegistry.HEART_EXPLOSION_SHAPE.get());
-            });
-    private static final Ingredient GUNPOWDER_INGREDIENT = Ingredient.of(Items.GUNPOWDER);
+    private final Ingredient shapeIngredient;
+    private final Ingredient trailIngredient;
+    private final Ingredient twinkleIngredient;
+    private final Map<Item, FireworkExplosion.Shape> shapeByItem;
+    private final Ingredient gunpowderIngredient;
 
     public ModFireworkStarRecipe(CraftingBookCategory category) {
+        this(category,
+                Ingredient.of(Items.DIAMOND),
+                Ingredient.of(Items.GLOWSTONE_DUST),
+                Ingredient.of(Items.GUNPOWDER),
+                ImmutableMap.of(ModItems.COPPER_PATINA.value(),
+                        ModEnumConstants.BOLT_EXPLOSION_SHAPE,
+                        ModItems.HEARTBEET.value(),
+                        ModEnumConstants.HEART_EXPLOSION_SHAPE));
+    }
+
+    public ModFireworkStarRecipe(CraftingBookCategory category, Ingredient trailIngredient, Ingredient twinkleIngredient, Ingredient gunpowderIngredient, Map<Item, FireworkExplosion.Shape> shapeByItem) {
         super(category);
+        this.shapeIngredient = Ingredient.of(shapeByItem.keySet().stream().map(ItemStack::new));
+        this.trailIngredient = trailIngredient;
+        this.twinkleIngredient = twinkleIngredient;
+        this.shapeByItem = shapeByItem;
+        this.gunpowderIngredient = gunpowderIngredient;
     }
 
     @Override
@@ -45,25 +59,25 @@ public class ModFireworkStarRecipe extends FireworkStarRecipe {
         for (int i = 0; i < input.size(); i++) {
             ItemStack itemStack = input.getItem(i);
             if (!itemStack.isEmpty()) {
-                if (SHAPE_INGREDIENT.test(itemStack)) {
+                if (this.shapeIngredient.test(itemStack)) {
                     if (bl3) {
                         return false;
                     }
 
                     bl3 = true;
-                } else if (TWINKLE_INGREDIENT.test(itemStack)) {
+                } else if (this.twinkleIngredient.test(itemStack)) {
                     if (bl5) {
                         return false;
                     }
 
                     bl5 = true;
-                } else if (TRAIL_INGREDIENT.test(itemStack)) {
+                } else if (this.trailIngredient.test(itemStack)) {
                     if (bl4) {
                         return false;
                     }
 
                     bl4 = true;
-                } else if (GUNPOWDER_INGREDIENT.test(itemStack)) {
+                } else if (this.gunpowderIngredient.test(itemStack)) {
                     if (bl) {
                         return false;
                     }
@@ -93,11 +107,11 @@ public class ModFireworkStarRecipe extends FireworkStarRecipe {
         for (int i = 0; i < input.size(); i++) {
             ItemStack itemStack = input.getItem(i);
             if (!itemStack.isEmpty()) {
-                if (SHAPE_INGREDIENT.test(itemStack)) {
-                    shape = SHAPE_BY_ITEM.get(itemStack.getItem());
-                } else if (TWINKLE_INGREDIENT.test(itemStack)) {
+                if (this.shapeIngredient.test(itemStack)) {
+                    shape = this.shapeByItem.get(itemStack.getItem());
+                } else if (this.twinkleIngredient.test(itemStack)) {
                     bl = true;
-                } else if (TRAIL_INGREDIENT.test(itemStack)) {
+                } else if (this.trailIngredient.test(itemStack)) {
                     bl2 = true;
                 } else if (itemStack.getItem() instanceof DyeItem) {
                     intList.add(((DyeItem) itemStack.getItem()).getDyeColor().getFireworkColor());

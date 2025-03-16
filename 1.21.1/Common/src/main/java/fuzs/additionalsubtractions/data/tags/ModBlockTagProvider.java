@@ -24,23 +24,10 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
         this.add(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.AMETHYST_LAMP.value(),
                         Blocks.REDSTONE_LAMP,
-                        ModBlocks.COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value());
-        this.add(BlockTags.PRESSURE_PLATES)
-                .add(ModBlocks.COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                        ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value());
+                        ModBlocks.OBSIDIAN_PRESSURE_PLATE.value(),
+                        ModBlocks.COPPER_HOPPER.value());
+        this.add(BlockTags.PRESSURE_PLATES).add(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value());
+        this.add(BlockTags.RAILS).add(ModBlocks.COPPER_RAIL.value());
         this.add(ModRegistry.ROTATABLE_BLOCK_TAG)
                 .addTag(BlockTags.STANDING_SIGNS,
                         BlockTags.ANVIL,

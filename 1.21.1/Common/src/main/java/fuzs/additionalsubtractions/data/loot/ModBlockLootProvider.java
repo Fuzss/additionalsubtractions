@@ -16,13 +16,8 @@ public class ModBlockLootProvider extends AbstractLootProvider.Blocks {
         this.dropSelf(ModBlocks.AMETHYST_LAMP.value());
         this.dropSelf(ModBlocks.GLOW_STICK.value());
         this.dropSelf(ModBlocks.PATINA_BLOCK.value());
-        this.dropSelf(ModBlocks.COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.WAXED_COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value());
-        this.dropSelf(ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value());
+        this.dropSelf(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value());
+        this.dropSelf(ModBlocks.COPPER_RAIL.value());
+        this.dropSelf(ModBlocks.COPPER_HOPPER.value());
     }
 }

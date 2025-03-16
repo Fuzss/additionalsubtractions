@@ -24,14 +24,28 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.RailShape;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
 public class ModModelProvider extends AbstractModelProvider {
-    public static final ModelTemplate TEMPLATE_BUILTIN_GENERATED = new ModelTemplate(Optional.of(ResourceLocationHelper.withDefaultNamespace(
+    public static final TextureSlot HOPPER_OUTSIDE_TEXTURE_SLOT = TextureSlot.create("hopper_outside");
+    public static final TextureSlot HOPPER_TOP_TEXTURE_SLOT = TextureSlot.create("hopper_top");
+    public static final TextureSlot HOPPER_INSIDE_TEXTURE_SLOT = TextureSlot.create("hopper_inside");
+    public static final ModelTemplate BUILTIN_GENERATED_TEMPLATE = new ModelTemplate(Optional.of(ResourceLocationHelper.withDefaultNamespace(
             "builtin/generated")), Optional.empty(), TextureSlot.LAYER0);
+    public static final ModelTemplate HOPPER_TEMPLATE = ModelTemplates.create("hopper",
+            TextureSlot.PARTICLE,
+            TextureSlot.SIDE,
+            TextureSlot.TOP,
+            TextureSlot.INSIDE);
+    public static final ModelTemplate HOPPER_SIDE_TEMPLATE = ModelTemplates.create("hopper_side",
+            TextureSlot.PARTICLE,
+            TextureSlot.SIDE,
+            TextureSlot.TOP,
+            TextureSlot.INSIDE);
 
     public ModModelProvider(DataProviderContext context) {
         super(context);
@@ -46,7 +60,7 @@ public class ModModelProvider extends AbstractModelProvider {
     public void addBlockModels(BlockModelGenerators blockModelGenerators) {
         this.createRedstoneLamp(ModBlocks.AMETHYST_LAMP.value(), blockModelGenerators);
         blockModelGenerators.createTrivialCube(ModBlocks.PATINA_BLOCK.value());
-        ResourceLocation resourceLocation = TEMPLATE_BUILTIN_GENERATED.create(ModBlocks.GLOW_STICK.value(),
+        ResourceLocation resourceLocation = BUILTIN_GENERATED_TEMPLATE.create(ModBlocks.GLOW_STICK.value(),
                 TextureMapping.layer0(ModBlocks.GLOW_STICK.value().asItem()),
                 blockModelGenerators.modelOutput);
         blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.GLOW_STICK.value(),
@@ -54,28 +68,9 @@ public class ModModelProvider extends AbstractModelProvider {
         blockModelGenerators.skipAutoItemBlock(ModBlocks.GLOW_STICK.value());
         blockModelGenerators.createSimpleFlatItemModel(ModItems.COPPER_PATINA.value());
         blockModelGenerators.createSimpleFlatItemModel(ModItems.ROPE.value());
-        this.createPressurePlate(ModBlocks.COPPER_PRESSURE_PLATE.value(), Blocks.COPPER_BLOCK, blockModelGenerators);
-        this.createPressurePlate(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                Blocks.EXPOSED_COPPER,
-                blockModelGenerators);
-        this.createPressurePlate(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                Blocks.WEATHERED_COPPER,
-                blockModelGenerators);
-        this.createPressurePlate(ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
-                Blocks.OXIDIZED_COPPER,
-                blockModelGenerators);
-        this.copyPressurePlateModel(ModBlocks.WAXED_COPPER_PRESSURE_PLATE.value(),
-                ModBlocks.COPPER_PRESSURE_PLATE.value(),
-                blockModelGenerators);
-        this.copyPressurePlateModel(ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE.value(),
-                blockModelGenerators);
-        this.copyPressurePlateModel(ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE.value(),
-                blockModelGenerators);
-        this.copyPressurePlateModel(ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.value(),
-                ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.value(),
-                blockModelGenerators);
+        this.createPressurePlate(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value(), Blocks.OBSIDIAN, blockModelGenerators);
+        blockModelGenerators.createActiveRail(ModBlocks.COPPER_RAIL.value());
+        this.createHopper(ModBlocks.COPPER_HOPPER.value(), blockModelGenerators);
     }
 
     public final void createPressurePlate(Block pressurePlateBlock, Block plateMaterialBlock, BlockModelGenerators blockModelGenerators) {
@@ -91,14 +86,118 @@ public class ModModelProvider extends AbstractModelProvider {
                 resourceLocation2));
     }
 
-    public final void copyPressurePlateModel(Block pressurePlateBlock, Block sourceBlock, BlockModelGenerators blockModelGenerators) {
-        ResourceLocation resourceLocation = ModelTemplates.PRESSURE_PLATE_UP.getDefaultModelLocation(sourceBlock);
-        ResourceLocation resourceLocation2 = ModelTemplates.PRESSURE_PLATE_DOWN.getDefaultModelLocation(sourceBlock);
-        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlateBlock,
-                resourceLocation,
-                resourceLocation2));
-        blockModelGenerators.delegateItemModel(pressurePlateBlock,
-                ModelLocationUtils.getModelLocation(sourceBlock.asItem()));
+    public final void createCopperRail(Block railBlock, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation railFlatLocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "",
+                ModelTemplates.RAIL_FLAT,
+                TextureMapping::rail);
+        ResourceLocation railCurvedLocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "_corner",
+                ModelTemplates.RAIL_CURVED,
+                TextureMapping::rail);
+        ResourceLocation railRaisedNELocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "",
+                ModelTemplates.RAIL_RAISED_NE,
+                TextureMapping::rail);
+        ResourceLocation railRaisedSWLocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "",
+                ModelTemplates.RAIL_RAISED_SW,
+                TextureMapping::rail);
+        ResourceLocation poweredRailFlatLocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "_on",
+                ModelTemplates.RAIL_FLAT,
+                TextureMapping::rail);
+        ResourceLocation poweredRailCurvedLocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "_corner_on",
+                ModelTemplates.RAIL_CURVED,
+                TextureMapping::rail);
+        ResourceLocation poweredRailRaisedNELocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "_on",
+                ModelTemplates.RAIL_RAISED_NE,
+                TextureMapping::rail);
+        ResourceLocation poweredRailRaisedSWLocation = blockModelGenerators.createSuffixedVariant(railBlock,
+                "_on",
+                ModelTemplates.RAIL_RAISED_SW,
+                TextureMapping::rail);
+        blockModelGenerators.createSimpleFlatItemModel(railBlock);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(railBlock)
+                .with(PropertyDispatch.properties(BlockStateProperties.POWERED, BlockStateProperties.RAIL_SHAPE)
+                        .generate((Boolean isPowered, RailShape railShape) -> {
+                            return switch (railShape) {
+                                case NORTH_SOUTH -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailFlatLocation : railFlatLocation);
+                                case RailShape.EAST_WEST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailFlatLocation : railFlatLocation)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
+                                case RailShape.ASCENDING_EAST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailRaisedNELocation : railRaisedNELocation)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
+                                case RailShape.ASCENDING_WEST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailRaisedSWLocation : railRaisedSWLocation)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
+                                case RailShape.ASCENDING_NORTH -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailRaisedNELocation : railRaisedNELocation);
+                                case RailShape.ASCENDING_SOUTH -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailRaisedSWLocation : railRaisedSWLocation);
+                                case RailShape.SOUTH_EAST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailCurvedLocation : railCurvedLocation);
+                                case RailShape.SOUTH_WEST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailCurvedLocation : railCurvedLocation)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
+                                case RailShape.NORTH_WEST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailCurvedLocation : railCurvedLocation)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
+                                case RailShape.NORTH_EAST -> Variant.variant()
+                                        .with(VariantProperties.MODEL,
+                                                isPowered ? poweredRailCurvedLocation : railCurvedLocation)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
+                            };
+                        })));
+    }
+
+    public static TextureMapping hopper(Block block) {
+        return new TextureMapping().put(TextureSlot.PARTICLE, ModelLocationHelper.getBlockTexture(block, "_outside"))
+                .put(TextureSlot.SIDE, ModelLocationHelper.getBlockTexture(block, "_outside"))
+                .put(TextureSlot.TOP, ModelLocationHelper.getBlockTexture(block, "_top"))
+                .put(TextureSlot.INSIDE, ModelLocationHelper.getBlockTexture(block, "_inside"));
+    }
+
+    public final void createHopper(Block block, BlockModelGenerators blockModelGenerators) {
+        TextureMapping textureMapping = hopper(block);
+        ResourceLocation resourceLocation = HOPPER_TEMPLATE.createWithSuffix(block,
+                "",
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = HOPPER_SIDE_TEMPLATE.createWithSuffix(block,
+                "_side",
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.createSimpleFlatItemModel(block.asItem());
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(BlockStateProperties.FACING_HOPPER)
+                        .select(Direction.DOWN, Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+                        .select(Direction.NORTH, Variant.variant().with(VariantProperties.MODEL, resourceLocation2))
+                        .select(Direction.EAST,
+                                Variant.variant()
+                                        .with(VariantProperties.MODEL, resourceLocation2)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH,
+                                Variant.variant()
+                                        .with(VariantProperties.MODEL, resourceLocation2)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST,
+                                Variant.variant()
+                                        .with(VariantProperties.MODEL, resourceLocation2)
+                                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))));
     }
 
     public static PropertyDispatch createFacingDispatch() {
@@ -167,6 +266,7 @@ public class ModModelProvider extends AbstractModelProvider {
         itemModelGenerators.generateFlatItem(ModItems.COPPER_WRENCH.value(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.NETHERITE_HORSE_ARMOR.value(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.BAT_BUCKET.value(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.COPPER_HOPPER_MINECART.value(), ModelTemplates.FLAT_ITEM);
     }
 
     public final void generateDepthMeterItem(Item item, ItemModelGenerators itemModelGenerators) {

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "additionalsubtractions:item/copper_hopper_minecart"
+  }
+}

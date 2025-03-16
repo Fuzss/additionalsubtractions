@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/rail_flat",
+  "textures": {
+    "rail": "additionalsubtractions:block/copper_rail_on"
+  }
+}

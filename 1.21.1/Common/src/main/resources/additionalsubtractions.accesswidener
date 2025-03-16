@@ -62,3 +62,11 @@ transitive-accessible   field   net/minecraft/client/particle/Particle  oRoll   
 transitive-accessible   field   net/minecraft/client/particle/Particle  friction    F
 transitive-accessible   field   net/minecraft/client/particle/Particle  speedUpWhenYMotionIsBlocked Z
 accessible  method  net/minecraft/client/particle/FireworkParticles$Starter createParticle  (DDDDDDLit/unimi/dsi/fastutil/ints/IntList;Lit/unimi/dsi/fastutil/ints/IntList;ZZ)V
+accessible  field   net/minecraft/world/level/block/entity/HopperBlockEntity    cooldownTime    I
+accessible  field   net/minecraft/world/level/block/entity/HopperBlockEntity    tickedGameTime  J
+accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    tryMoveItems    (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/HopperBlockEntity;Ljava/util/function/BooleanSupplier;)Z
+accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    isOnCooldown    ()Z
+accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    setCooldown (I)V
+accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    getSourceContainer  (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/Container;
+accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    tryTakeInItemFromSlot   (Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/world/Container;ILnet/minecraft/core/Direction;)Z
+accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    getSlots    (Lnet/minecraft/world/Container;Lnet/minecraft/core/Direction;)[I

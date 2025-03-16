@@ -7,12 +7,14 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 
@@ -54,22 +56,11 @@ public class ModItems {
     public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
             CopperPatinaItem::new);
     public static final Holder.Reference<Item> PATINA_BLOCK = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.PATINA_BLOCK);
-    public static final Holder.Reference<Item> COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> EXPOSED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> WEATHERED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> OXIDIZED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> WAXED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.WAXED_COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE);
-    public static final Holder.Reference<Item> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
-            ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> OBSIDIAN_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.OBSIDIAN_PRESSURE_PLATE);
+    public static final Holder.Reference<Item> COPPER_RAIL = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.COPPER_RAIL);
+    public static final Holder.Reference<Item> COPPER_HOPPER = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.COPPER_HOPPER,
+            () -> new Item.Properties().component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
 
     public static final Holder.Reference<Item> WATERING_CAN = ModRegistry.REGISTRIES.registerItem("watering_can",
             WateringCanItem::new,
@@ -119,17 +110,17 @@ public class ModItems {
             "music_disc_0308",
             () -> new Item.Properties().stacksTo(1)
                     .rarity(Rarity.RARE)
-                    .jukeboxPlayable(ModSoundEvents.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG));
+                    .jukeboxPlayable(ModJukeboxSongs.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG));
     public static final Holder.Reference<Item> MUSIC_DISC_1007 = ModRegistry.REGISTRIES.registerSimpleItem(
             "music_disc_1007",
             () -> new Item.Properties().stacksTo(1)
                     .rarity(Rarity.RARE)
-                    .jukeboxPlayable(ModSoundEvents.ONE_ZERO_ZERO_SEVEN_JUKEBOX_SONG));
+                    .jukeboxPlayable(ModJukeboxSongs.ONE_ZERO_ZERO_SEVEN_JUKEBOX_SONG));
     public static final Holder.Reference<Item> MUSIC_DISC_1507 = ModRegistry.REGISTRIES.registerSimpleItem(
             "music_disc_1507",
             () -> new Item.Properties().stacksTo(1)
                     .rarity(Rarity.RARE)
-                    .jukeboxPlayable(ModSoundEvents.ONE_FIVE_ZERO_SEVEN_JUKEBOX_SONG));
+                    .jukeboxPlayable(ModJukeboxSongs.ONE_FIVE_ZERO_SEVEN_JUKEBOX_SONG));
 
     public static final Holder.Reference<Item> ROSE_GOLD_SWORD = ModRegistry.REGISTRIES.registerItem("rose_gold_sword",
             (Item.Properties properties) -> new SwordItem(ROSE_GOLD_TIER, properties),
@@ -182,6 +173,10 @@ public class ModItems {
 
             ),
             () -> new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY));
+    public static final Holder.Reference<Item> COPPER_HOPPER_MINECART = ModRegistry.REGISTRIES.registerItem(
+            "copper_hopper_minecart",
+            (Item.Properties properties) -> new MinecartItem(AbstractMinecart.Type.HOPPER, properties),
+            () -> new Item.Properties().stacksTo(1));
 
     public static void bootstrap() {
         // NO-OP

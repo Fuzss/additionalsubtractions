@@ -8,6 +8,7 @@ import fuzs.additionalsubtractions.data.loot.*;
 import fuzs.additionalsubtractions.data.tags.ModBlockTagProvider;
 import fuzs.additionalsubtractions.data.tags.ModItemTagProvider;
 import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.neoforge.init.NeoForgeModRegistry;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,7 @@ public class AdditionalSubtractionsNeoForge {
 
     public AdditionalSubtractionsNeoForge() {
         ModConstructor.construct(AdditionalSubtractions.MOD_ID, AdditionalSubtractions::new);
+        NeoForgeModRegistry.bootstrap();
         DataProviderHelper.registerDataProviders(AdditionalSubtractions.MOD_ID,
                 ModDatapackRegistriesProvider::new,
                 ModBlockLootProvider::new,

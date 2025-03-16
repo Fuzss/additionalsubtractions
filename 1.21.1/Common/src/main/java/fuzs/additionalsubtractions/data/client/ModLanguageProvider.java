@@ -2,10 +2,7 @@ package fuzs.additionalsubtractions.data.client;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.data.ModAdvancementProvider;
-import fuzs.additionalsubtractions.init.ModBlocks;
-import fuzs.additionalsubtractions.init.ModItems;
-import fuzs.additionalsubtractions.init.ModRegistry;
-import fuzs.additionalsubtractions.init.ModSoundEvents;
+import fuzs.additionalsubtractions.init.*;
 import fuzs.additionalsubtractions.world.item.DepthMeterItem;
 import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.data.v2.AbstractLanguageProvider;
@@ -29,19 +26,12 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.COPPER_PATINA, "Copper Patina");
         translationBuilder.addBlock(ModBlocks.GLOW_STICK, "Glow Stick");
         translationBuilder.addBlock(ModBlocks.PATINA_BLOCK, "Patina Block");
-        translationBuilder.addBlock(ModBlocks.COPPER_PRESSURE_PLATE, "Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.EXPOSED_COPPER_PRESSURE_PLATE, "Exposed Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.WEATHERED_COPPER_PRESSURE_PLATE, "Weathered Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.OXIDIZED_COPPER_PRESSURE_PLATE, "Oxidized Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.WAXED_COPPER_PRESSURE_PLATE, "Waxed Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
-                "Waxed Exposed Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE,
-                "Waxed Weathered Copper Pressure Plate");
-        translationBuilder.addBlock(ModBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE,
-                "Waxed Oxidized Copper Pressure Plate");
+        translationBuilder.addBlock(ModBlocks.OBSIDIAN_PRESSURE_PLATE, "Obsidian Pressure Plate");
+        translationBuilder.add(ModBlocks.COPPER_RAIL.value(), "Copper Rail");
+        translationBuilder.add(ModBlocks.COPPER_HOPPER.value(), "Copper Hopper");
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
         translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");
+        translationBuilder.add(ModRegistry.COPPER_HOPPER_MINECART_ENTITY_TYPE.value(), "Minecart with Copper Hopper");
 
         translationBuilder.addItem(ModItems.SWEET_BERRY_PIE, "Sweet Berry Pie");
         translationBuilder.addItem(ModItems.WATERING_CAN, "Watering Can");
@@ -72,6 +62,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addItem(ModItems.ROSE_GOLD_BOOTS, "Rose Gold Boots");
         translationBuilder.addItem(ModItems.NETHERITE_HORSE_ARMOR, "Netherite Horse Armor");
         translationBuilder.addItem(ModItems.BAT_BUCKET, "Bat Bucket");
+        translationBuilder.addItem(ModItems.COPPER_HOPPER_MINECART, "Minecart with Copper Hopper");
 
         translationBuilder.addPotion(ModRegistry.HURRY_POTION, "Hurry");
         translationBuilder.add(((SmithingTemplateItem) ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.value()).appliesTo,
@@ -87,17 +78,17 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(DepthMeterItem.getElevationComponent(-1), "Altitude: %s");
         translationBuilder.add(PocketJukeboxItem.getDescriptionComponent(), "Can hold a music disc");
         translationBuilder.add(Items.FIREWORK_STAR,
-                "shape." + ModRegistry.BOLT_EXPLOSION_SHAPE.get().getSerializedName(),
+                "shape." + ModEnumConstants.BOLT_EXPLOSION_SHAPE.getSerializedName(),
                 "Bolt");
         translationBuilder.add(Items.FIREWORK_STAR,
-                "shape." + ModRegistry.HEART_EXPLOSION_SHAPE.get().getSerializedName(),
+                "shape." + ModEnumConstants.HEART_EXPLOSION_SHAPE.getSerializedName(),
                 "Heart");
 
-        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG),
+        translationBuilder.add(ResourceKeyHelper.getTranslationKey(ModJukeboxSongs.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG),
                 "Adoghr - 0308");
-        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ONE_ZERO_ZERO_SEVEN_JUKEBOX_SONG),
+        translationBuilder.add(ResourceKeyHelper.getTranslationKey(ModJukeboxSongs.ONE_ZERO_ZERO_SEVEN_JUKEBOX_SONG),
                 "Adoghr - 1007");
-        translationBuilder.add(ResourceKeyHelper.getComponent(ModSoundEvents.ONE_FIVE_ZERO_SEVEN_JUKEBOX_SONG),
+        translationBuilder.add(ResourceKeyHelper.getTranslationKey(ModJukeboxSongs.ONE_FIVE_ZERO_SEVEN_JUKEBOX_SONG),
                 "Adoghr - 1507");
 
         translationBuilder.add(ModAdvancementProvider.ROOT_ADVANCEMENT.title(), AdditionalSubtractions.MOD_NAME);

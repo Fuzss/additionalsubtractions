@@ -2,6 +2,7 @@ package fuzs.additionalsubtractions.client;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.client.handler.CrossbowInHandHandler;
+import fuzs.additionalsubtractions.client.init.ModModelLayerLocations;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
@@ -9,12 +10,16 @@ import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.api.client.core.v1.context.EntityRenderersContext;
 import fuzs.puzzleslib.api.client.core.v1.context.ItemModelPropertiesContext;
+import fuzs.puzzleslib.api.client.core.v1.context.LayerDefinitionsContext;
 import fuzs.puzzleslib.api.client.core.v1.context.RenderTypesContext;
 import fuzs.puzzleslib.api.client.event.v1.renderer.RenderHandEvents;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
+import net.minecraft.client.model.MinecartModel;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -52,11 +57,23 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
     public void onRegisterEntityRenderers(EntityRenderersContext context) {
         context.registerEntityRenderer(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), ThrownItemRenderer::new);
         context.registerEntityRenderer(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), FallingBlockRenderer::new);
+        context.registerEntityRenderer(ModRegistry.COPPER_HOPPER_MINECART_ENTITY_TYPE.value(),
+                (EntityRendererProvider.Context context1) -> new MinecartRenderer<>(context1,
+                        ModModelLayerLocations.COPPER_HOPPER_MINECART));
     }
 
     @Override
     public void onRegisterBlockRenderTypes(RenderTypesContext<Block> context) {
-        context.registerRenderType(RenderType.cutout(), ModBlocks.ROPE.value(), ModBlocks.GLOW_STICK.value());
+        context.registerRenderType(RenderType.cutout(),
+                ModBlocks.ROPE.value(),
+                ModBlocks.GLOW_STICK.value(),
+                ModBlocks.COPPER_RAIL.value(),
+                ModBlocks.COPPER_HOPPER.value());
+    }
+
+    @Override
+    public void onRegisterLayerDefinitions(LayerDefinitionsContext context) {
+        context.registerLayerDefinition(ModModelLayerLocations.COPPER_HOPPER_MINECART, MinecartModel::createBodyLayer);
     }
 
     @Override
