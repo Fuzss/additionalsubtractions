@@ -8,7 +8,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 
 public class PocketJukeboxSoundInstance extends AbstractTickableSoundInstance {
-    private final Entity entity;
+    public Entity entity;
+    public int ticksSinceSongStarted;
 
     public PocketJukeboxSoundInstance(SoundEvent soundEvent, SoundSource source, float volume, float pitch, RandomSource randomSource, boolean looping, int delay, SoundInstance.Attenuation attenuation, Entity entity, boolean relative) {
         super(soundEvent, source, randomSource);
@@ -41,12 +42,12 @@ public class PocketJukeboxSoundInstance extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
-        if (!this.entity.isRemoved()) {
+        if (++this.ticksSinceSongStarted > 20) {
+            this.stop();
+        } else if (!this.entity.isRemoved()) {
             this.x = this.entity.getX();
             this.y = this.entity.getY();
             this.z = this.entity.getZ();
-        } else {
-            this.stop();
         }
     }
 }

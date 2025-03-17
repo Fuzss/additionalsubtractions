@@ -1,15 +1,13 @@
 package fuzs.additionalsubtractions.network;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.MapMaker;
 import fuzs.additionalsubtractions.client.resources.sounds.PocketJukeboxSoundInstance;
-import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.puzzleslib.api.network.v3.ClientMessageListener;
 import fuzs.puzzleslib.api.network.v3.ClientboundMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
@@ -20,7 +18,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.JukeboxSong;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 public record ClientboundJukeboxSongMessage(int entityId,
                                             UUID uuid,
@@ -33,54 +33,41 @@ public record ClientboundJukeboxSongMessage(int entityId,
             ByteBufCodecs.holderRegistry(Registries.JUKEBOX_SONG).apply(ByteBufCodecs::optional),
             ClientboundJukeboxSongMessage::jukeboxSong,
             ClientboundJukeboxSongMessage::new);
+    static final Map<UUID, PocketJukeboxSoundInstance> PLAYING_POCKET_JUKEBOX_SONGS = new MapMaker().concurrencyLevel(1)
+            .weakValues()
+            .makeMap();
 
     @Override
     public ClientMessageListener<ClientboundJukeboxSongMessage> getHandler() {
-        return new ClientMessageListenerImpl();
-    }
-
-    public static void playJukeboxSong(Entity entity, UUID uuid, Holder<JukeboxSong> jukeboxSong) {
-        ClientMessageListenerImpl.playJukeboxSong(Minecraft.getInstance(), entity, uuid, jukeboxSong);
-    }
-
-    public static void stopJukeboxSong(Entity entity, UUID uuid) {
-        ClientMessageListenerImpl.stopJukeboxSong(Minecraft.getInstance(), entity, uuid);
-    }
-
-    private static class ClientMessageListenerImpl extends ClientMessageListener<ClientboundJukeboxSongMessage> {
-
-        @Override
-        public void handle(ClientboundJukeboxSongMessage message, Minecraft minecraft, ClientPacketListener handler, LocalPlayer player, ClientLevel level) {
-            Entity entity = level.getEntity(message.entityId);
-            if (entity != null) {
-                if (message.jukeboxSong.isPresent()) {
-                    playJukeboxSong(minecraft, entity, message.uuid, message.jukeboxSong.get());
-                } else {
-                    stopJukeboxSong(minecraft, entity, message.uuid);
+        return new ClientMessageListener<>() {
+            @Override
+            public void handle(ClientboundJukeboxSongMessage message, Minecraft minecraft, ClientPacketListener handler, LocalPlayer player, ClientLevel level) {
+                Entity entity = level.getEntity(message.entityId);
+                if (entity != null) {
+                    if (message.jukeboxSong.isPresent()) {
+                        playJukeboxSong(minecraft, entity, message.uuid, message.jukeboxSong.get());
+                    } else {
+                        stopJukeboxSong(minecraft, message.uuid);
+                    }
                 }
             }
-        }
 
-        private static void playJukeboxSong(Minecraft minecraft, Entity entity, UUID uuid, Holder<JukeboxSong> jukeboxSong) {
-            stopJukeboxSong(minecraft, entity, uuid);
-            SoundEvent soundEvent = jukeboxSong.value().soundEvent().value();
-            SoundInstance soundInstance = PocketJukeboxSoundInstance.forJukeboxSong(soundEvent, entity);
-            Map<UUID, SoundInstance> map = ModRegistry.PLAYING_POCKET_JUKEBOX_SONGS_ATTACHMENT_TYPE.getOrDefault(entity,
-                    Collections.emptyMap());
-            map = ImmutableMap.<UUID, SoundInstance>builder().putAll(map).put(uuid, soundInstance).buildKeepingLast();
-            ModRegistry.PLAYING_POCKET_JUKEBOX_SONGS_ATTACHMENT_TYPE.set(entity, map);
-            minecraft.getSoundManager().play(soundInstance);
-            minecraft.gui.setNowPlaying(jukeboxSong.value().description());
-        }
-
-        private static void stopJukeboxSong(Minecraft minecraft, Entity entity, UUID uuid) {
-            Map<UUID, SoundInstance> map = ModRegistry.PLAYING_POCKET_JUKEBOX_SONGS_ATTACHMENT_TYPE.getOrDefault(entity,
-                    Collections.emptyMap());
-            if (map.containsKey(uuid)) {
-                map = new HashMap<>(map);
-                minecraft.getSoundManager().stop(map.remove(uuid));
-                ModRegistry.PLAYING_POCKET_JUKEBOX_SONGS_ATTACHMENT_TYPE.set(entity, ImmutableMap.copyOf(map));
+            private static void playJukeboxSong(Minecraft minecraft, Entity entity, UUID uuid, Holder<JukeboxSong> jukeboxSong) {
+                stopJukeboxSong(minecraft, uuid);
+                SoundEvent soundEvent = jukeboxSong.value().soundEvent().value();
+                PocketJukeboxSoundInstance soundInstance = PocketJukeboxSoundInstance.forJukeboxSong(soundEvent,
+                        entity);
+                PLAYING_POCKET_JUKEBOX_SONGS.put(uuid, soundInstance);
+                minecraft.getSoundManager().play(soundInstance);
+                minecraft.gui.setNowPlaying(jukeboxSong.value().description());
             }
-        }
+
+            private static void stopJukeboxSong(Minecraft minecraft, UUID uuid) {
+                PocketJukeboxSoundInstance soundInstance = PLAYING_POCKET_JUKEBOX_SONGS.remove(uuid);
+                if (soundInstance != null) {
+                    minecraft.getSoundManager().stop(soundInstance);
+                }
+            }
+        };
     }
 }

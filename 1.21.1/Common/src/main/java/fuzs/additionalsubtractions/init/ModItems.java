@@ -3,6 +3,7 @@ package fuzs.additionalsubtractions.init;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.item.*;
 import fuzs.puzzleslib.api.item.v2.ItemEquipmentFactories;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
@@ -87,7 +88,9 @@ public class ModItems {
             () -> new Item.Properties().stacksTo(1));
     public static final Holder.Reference<Item> POCKET_JUKEBOX = ModRegistry.REGISTRIES.registerItem("pocket_jukebox",
             PocketJukeboxItem::new,
-            () -> new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+            () -> new Item.Properties().stacksTo(1)
+                    .component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
+                    .component(ModRegistry.POCKET_JUKEBOX_UUID_DATA_COMPONENT_TYPE.value(), Util.NIL_UUID));
     public static final Holder.Reference<Item> ROSE_GOLD_ALLOY = ModRegistry.REGISTRIES.registerItem("rose_gold_alloy");
     public static final Holder.Reference<Item> FRIED_EGG = ModRegistry.REGISTRIES.registerSimpleItem("fried_egg",
             () -> new Item.Properties().food(FRIED_EGG_FOOD));

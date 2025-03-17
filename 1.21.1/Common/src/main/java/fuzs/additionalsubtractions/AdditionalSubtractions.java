@@ -5,12 +5,15 @@ import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModLootTables;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.additionalsubtractions.network.ClientboundJukeboxSongMessage;
+import fuzs.additionalsubtractions.network.ClientboundJukeboxSongPlayingMessage;
 import fuzs.additionalsubtractions.world.item.BatBucketItem;
+import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.additionalsubtractions.world.item.WrenchItem;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.api.core.v1.context.GameplayContentContext;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
+import fuzs.puzzleslib.api.event.v1.entity.EntityTickEvents;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
 import fuzs.puzzleslib.api.event.v1.level.GatherPotentialSpawnsCallback;
 import fuzs.puzzleslib.api.event.v1.server.LootTableLoadEvents;
@@ -22,6 +25,7 @@ import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +45,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+
 public class AdditionalSubtractions implements ModConstructor {
     public static final String MOD_ID = "additionalsubtractions";
     public static final String MOD_NAME = "Additional Subtractions";
@@ -48,7 +54,10 @@ public class AdditionalSubtractions implements ModConstructor {
 
     public static final NetworkHandler NETWORK = NetworkHandler.builder(MOD_ID)
             .registerSerializer(ClientboundJukeboxSongMessage.class, ClientboundJukeboxSongMessage.STREAM_CODEC)
-            .registerClientbound(ClientboundJukeboxSongMessage.class);
+            .registerSerializer(ClientboundJukeboxSongPlayingMessage.class,
+                    ClientboundJukeboxSongPlayingMessage.STREAM_CODEC)
+            .registerClientbound(ClientboundJukeboxSongMessage.class)
+            .registerClientbound(ClientboundJukeboxSongPlayingMessage.class);
 
     @Override
     public void onConstructMod() {
@@ -85,6 +94,14 @@ public class AdditionalSubtractions implements ModConstructor {
         GatherPotentialSpawnsCallback.EVENT.register(MobSpawnPreventionHandler::onGatherPotentialSpawns);
         PlayerInteractEvents.USE_ENTITY.register(BatBucketItem::onUseEntity);
         LootTableLoadEvents.MODIFY.register(ModLootTables::onModifyLootTable);
+        EntityTickEvents.END.register((Entity entity) -> {
+            Collection<ItemStack> itemStacks = PocketJukeboxItem.getPocketJukeboxFromEntity(entity);
+            for (ItemStack itemStack : itemStacks) {
+                if (itemStack.is(ModItems.POCKET_JUKEBOX)) {
+                    itemStack.inventoryTick(entity.level(), entity, -1, false);
+                }
+            }
+        });
     }
 
     private static boolean playerHasShieldUseIntent(Player player, InteractionHand interactionHand) {
