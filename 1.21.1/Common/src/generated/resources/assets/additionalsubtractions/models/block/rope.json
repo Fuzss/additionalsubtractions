@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/chain",
+  "textures": {
+    "all": "additionalsubtractions:block/rope",
+    "particle": "additionalsubtractions:block/rope"
+  }
+}

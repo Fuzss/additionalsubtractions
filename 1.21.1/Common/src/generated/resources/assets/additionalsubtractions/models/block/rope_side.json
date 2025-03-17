@@ -1,0 +1,6 @@
+{
+  "parent": "additionalsubtractions:block/template_rope_side",
+  "textures": {
+    "texture": "minecraft:block/dark_oak_log"
+  }
+}

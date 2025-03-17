@@ -1,0 +1,6 @@
+{
+  "parent": "additionalsubtractions:block/template_rope_knot",
+  "textures": {
+    "texture": "additionalsubtractions:block/rope"
+  }
+}

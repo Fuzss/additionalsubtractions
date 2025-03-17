@@ -12,10 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.PropertyDispatch;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
+import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -31,9 +28,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class ModModelProvider extends AbstractModelProvider {
-    public static final TextureSlot HOPPER_OUTSIDE_TEXTURE_SLOT = TextureSlot.create("hopper_outside");
-    public static final TextureSlot HOPPER_TOP_TEXTURE_SLOT = TextureSlot.create("hopper_top");
-    public static final TextureSlot HOPPER_INSIDE_TEXTURE_SLOT = TextureSlot.create("hopper_inside");
     public static final ModelTemplate BUILTIN_GENERATED_TEMPLATE = new ModelTemplate(Optional.of(ResourceLocationHelper.withDefaultNamespace(
             "builtin/generated")), Optional.empty(), TextureSlot.LAYER0);
     public static final ModelTemplate HOPPER_TEMPLATE = ModelTemplates.create("hopper",
@@ -46,6 +40,15 @@ public class ModModelProvider extends AbstractModelProvider {
             TextureSlot.SIDE,
             TextureSlot.TOP,
             TextureSlot.INSIDE);
+    public static final ModelTemplate CHAIN_TEMPLATE = ModelTemplates.create("chain",
+            TextureSlot.PARTICLE,
+            TextureSlot.ALL);
+    public static final ModelTemplate ROPE_KNOT_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_rope_knot"),
+            TextureSlot.TEXTURE);
+    public static final ModelTemplate ROPE_SIDE_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_rope_side"),
+            TextureSlot.TEXTURE);
 
     public ModModelProvider(DataProviderContext context) {
         super(context);
@@ -60,17 +63,69 @@ public class ModModelProvider extends AbstractModelProvider {
     public void addBlockModels(BlockModelGenerators blockModelGenerators) {
         this.createRedstoneLamp(ModBlocks.AMETHYST_LAMP.value(), blockModelGenerators);
         blockModelGenerators.createTrivialCube(ModBlocks.PATINA_BLOCK.value());
-        ResourceLocation resourceLocation = BUILTIN_GENERATED_TEMPLATE.create(ModBlocks.GLOW_STICK.value(),
-                TextureMapping.layer0(ModBlocks.GLOW_STICK.value().asItem()),
-                blockModelGenerators.modelOutput);
-        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.GLOW_STICK.value(),
-                Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createFacingDispatch()));
-        blockModelGenerators.skipAutoItemBlock(ModBlocks.GLOW_STICK.value());
+        this.createGlowStick(ModBlocks.GLOW_STICK.value(), blockModelGenerators);
         blockModelGenerators.createSimpleFlatItemModel(ModItems.COPPER_PATINA.value());
-        blockModelGenerators.createSimpleFlatItemModel(ModItems.ROPE.value());
         this.createPressurePlate(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value(), Blocks.OBSIDIAN, blockModelGenerators);
         blockModelGenerators.createActiveRail(ModBlocks.COPPER_RAIL.value());
         this.createHopper(ModBlocks.COPPER_HOPPER.value(), blockModelGenerators);
+        this.createRope(blockModelGenerators, ModBlocks.ROPE.value());
+    }
+
+    public final void createRope(BlockModelGenerators blockModelGenerators, Block block) {
+        ResourceLocation resourceLocation = CHAIN_TEMPLATE.create(block,
+                TextureMapping.cube(block),
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = ROPE_SIDE_TEMPLATE.createWithSuffix(block,
+                "_side",
+                TextureMapping.defaultTexture(Blocks.DARK_OAK_LOG),
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation3 = ROPE_KNOT_TEMPLATE.createWithSuffix(block,
+                "_knot",
+                TextureMapping.defaultTexture(block),
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(createRope(block,
+                resourceLocation,
+                resourceLocation2,
+                resourceLocation3));
+        blockModelGenerators.createSimpleFlatItemModel(block.asItem());
+    }
+
+    public static BlockStateGenerator createRope(Block block, ResourceLocation resourceLocation, ResourceLocation sideLocation, ResourceLocation knotLocation) {
+        return MultiPartGenerator.multiPart(block)
+                .with(Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.NORTH, true),
+                                Condition.condition().term(BlockStateProperties.EAST, true),
+                                Condition.condition().term(BlockStateProperties.SOUTH, true),
+                                Condition.condition().term(BlockStateProperties.WEST, true)),
+                        Variant.variant().with(VariantProperties.MODEL, knotLocation))
+                .with(Condition.condition().term(BlockStateProperties.NORTH, true),
+                        Variant.variant().with(VariantProperties.MODEL, sideLocation))
+                .with(Condition.condition().term(BlockStateProperties.EAST, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, sideLocation)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                .with(Condition.condition().term(BlockStateProperties.SOUTH, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, sideLocation)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .with(Condition.condition().term(BlockStateProperties.WEST, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, sideLocation)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));
+    }
+
+    public final void createGlowStick(Block block, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation resourceLocation = BUILTIN_GENERATED_TEMPLATE.create(block,
+                TextureMapping.layer0(block.asItem()),
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block,
+                Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createFacingDispatch()));
+        blockModelGenerators.skipAutoItemBlock(block);
+    }
+
+    public static TextureMapping ropeSide(Block block, Block sideBlock) {
+        return new TextureMapping().put(TextureSlot.SIDE, ModelLocationHelper.getBlockTexture(sideBlock))
+                .put(TextureSlot.TEXTURE, ModelLocationHelper.getBlockTexture(block));
     }
 
     public final void createPressurePlate(Block pressurePlateBlock, Block plateMaterialBlock, BlockModelGenerators blockModelGenerators) {

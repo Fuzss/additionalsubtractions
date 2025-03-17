@@ -1,0 +1,65 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/rope"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/rope_knot"
+      },
+      "when": {
+        "OR": [
+          {
+            "north": "true"
+          },
+          {
+            "east": "true"
+          },
+          {
+            "south": "true"
+          },
+          {
+            "west": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/rope_side"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/rope_side",
+        "y": 90
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/rope_side",
+        "y": 180
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/rope_side",
+        "y": 270
+      },
+      "when": {
+        "west": "true"
+      }
+    }
+  ]
+}

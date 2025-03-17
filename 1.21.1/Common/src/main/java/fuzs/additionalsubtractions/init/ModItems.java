@@ -52,7 +52,8 @@ public class ModItems {
             .saturationModifier(0.6F)
             .build();
 
-    public static final Holder.Reference<Item> ROPE = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.ROPE);
+    public static final Holder.Reference<Item> ROPE = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.ROPE,
+            RopeItem::new);
     public static final Holder.Reference<Item> AMETHYST_LAMP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.AMETHYST_LAMP);
     public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
             CopperPatinaItem::new);

@@ -24,6 +24,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -95,10 +96,12 @@ public class AdditionalSubtractions implements ModConstructor {
         PlayerInteractEvents.USE_ENTITY.register(BatBucketItem::onUseEntity);
         LootTableLoadEvents.MODIFY.register(ModLootTables::onModifyLootTable);
         EntityTickEvents.END.register((Entity entity) -> {
-            Collection<ItemStack> itemStacks = PocketJukeboxItem.getPocketJukeboxFromEntity(entity);
-            for (ItemStack itemStack : itemStacks) {
-                if (itemStack.is(ModItems.POCKET_JUKEBOX)) {
-                    itemStack.inventoryTick(entity.level(), entity, -1, false);
+            if (entity.level() instanceof ServerLevel serverLevel) {
+                Collection<ItemStack> itemStacks = PocketJukeboxItem.getPocketJukeboxFromEntity(entity);
+                for (ItemStack itemStack : itemStacks) {
+                    if (itemStack.is(ModItems.POCKET_JUKEBOX)) {
+                        PocketJukeboxItem.tick(itemStack, serverLevel, entity);
+                    }
                 }
             }
         });

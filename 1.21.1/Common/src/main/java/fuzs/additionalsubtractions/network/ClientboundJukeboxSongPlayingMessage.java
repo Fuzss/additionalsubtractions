@@ -34,8 +34,7 @@ public record ClientboundJukeboxSongPlayingMessage(int entityId,
                     PocketJukeboxSoundInstance soundInstance = ClientboundJukeboxSongMessage.PLAYING_POCKET_JUKEBOX_SONGS.get(
                             message.uuid());
                     if (soundInstance != null) {
-                        soundInstance.entity = entity;
-                        soundInstance.ticksSinceSongStarted = 0;
+                        soundInstance.setEntity(entity);
                     }
                 }
             }

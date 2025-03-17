@@ -44,26 +44,29 @@ public class PocketJukeboxItem extends BundleItem {
     @Override
     public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (level instanceof ServerLevel serverLevel) {
-            Long songStartedTime = itemStack.get(ModRegistry.POCKET_JUKEBOX_SONG_STARTED_TIME_DATA_COMPONENT_TYPE.value());
-            Optional<Holder<JukeboxSong>> optional = JukeboxSong.fromStack(serverLevel.registryAccess(),
-                    getJukeboxPlayableItem(itemStack));
-            UUID uuid = itemStack.get(ModRegistry.POCKET_JUKEBOX_UUID_DATA_COMPONENT_TYPE.value());
-            if (songStartedTime != null) {
-                if (optional.isPresent()) {
-                    if (songStartedTime != -1L) {
-                        long ticksSinceSongStarted = serverLevel.getGameTime() - songStartedTime;
-                        if (optional.get().value().hasFinished(ticksSinceSongStarted)) {
-                            PocketJukeboxSongPlayer.stop(itemStack, serverLevel, entity, uuid, true);
-                        } else {
-                            PocketJukeboxSongPlayer.tick(serverLevel, entity, ticksSinceSongStarted, uuid);
-                        }
+            tick(itemStack, serverLevel, entity);
+        }
+    }
+
+    public static void tick(ItemStack itemStack, ServerLevel serverLevel, Entity entity) {
+        Long songStartedTime = itemStack.get(ModRegistry.POCKET_JUKEBOX_SONG_STARTED_TIME_DATA_COMPONENT_TYPE.value());
+        Optional<Holder<JukeboxSong>> optional = JukeboxSong.fromStack(serverLevel.registryAccess(),
+                getJukeboxPlayableItem(itemStack));
+        if (songStartedTime != null) {
+            if (optional.isPresent()) {
+                if (songStartedTime != -1L) {
+                    long ticksSinceSongStarted = serverLevel.getGameTime() - songStartedTime;
+                    if (optional.get().value().hasFinished(ticksSinceSongStarted)) {
+                        PocketJukeboxSongPlayer.stop(itemStack, serverLevel, entity, true);
+                    } else {
+                        PocketJukeboxSongPlayer.tick(itemStack, serverLevel, entity, ticksSinceSongStarted);
                     }
-                } else {
-                    PocketJukeboxSongPlayer.stop(itemStack, serverLevel, entity, uuid, false);
                 }
-            } else if (optional.isPresent()) {
-                PocketJukeboxSongPlayer.play(itemStack, serverLevel, entity, uuid, optional);
+            } else {
+                PocketJukeboxSongPlayer.stop(itemStack, serverLevel, entity, false);
             }
+        } else if (optional.isPresent()) {
+            PocketJukeboxSongPlayer.play(itemStack, serverLevel, entity, optional);
         }
     }
 
