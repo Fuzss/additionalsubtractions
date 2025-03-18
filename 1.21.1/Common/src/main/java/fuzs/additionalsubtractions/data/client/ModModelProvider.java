@@ -3,7 +3,6 @@ package fuzs.additionalsubtractions.data.client;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
-import fuzs.additionalsubtractions.world.level.block.RedstoneCrossingBlock;
 import fuzs.puzzleslib.api.client.data.v2.AbstractModelProvider;
 import fuzs.puzzleslib.api.client.data.v2.models.ModelLocationHelper;
 import fuzs.puzzleslib.api.client.data.v2.models.ModelTemplateHelper;
@@ -89,14 +88,6 @@ public class ModModelProvider extends AbstractModelProvider {
             TextureSlot.UP,
             TextureSlot.DOWN,
             TextureSlot.TEXTURE);
-    public static final ModelTemplate REDSTONE_CROSSING_X_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
-            AdditionalSubtractions.id("template_redstone_crossing_x"),
-            TextureSlot.PARTICLE,
-            TextureSlot.TEXTURE);
-    public static final ModelTemplate REDSTONE_CROSSING_Z_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
-            AdditionalSubtractions.id("template_redstone_crossing_z"),
-            TextureSlot.PARTICLE,
-            TextureSlot.TEXTURE);
     public static final TexturedModel.Provider PEDESTAL_TEXTURE_MODEL = TexturedModel.createDefault(TextureMapping::column,
             PEDESTAL_TEMPLATE);
 
@@ -146,7 +137,6 @@ public class ModModelProvider extends AbstractModelProvider {
         blockModelGenerators.createTrivialBlock(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         this.createTimer(ModBlocks.TIMER.value(), blockModelGenerators);
         this.createBookshelfSwitch(ModBlocks.BOOKSHELF_SWITCH.value(), Blocks.OAK_PLANKS, blockModelGenerators);
-        this.createRedstoneCrossing(ModBlocks.REDSTONE_CROSSING.value(), blockModelGenerators);
     }
 
     public final void createRedstoneLamp(Block block, BlockModelGenerators blockModelGenerators) {
@@ -435,39 +425,6 @@ public class ModModelProvider extends AbstractModelProvider {
                         resourceLocation2,
                         resourceLocation))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));
-    }
-
-    public final void createRedstoneCrossing(Block block, BlockModelGenerators blockModelGenerators) {
-        TextureMapping textureMapping = TextureMapping.defaultTexture(ModelLocationHelper.getBlockTexture(block))
-                .put(TextureSlot.PARTICLE, ModelLocationHelper.getBlockTexture(Blocks.SMOOTH_STONE));
-        TextureMapping textureMapping1 = TextureMapping.defaultTexture(ModelLocationHelper.getBlockTexture(block,
-                "_on")).put(TextureSlot.PARTICLE, ModelLocationHelper.getBlockTexture(Blocks.SMOOTH_STONE));
-        ResourceLocation resourceLocation = REDSTONE_CROSSING_X_TEMPLATE.createWithSuffix(block,
-                "_x",
-                textureMapping,
-                blockModelGenerators.modelOutput);
-        ResourceLocation resourceLocation2 = REDSTONE_CROSSING_X_TEMPLATE.createWithSuffix(block,
-                "_x_on",
-                textureMapping1,
-                blockModelGenerators.modelOutput);
-        ResourceLocation resourceLocation3 = REDSTONE_CROSSING_Z_TEMPLATE.createWithSuffix(block,
-                "_z",
-                textureMapping,
-                blockModelGenerators.modelOutput);
-        ResourceLocation resourceLocation4 = REDSTONE_CROSSING_Z_TEMPLATE.createWithSuffix(block,
-                "_z_on",
-                textureMapping1,
-                blockModelGenerators.modelOutput);
-        blockModelGenerators.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
-                .with(Condition.condition().term(RedstoneCrossingBlock.POWERED_X, false),
-                        Variant.variant().with(VariantProperties.MODEL, resourceLocation))
-                .with(Condition.condition().term(RedstoneCrossingBlock.POWERED_X, true),
-                        Variant.variant().with(VariantProperties.MODEL, resourceLocation2))
-                .with(Condition.condition().term(RedstoneCrossingBlock.POWERED_Z, false),
-                        Variant.variant().with(VariantProperties.MODEL, resourceLocation3))
-                .with(Condition.condition().term(RedstoneCrossingBlock.POWERED_Z, true),
-                        Variant.variant().with(VariantProperties.MODEL, resourceLocation4)));
-        blockModelGenerators.createSimpleFlatItemModel(block.asItem());
     }
 
     @Override

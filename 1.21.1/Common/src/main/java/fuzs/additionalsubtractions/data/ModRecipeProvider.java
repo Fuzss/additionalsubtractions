@@ -263,13 +263,6 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern("###")
                 .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
                 .save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.REDSTONE_CROSSING.value())
-                .define('#', Items.STONE)
-                .define('X', Items.REDSTONE)
-                .pattern("XXX")
-                .pattern("###")
-                .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
-                .save(recipeOutput);
     }
 
     public static void pedestal(RecipeOutput recipeOutput, ItemLike resultItem, ItemLike blockItem, ItemLike slabItem) {
