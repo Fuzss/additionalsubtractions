@@ -83,6 +83,7 @@ public class ModRegistry {
 
     static final TagFactory TAGS = TagFactory.make(AdditionalSubtractions.MOD_ID);
     public static final TagKey<Block> ROTATABLE_BLOCK_TAG = TAGS.registerBlockTag("rotatable");
+    public static final TagKey<Block> PEDESTALS_BLOCK_TAG = TAGS.registerBlockTag("pedestals");
     public static final TagKey<Item> MUSIC_DISCS_ITEM_TAG = TagFactory.COMMON.registerItemTag("music_discs");
 
     public static void bootstrap() {

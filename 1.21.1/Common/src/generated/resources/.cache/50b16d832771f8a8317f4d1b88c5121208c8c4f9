@@ -1,8 +1,9 @@
-// 1.21.1	2025-03-16T22:35:15.51513	Tags for minecraft:block mod id vanilla
+// 1.21.1	2025-03-18T00:43:06.399341	Tags for minecraft:block mod id vanilla
+b446030df1799bc45c14731a8a95856bd616a9ba data/additionalsubtractions/tags/block/pedestals.json
 0af9bd6c682b1ff792a84663ee2ef4303502b74a data/additionalsubtractions/tags/block/rotatable.json
 aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/climbable.json
-aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/mineable/axe.json
-eb24a92f6bbdf89f4a1aea97d317e218822de184 data/minecraft/tags/block/mineable/pickaxe.json
+bcd115b2ac0289587ec359f98f502039c984c11a data/minecraft/tags/block/mineable/axe.json
+d80ffdfd32c1d55da2e8386f91281af2231b9e03 data/minecraft/tags/block/mineable/pickaxe.json
 f64d0583ef39a75abad841339f38620e83797668 data/minecraft/tags/block/pressure_plates.json
 ec0719ef1a1c71e717b0475f091e4a849a3c80b2 data/minecraft/tags/block/rails.json
-aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/sword_efficient.json
+bcd115b2ac0289587ec359f98f502039c984c11a data/minecraft/tags/block/sword_efficient.json

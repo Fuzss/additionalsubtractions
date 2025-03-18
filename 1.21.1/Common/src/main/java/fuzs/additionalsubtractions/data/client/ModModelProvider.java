@@ -30,17 +30,20 @@ import java.util.Optional;
 public class ModModelProvider extends AbstractModelProvider {
     public static final ModelTemplate BUILTIN_GENERATED_TEMPLATE = new ModelTemplate(Optional.of(ResourceLocationHelper.withDefaultNamespace(
             "builtin/generated")), Optional.empty(), TextureSlot.LAYER0);
-    public static final ModelTemplate HOPPER_TEMPLATE = ModelTemplates.create("hopper",
+    public static final ModelTemplate HOPPER_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            ResourceLocationHelper.withDefaultNamespace("hopper"),
             TextureSlot.PARTICLE,
             TextureSlot.SIDE,
             TextureSlot.TOP,
             TextureSlot.INSIDE);
-    public static final ModelTemplate HOPPER_SIDE_TEMPLATE = ModelTemplates.create("hopper_side",
+    public static final ModelTemplate HOPPER_SIDE_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            ResourceLocationHelper.withDefaultNamespace("hopper_side"),
             TextureSlot.PARTICLE,
             TextureSlot.SIDE,
             TextureSlot.TOP,
             TextureSlot.INSIDE);
-    public static final ModelTemplate CHAIN_TEMPLATE = ModelTemplates.create("chain",
+    public static final ModelTemplate CHAIN_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            ResourceLocationHelper.withDefaultNamespace("chain"),
             TextureSlot.PARTICLE,
             TextureSlot.ALL);
     public static final ModelTemplate ROPE_KNOT_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
@@ -49,6 +52,13 @@ public class ModModelProvider extends AbstractModelProvider {
     public static final ModelTemplate ROPE_SIDE_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
             AdditionalSubtractions.id("template_rope_side"),
             TextureSlot.TEXTURE);
+    public static final ModelTemplate PEDESTAL_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_pedestal"),
+            TextureSlot.BOTTOM,
+            TextureSlot.TOP,
+            TextureSlot.SIDE);
+    public static final TexturedModel.Provider PEDESTAL_TEXTURE_MODEL = TexturedModel.createDefault(TextureMapping::column,
+            PEDESTAL_TEMPLATE);
 
     public ModModelProvider(DataProviderContext context) {
         super(context);
@@ -64,11 +74,53 @@ public class ModModelProvider extends AbstractModelProvider {
         this.createRedstoneLamp(ModBlocks.AMETHYST_LAMP.value(), blockModelGenerators);
         blockModelGenerators.createTrivialCube(ModBlocks.PATINA_BLOCK.value());
         this.createGlowStick(ModBlocks.GLOW_STICK.value(), blockModelGenerators);
-        blockModelGenerators.createSimpleFlatItemModel(ModItems.COPPER_PATINA.value());
         this.createPressurePlate(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value(), Blocks.OBSIDIAN, blockModelGenerators);
         blockModelGenerators.createActiveRail(ModBlocks.COPPER_RAIL.value());
         this.createHopper(ModBlocks.COPPER_HOPPER.value(), blockModelGenerators);
         this.createRope(blockModelGenerators, ModBlocks.ROPE.value());
+        blockModelGenerators.createPumpkinVariant(ModBlocks.SOUL_JACK_O_LANTERN.value(),
+                TextureMapping.column(Blocks.PUMPKIN));
+        this.createRedstoneJackOLantern(ModBlocks.REDSTONE_JACK_O_LANTERN.value(), blockModelGenerators);
+        blockModelGenerators.createLantern(ModBlocks.REDSTONE_LANTERN.value());
+        blockModelGenerators.createTrivialBlock(ModBlocks.POLISHED_ANDESITE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.POLISHED_GRANITE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.POLISHED_DIORITE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.STONE_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.MOSSY_STONE_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.CRACKED_STONE_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.CUT_SANDSTONE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        this.createPedestal(ModBlocks.CHISELED_SANDSTONE_PEDESTAL.value(),
+                ModBlocks.CUT_SANDSTONE_PEDESTAL.value(),
+                blockModelGenerators);
+        this.createPedestal(ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL.value(),
+                ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(),
+                blockModelGenerators);
+        blockModelGenerators.createTrivialBlock(ModBlocks.PRISMARINE_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.BLACKSTONE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.NETHER_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        blockModelGenerators.createTrivialBlock(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+    }
+
+    public final void createRedstoneLamp(Block block, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation resourceLocation = TexturedModel.CUBE.create(block, blockModelGenerators.modelOutput);
+        ResourceLocation litResourceLocation = blockModelGenerators.createSuffixedVariant(block,
+                "_on",
+                ModelTemplates.CUBE_ALL,
+                TextureMapping::cube);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(BlockModelGenerators.createBooleanModelDispatch(BlockStateProperties.LIT,
+                        litResourceLocation,
+                        resourceLocation)));
+    }
+
+    public final void createGlowStick(Block block, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation resourceLocation = BUILTIN_GENERATED_TEMPLATE.create(block,
+                TextureMapping.layer0(block.asItem()),
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block,
+                Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createFacingDispatch()));
+        blockModelGenerators.skipAutoItemBlock(block);
     }
 
     public final void createRope(BlockModelGenerators blockModelGenerators, Block block) {
@@ -112,20 +164,6 @@ public class ModModelProvider extends AbstractModelProvider {
                         Variant.variant()
                                 .with(VariantProperties.MODEL, sideLocation)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));
-    }
-
-    public final void createGlowStick(Block block, BlockModelGenerators blockModelGenerators) {
-        ResourceLocation resourceLocation = BUILTIN_GENERATED_TEMPLATE.create(block,
-                TextureMapping.layer0(block.asItem()),
-                blockModelGenerators.modelOutput);
-        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block,
-                Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createFacingDispatch()));
-        blockModelGenerators.skipAutoItemBlock(block);
-    }
-
-    public static TextureMapping ropeSide(Block block, Block sideBlock) {
-        return new TextureMapping().put(TextureSlot.SIDE, ModelLocationHelper.getBlockTexture(sideBlock))
-                .put(TextureSlot.TEXTURE, ModelLocationHelper.getBlockTexture(block));
     }
 
     public final void createPressurePlate(Block pressurePlateBlock, Block plateMaterialBlock, BlockModelGenerators blockModelGenerators) {
@@ -255,6 +293,22 @@ public class ModModelProvider extends AbstractModelProvider {
                                         .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))));
     }
 
+    public final void createRedstoneJackOLantern(Block block, BlockModelGenerators blockModelGenerators) {
+        TextureMapping columnTextureMapping = TextureMapping.column(Blocks.PUMPKIN);
+        ResourceLocation resourceLocation = ModelTemplates.CUBE_ORIENTABLE.create(block,
+                columnTextureMapping.copyAndUpdate(TextureSlot.FRONT, TextureMapping.getBlockTexture(block)),
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = ModelTemplates.CUBE_ORIENTABLE.createWithSuffix(block,
+                "_on",
+                columnTextureMapping.copyAndUpdate(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_on")),
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(BlockModelGenerators.createBooleanModelDispatch(BlockStateProperties.LIT,
+                        resourceLocation2,
+                        resourceLocation)));
+    }
+
     public static PropertyDispatch createFacingDispatch() {
         return PropertyDispatch.property(BlockStateProperties.FACING)
                 .select(Direction.UP,
@@ -274,16 +328,13 @@ public class ModModelProvider extends AbstractModelProvider {
                         Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90));
     }
 
-    public final void createRedstoneLamp(Block block, BlockModelGenerators blockModelGenerators) {
-        ResourceLocation resourceLocation = TexturedModel.CUBE.create(block, blockModelGenerators.modelOutput);
-        ResourceLocation litResourceLocation = blockModelGenerators.createSuffixedVariant(block,
-                "_on",
-                ModelTemplates.CUBE_ALL,
-                TextureMapping::cube);
-        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(BlockModelGenerators.createBooleanModelDispatch(BlockStateProperties.LIT,
-                        litResourceLocation,
-                        resourceLocation)));
+    public final void createPedestal(Block block, Block topBlock, BlockModelGenerators blockModelGenerators) {
+        TextureMapping textureMapping = TextureMapping.column(block)
+                .put(TextureSlot.END, ModelLocationHelper.getBlockTexture(topBlock, "_top"));
+        ResourceLocation resourceLocation = PEDESTAL_TEMPLATE.create(block,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, resourceLocation));
     }
 
     @Override
@@ -293,6 +344,7 @@ public class ModModelProvider extends AbstractModelProvider {
         this.skipItem(ModItems.DEPTH_METER.value());
         this.skipItem(ModItems.POCKET_JUKEBOX.value());
 
+        itemModelGenerators.generateFlatItem(ModItems.COPPER_PATINA.value(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.GLOW_STICK.value(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.SWEET_BERRY_PIE.value(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.CHICKEN_NUGGET.value(), ModelTemplates.FLAT_ITEM);

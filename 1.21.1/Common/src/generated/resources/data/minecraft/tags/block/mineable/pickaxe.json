@@ -3,6 +3,8 @@
     "additionalsubtractions:amethyst_lamp",
     "minecraft:redstone_lamp",
     "additionalsubtractions:obsidian_pressure_plate",
-    "additionalsubtractions:copper_hopper"
+    "additionalsubtractions:copper_hopper",
+    "additionalsubtractions:redstone_lantern",
+    "#additionalsubtractions:pedestals"
   ]
 }

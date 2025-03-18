@@ -29,6 +29,24 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.addBlock(ModBlocks.OBSIDIAN_PRESSURE_PLATE, "Obsidian Pressure Plate");
         translationBuilder.add(ModBlocks.COPPER_RAIL.value(), "Copper Rail");
         translationBuilder.add(ModBlocks.COPPER_HOPPER.value(), "Copper Hopper");
+        translationBuilder.add(ModBlocks.SOUL_JACK_O_LANTERN.value(), "Soul Jack o'Lantern");
+        translationBuilder.add(ModBlocks.REDSTONE_JACK_O_LANTERN.value(), "Redstone Jack o'Lantern");
+        translationBuilder.add(ModBlocks.REDSTONE_LANTERN.value(), "Redstone Lantern");
+        translationBuilder.add(ModBlocks.POLISHED_ANDESITE_PEDESTAL.value(), "Polished Andesite Pedestal");
+        translationBuilder.add(ModBlocks.POLISHED_GRANITE_PEDESTAL.value(), "Polished Granite Pedestal");
+        translationBuilder.add(ModBlocks.POLISHED_DIORITE_PEDESTAL.value(), "Polished Diorite Pedestal");
+        translationBuilder.add(ModBlocks.STONE_BRICK_PEDESTAL.value(), "Stone Brick Pedestal");
+        translationBuilder.add(ModBlocks.MOSSY_STONE_BRICK_PEDESTAL.value(), "Mossy Stone Brick Pedestal");
+        translationBuilder.add(ModBlocks.CRACKED_STONE_BRICK_PEDESTAL.value(), "Cracked Stone Brick Pedestal");
+        translationBuilder.add(ModBlocks.CUT_SANDSTONE_PEDESTAL.value(), "Cut Sandstone Pedestal");
+        translationBuilder.add(ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(), "Cut Red Sandstone Pedestal");
+        translationBuilder.add(ModBlocks.CHISELED_SANDSTONE_PEDESTAL.value(), "Chiseled Sandstone Pedestal");
+        translationBuilder.add(ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL.value(), "Chiseled Red Sandstone Pedestal");
+        translationBuilder.add(ModBlocks.PRISMARINE_BRICK_PEDESTAL.value(), "Prismarine Brick Pedestal");
+        translationBuilder.add(ModBlocks.BLACKSTONE_PEDESTAL.value(), "Blackstone Pedestal");
+        translationBuilder.add(ModBlocks.NETHER_BRICK_PEDESTAL.value(), "Nether Brick Pedestal");
+        translationBuilder.add(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), "Purpur Block Pedestal");
+
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
         translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");
         translationBuilder.add(ModRegistry.COPPER_HOPPER_MINECART_ENTITY_TYPE.value(), "Minecart with Copper Hopper");

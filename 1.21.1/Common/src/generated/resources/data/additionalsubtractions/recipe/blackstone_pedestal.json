@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:blackstone"
+    },
+    "X": {
+      "item": "minecraft:blackstone_slab"
+    }
+  },
+  "pattern": [
+    "XXX",
+    " # ",
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "additionalsubtractions:blackstone_pedestal"
+  }
+}

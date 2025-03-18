@@ -179,6 +179,81 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .requires(Items.MINECART)
                 .unlockedBy(getHasName(Items.MINECART), has(Items.MINECART))
                 .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.SOUL_JACK_O_LANTERN.value())
+                .define('#', Items.CARVED_PUMPKIN)
+                .define('X', Items.SOUL_TORCH)
+                .pattern("X")
+                .pattern("#")
+                .unlockedBy(getHasName(Items.CARVED_PUMPKIN), has(Items.CARVED_PUMPKIN))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.REDSTONE_JACK_O_LANTERN.value())
+                .define('#', Items.CARVED_PUMPKIN)
+                .define('X', Items.REDSTONE_TORCH)
+                .pattern("X")
+                .pattern("#")
+                .unlockedBy(getHasName(Items.CARVED_PUMPKIN), has(Items.CARVED_PUMPKIN))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.REDSTONE_LANTERN.value())
+                .define('#', Items.REDSTONE_TORCH)
+                .define('X', Items.IRON_NUGGET)
+                .pattern("XXX")
+                .pattern("X#X")
+                .pattern("XXX")
+                .unlockedBy(getHasName(Items.IRON_NUGGET), has(Items.IRON_NUGGET))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                .save(recipeOutput);
+        pedestal(recipeOutput,
+                ModItems.POLISHED_ANDESITE_PEDESTAL.value(),
+                Items.POLISHED_ANDESITE,
+                Items.POLISHED_ANDESITE_SLAB);
+        pedestal(recipeOutput,
+                ModItems.POLISHED_GRANITE_PEDESTAL.value(),
+                Items.POLISHED_GRANITE,
+                Items.POLISHED_GRANITE_SLAB);
+        pedestal(recipeOutput,
+                ModItems.POLISHED_DIORITE_PEDESTAL.value(),
+                Items.POLISHED_DIORITE,
+                Items.POLISHED_DIORITE_SLAB);
+        pedestal(recipeOutput, ModItems.STONE_BRICK_PEDESTAL.value(), Items.STONE_BRICKS, Items.STONE_BRICK_SLAB);
+        pedestal(recipeOutput,
+                ModItems.MOSSY_STONE_BRICK_PEDESTAL.value(),
+                Items.MOSSY_STONE_BRICKS,
+                Items.MOSSY_STONE_BRICK_SLAB);
+        pedestal(recipeOutput,
+                ModItems.CRACKED_STONE_BRICK_PEDESTAL.value(),
+                Items.CRACKED_STONE_BRICKS,
+                Items.STONE_BRICK_SLAB);
+        pedestal(recipeOutput, ModItems.CUT_SANDSTONE_PEDESTAL.value(), Items.CUT_SANDSTONE, Items.CUT_STANDSTONE_SLAB);
+        pedestal(recipeOutput,
+                ModItems.CUT_RED_SANDSTONE_PEDESTAL.value(),
+                Items.CUT_RED_SANDSTONE,
+                Items.CUT_RED_SANDSTONE_SLAB);
+        pedestal(recipeOutput,
+                ModItems.CHISELED_SANDSTONE_PEDESTAL.value(),
+                Items.CHISELED_SANDSTONE,
+                Items.CUT_STANDSTONE_SLAB);
+        pedestal(recipeOutput,
+                ModItems.CHISELED_RED_SANDSTONE_PEDESTAL.value(),
+                Items.CHISELED_RED_SANDSTONE,
+                Items.CUT_RED_SANDSTONE_SLAB);
+        pedestal(recipeOutput,
+                ModItems.PRISMARINE_BRICK_PEDESTAL.value(),
+                Items.PRISMARINE_BRICKS,
+                Items.PRISMARINE_BRICK_SLAB);
+        pedestal(recipeOutput, ModItems.BLACKSTONE_PEDESTAL.value(), Items.BLACKSTONE, Items.BLACKSTONE_SLAB);
+        pedestal(recipeOutput, ModItems.NETHER_BRICK_PEDESTAL.value(), Items.NETHER_BRICKS, Items.NETHER_BRICK_SLAB);
+        pedestal(recipeOutput, ModItems.PURPUR_BLOCK_PEDESTAL.value(), Items.PURPUR_BLOCK, Items.PURPUR_SLAB);
+    }
+
+    public static void pedestal(RecipeOutput recipeOutput, ItemLike resultItem, ItemLike blockItem, ItemLike slabItem) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, resultItem, 4)
+                .define('#', blockItem)
+                .define('X', slabItem)
+                .pattern("XXX")
+                .pattern(" # ")
+                .pattern("XXX")
+                .unlockedBy(getHasName(blockItem), has(blockItem))
+                .save(recipeOutput);
     }
 
     public static void roseGoldSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {

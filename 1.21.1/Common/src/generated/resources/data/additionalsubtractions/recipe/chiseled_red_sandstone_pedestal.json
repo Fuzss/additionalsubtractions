@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:chiseled_red_sandstone"
+    },
+    "X": {
+      "item": "minecraft:cut_red_sandstone_slab"
+    }
+  },
+  "pattern": [
+    "XXX",
+    " # ",
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "additionalsubtractions:chiseled_red_sandstone_pedestal"
+  }
+}

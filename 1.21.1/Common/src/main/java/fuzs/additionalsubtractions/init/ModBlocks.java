@@ -3,6 +3,7 @@ package fuzs.additionalsubtractions.init;
 import com.google.common.collect.ImmutableSet;
 import fuzs.additionalsubtractions.world.level.block.*;
 import fuzs.additionalsubtractions.world.level.block.entity.CopperHopperBlockEntity;
+import fuzs.additionalsubtractions.world.level.block.entity.PedestalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -88,10 +89,98 @@ public class ModBlocks {
                     .strength(3.0F, 4.8F)
                     .sound(SoundType.COPPER)
                     .noOcclusion());
+    public static final Holder.Reference<Block> SOUL_JACK_O_LANTERN = ModRegistry.REGISTRIES.registerBlock(
+            "soul_jack_o_lantern",
+            CarvedPumpkinBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.JACK_O_LANTERN));
+    public static final Holder.Reference<Block> REDSTONE_JACK_O_LANTERN = ModRegistry.REGISTRIES.registerBlock(
+            "redstone_jack_o_lantern",
+            RedstoneCarvedPumpkinBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.JACK_O_LANTERN)
+                    .lightLevel(Blocks.litBlockEmission(15))
+                    .isRedstoneConductor(Blocks::never));
+    public static final Holder.Reference<Block> REDSTONE_LANTERN = ModRegistry.REGISTRIES.registerBlock(
+            "redstone_lantern",
+            RedstoneLanternBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN)
+                    .lightLevel((BlockState blockState) -> blockState.getValue(BlockStateProperties.POWER)));
+    public static final Holder.Reference<Block> POLISHED_ANDESITE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "polished_andesite_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE).forceSolidOn());
+    public static final Holder.Reference<Block> POLISHED_GRANITE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "polished_granite_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE).forceSolidOn());
+    public static final Holder.Reference<Block> POLISHED_DIORITE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "polished_diorite_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DIORITE).forceSolidOn());
+    public static final Holder.Reference<Block> STONE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "stone_brick_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).forceSolidOn());
+    public static final Holder.Reference<Block> MOSSY_STONE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "mossy_stone_brick_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.MOSSY_STONE_BRICKS).forceSolidOn());
+    public static final Holder.Reference<Block> CRACKED_STONE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "cracked_stone_brick_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.CRACKED_STONE_BRICKS).forceSolidOn());
+    public static final Holder.Reference<Block> CUT_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "cut_sandstone_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).forceSolidOn());
+    public static final Holder.Reference<Block> CUT_RED_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "cut_red_sandstone_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.RED_SANDSTONE).forceSolidOn());
+    public static final Holder.Reference<Block> CHISELED_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "chiseled_sandstone_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.CHISELED_SANDSTONE).forceSolidOn());
+    public static final Holder.Reference<Block> CHISELED_RED_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "chiseled_red_sandstone_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.CHISELED_RED_SANDSTONE).forceSolidOn());
+    public static final Holder.Reference<Block> PRISMARINE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "prismarine_brick_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE).forceSolidOn());
+    public static final Holder.Reference<Block> BLACKSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "blackstone_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.BLACKSTONE).forceSolidOn());
+    public static final Holder.Reference<Block> NETHER_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "nether_brick_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS).forceSolidOn());
+    public static final Holder.Reference<Block> PURPUR_BLOCK_PEDESTAL = ModRegistry.REGISTRIES.registerBlock(
+            "purpur_block_pedestal",
+            PedestalBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).forceSolidOn());
 
     public static final Holder.Reference<BlockEntityType<CopperHopperBlockEntity>> COPPER_HOPPER_BLOCK_ENTITY_TYPE = ModRegistry.REGISTRIES.registerBlockEntityType(
             "copper_hopper",
             () -> BlockEntityType.Builder.of(CopperHopperBlockEntity::new, COPPER_HOPPER.value()));
+    public static final Holder.Reference<BlockEntityType<PedestalBlockEntity>> PEDESTAL_BLOCK_ENTITY = ModRegistry.REGISTRIES.registerBlockEntityType(
+            "pedestal",
+            () -> BlockEntityType.Builder.of(PedestalBlockEntity::new,
+                    POLISHED_ANDESITE_PEDESTAL.value(),
+                    POLISHED_GRANITE_PEDESTAL.value(),
+                    POLISHED_DIORITE_PEDESTAL.value(),
+                    STONE_BRICK_PEDESTAL.value(),
+                    MOSSY_STONE_BRICK_PEDESTAL.value(),
+                    CRACKED_STONE_BRICK_PEDESTAL.value(),
+                    CUT_SANDSTONE_PEDESTAL.value(),
+                    CUT_RED_SANDSTONE_PEDESTAL.value(),
+                    CHISELED_SANDSTONE_PEDESTAL.value(),
+                    CHISELED_RED_SANDSTONE_PEDESTAL.value(),
+                    PRISMARINE_BRICK_PEDESTAL.value(),
+                    BLACKSTONE_PEDESTAL.value(),
+                    NETHER_BRICK_PEDESTAL.value(),
+                    PURPUR_BLOCK_PEDESTAL.value()));
 
     public static final Holder.Reference<PoiType> AMETHYST_LAMP_POI_TYPE = ModRegistry.REGISTRIES.registerPoiType(
             "amethyst_lamp",

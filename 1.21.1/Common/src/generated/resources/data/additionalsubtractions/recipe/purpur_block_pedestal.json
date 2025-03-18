@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:purpur_block"
+    },
+    "X": {
+      "item": "minecraft:purpur_slab"
+    }
+  },
+  "pattern": [
+    "XXX",
+    " # ",
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "additionalsubtractions:purpur_block_pedestal"
+  }
+}

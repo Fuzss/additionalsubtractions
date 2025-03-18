@@ -55,15 +55,45 @@ public class ModItems {
     public static final Holder.Reference<Item> ROPE = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.ROPE,
             RopeItem::new);
     public static final Holder.Reference<Item> AMETHYST_LAMP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.AMETHYST_LAMP);
-    public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
-            CopperPatinaItem::new);
     public static final Holder.Reference<Item> PATINA_BLOCK = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.PATINA_BLOCK);
     public static final Holder.Reference<Item> OBSIDIAN_PRESSURE_PLATE = ModRegistry.REGISTRIES.registerBlockItem(
             ModBlocks.OBSIDIAN_PRESSURE_PLATE);
     public static final Holder.Reference<Item> COPPER_RAIL = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.COPPER_RAIL);
     public static final Holder.Reference<Item> COPPER_HOPPER = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.COPPER_HOPPER,
             () -> new Item.Properties().component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
+    public static final Holder.Reference<Item> SOUL_JACK_O_LANTERN = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.SOUL_JACK_O_LANTERN);
+    public static final Holder.Reference<Item> REDSTONE_JACK_O_LANTERN = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.REDSTONE_JACK_O_LANTERN);
+    public static final Holder.Reference<Item> REDSTONE_LANTERN = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.REDSTONE_LANTERN);
+    public static final Holder.Reference<Item> POLISHED_ANDESITE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.POLISHED_ANDESITE_PEDESTAL);
+    public static final Holder.Reference<Item> POLISHED_GRANITE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.POLISHED_GRANITE_PEDESTAL);
+    public static final Holder.Reference<Item> POLISHED_DIORITE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.POLISHED_DIORITE_PEDESTAL);
+    public static final Holder.Reference<Item> STONE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.STONE_BRICK_PEDESTAL);
+    public static final Holder.Reference<Item> MOSSY_STONE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.MOSSY_STONE_BRICK_PEDESTAL);
+    public static final Holder.Reference<Item> CRACKED_STONE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.CRACKED_STONE_BRICK_PEDESTAL);
+    public static final Holder.Reference<Item> CUT_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.CUT_SANDSTONE_PEDESTAL);
+    public static final Holder.Reference<Item> CUT_RED_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.CUT_RED_SANDSTONE_PEDESTAL);
+    public static final Holder.Reference<Item> CHISELED_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.CHISELED_SANDSTONE_PEDESTAL);
+    public static final Holder.Reference<Item> CHISELED_RED_SANDSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL);
+    public static final Holder.Reference<Item> PRISMARINE_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.PRISMARINE_BRICK_PEDESTAL);
+    public static final Holder.Reference<Item> BLACKSTONE_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.BLACKSTONE_PEDESTAL);
+    public static final Holder.Reference<Item> NETHER_BRICK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.NETHER_BRICK_PEDESTAL);
+    public static final Holder.Reference<Item> PURPUR_BLOCK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.PURPUR_BLOCK_PEDESTAL);
 
+    public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
+            CopperPatinaItem::new);
     public static final Holder.Reference<Item> WATERING_CAN = ModRegistry.REGISTRIES.registerItem("watering_can",
             WateringCanItem::new,
             () -> new Item.Properties().stacksTo(1));

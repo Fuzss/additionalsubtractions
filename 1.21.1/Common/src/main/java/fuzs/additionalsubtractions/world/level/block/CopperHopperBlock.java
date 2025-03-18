@@ -1,5 +1,6 @@
 package fuzs.additionalsubtractions.world.level.block;
 
+import com.mojang.serialization.MapCodec;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.world.level.block.entity.CopperHopperBlockEntity;
 import fuzs.puzzleslib.api.block.v1.entity.TickingEntityBlock;
@@ -14,9 +15,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class CopperHopperBlock extends HopperBlock implements TickingEntityBlock<CopperHopperBlockEntity> {
+    public static final MapCodec<HopperBlock> CODEC = simpleCodec(CopperHopperBlock::new);
 
     public CopperHopperBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public MapCodec<HopperBlock> codec() {
+        return CODEC;
     }
 
     @Override

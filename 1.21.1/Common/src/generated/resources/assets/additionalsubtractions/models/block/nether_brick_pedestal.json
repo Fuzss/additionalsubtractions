@@ -1,0 +1,8 @@
+{
+  "parent": "additionalsubtractions:block/template_pedestal",
+  "textures": {
+    "bottom": "additionalsubtractions:block/nether_brick_pedestal_top",
+    "side": "additionalsubtractions:block/nether_brick_pedestal_side",
+    "top": "additionalsubtractions:block/nether_brick_pedestal_top"
+  }
+}

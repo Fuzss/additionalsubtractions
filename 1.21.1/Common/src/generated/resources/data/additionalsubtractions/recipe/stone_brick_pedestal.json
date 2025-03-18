@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:stone_bricks"
+    },
+    "X": {
+      "item": "minecraft:stone_brick_slab"
+    }
+  },
+  "pattern": [
+    "XXX",
+    " # ",
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "additionalsubtractions:stone_brick_pedestal"
+  }
+}

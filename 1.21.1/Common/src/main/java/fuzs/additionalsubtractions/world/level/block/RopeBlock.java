@@ -2,6 +2,7 @@ package fuzs.additionalsubtractions.world.level.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import fuzs.puzzleslib.api.shape.v1.ShapesHelper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -33,22 +34,17 @@ import org.joml.Quaternionf;
 import java.util.Map;
 
 public class RopeBlock extends Block implements SimpleWaterloggedBlock {
+    public static final MapCodec<RopeBlock> CODEC = simpleCodec(RopeBlock::new);
     public static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
-    public static final VoxelShape NORTH_SIDE_SHAPE = Block.box(7.0, 13.0, 0.0, 9.0, 15.0, 6.0);
-    public static final VoxelShape SOUTH_SIDE_SHAPE = ShapesHelper.rotate(new Quaternionf().rotationY(Mth.PI),
-            NORTH_SIDE_SHAPE);
-    public static final VoxelShape WEST_SIDE_SHAPE = ShapesHelper.rotate(new Quaternionf().rotationY(Mth.HALF_PI),
-            NORTH_SIDE_SHAPE);
-    public static final VoxelShape EAST_SIDE_SHAPE = ShapesHelper.rotate(new Quaternionf().rotationY(-Mth.HALF_PI),
-            NORTH_SIDE_SHAPE);
+    public static final VoxelShape SIDE_SHAPE = Block.box(7.0, 13.0, 0.0, 9.0, 15.0, 6.0);
     public static final Map<Direction, VoxelShape> SIDE_SHAPES = Maps.immutableEnumMap(ImmutableMap.of(Direction.NORTH,
-            NORTH_SIDE_SHAPE,
+            SIDE_SHAPE,
             Direction.SOUTH,
-            SOUTH_SIDE_SHAPE,
+            ShapesHelper.rotate(new Quaternionf().rotationY(Mth.PI), SIDE_SHAPE),
             Direction.WEST,
-            WEST_SIDE_SHAPE,
+            ShapesHelper.rotate(new Quaternionf().rotationY(Mth.HALF_PI), SIDE_SHAPE),
             Direction.EAST,
-            EAST_SIDE_SHAPE));
+            ShapesHelper.rotate(new Quaternionf().rotationY(-Mth.HALF_PI), SIDE_SHAPE)));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -73,16 +69,21 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
+    @Override
+    public MapCodec<? extends RopeBlock> codec() {
+        return CODEC;
+    }
+
     private VoxelShape[] makeShapes() {
         VoxelShape[] shapeByIndex = new VoxelShape[16];
-        for (int i = 0; i < this.shapeByIndex.length; i++) {
+        for (int i = 0; i < shapeByIndex.length; i++) {
             VoxelShape voxelShape = SHAPE;
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 if ((indexFor(direction) & i) == indexFor(direction)) {
                     voxelShape = Shapes.or(voxelShape, SIDE_SHAPES.get(direction));
                 }
             }
-            this.shapeByIndex[i] = voxelShape;
+            shapeByIndex[i] = voxelShape;
         }
         return shapeByIndex;
     }
@@ -202,7 +203,7 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
             return state;
         } else if (direction.getAxis().getPlane() == Direction.Plane.HORIZONTAL) {
             return state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction),
-                    !this.hasSupportAbove(level, neighborState, neighborPos) &&
+                    !this.hasSupportAbove(level, pos) &&
                             this.isFaceSturdy(level, neighborState, neighborPos, direction, SupportType.FULL));
         } else {
             return super.updateShape(state, direction, neighborState, level, pos, neighborPos);

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:carved_pumpkin"
+    },
+    "X": {
+      "item": "minecraft:soul_torch"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "additionalsubtractions:soul_jack_o_lantern"
+  }
+}

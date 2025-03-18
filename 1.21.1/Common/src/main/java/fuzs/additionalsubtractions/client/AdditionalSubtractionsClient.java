@@ -3,15 +3,13 @@ package fuzs.additionalsubtractions.client;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.client.handler.CrossbowInHandHandler;
 import fuzs.additionalsubtractions.client.init.ModModelLayerLocations;
+import fuzs.additionalsubtractions.client.renderer.blockentity.PedestalRenderer;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.additionalsubtractions.world.item.PocketJukeboxItem;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
-import fuzs.puzzleslib.api.client.core.v1.context.EntityRenderersContext;
-import fuzs.puzzleslib.api.client.core.v1.context.ItemModelPropertiesContext;
-import fuzs.puzzleslib.api.client.core.v1.context.LayerDefinitionsContext;
-import fuzs.puzzleslib.api.client.core.v1.context.RenderTypesContext;
+import fuzs.puzzleslib.api.client.core.v1.context.*;
 import fuzs.puzzleslib.api.client.event.v1.renderer.RenderHandEvents;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import net.minecraft.client.model.MinecartModel;
@@ -63,12 +61,18 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
     }
 
     @Override
+    public void onRegisterBlockEntityRenderers(BlockEntityRenderersContext context) {
+        context.registerBlockEntityRenderer(ModBlocks.PEDESTAL_BLOCK_ENTITY.value(), PedestalRenderer::new);
+    }
+
+    @Override
     public void onRegisterBlockRenderTypes(RenderTypesContext<Block> context) {
         context.registerRenderType(RenderType.cutout(),
                 ModBlocks.ROPE.value(),
                 ModBlocks.GLOW_STICK.value(),
                 ModBlocks.COPPER_RAIL.value(),
-                ModBlocks.COPPER_HOPPER.value());
+                ModBlocks.COPPER_HOPPER.value(),
+                ModBlocks.REDSTONE_LANTERN.value());
     }
 
     @Override

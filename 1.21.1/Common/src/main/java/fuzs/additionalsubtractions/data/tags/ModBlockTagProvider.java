@@ -19,13 +19,21 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
     @Override
     public void addTags(HolderLookup.Provider provider) {
         this.add(BlockTags.CLIMBABLE).add(ModBlocks.ROPE.value());
-        this.add(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.ROPE.value());
-        this.add(BlockTags.SWORD_EFFICIENT).add(ModBlocks.ROPE.value());
+        this.add(BlockTags.MINEABLE_WITH_AXE)
+                .add(ModBlocks.ROPE.value(),
+                        ModBlocks.SOUL_JACK_O_LANTERN.value(),
+                        ModBlocks.REDSTONE_JACK_O_LANTERN.value());
+        this.add(BlockTags.SWORD_EFFICIENT)
+                .add(ModBlocks.ROPE.value(),
+                        ModBlocks.SOUL_JACK_O_LANTERN.value(),
+                        ModBlocks.REDSTONE_JACK_O_LANTERN.value());
         this.add(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.AMETHYST_LAMP.value(),
                         Blocks.REDSTONE_LAMP,
                         ModBlocks.OBSIDIAN_PRESSURE_PLATE.value(),
-                        ModBlocks.COPPER_HOPPER.value());
+                        ModBlocks.COPPER_HOPPER.value(),
+                        ModBlocks.REDSTONE_LANTERN.value())
+                .addTag(ModRegistry.PEDESTALS_BLOCK_TAG);
         this.add(BlockTags.PRESSURE_PLATES).add(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value());
         this.add(BlockTags.RAILS).add(ModBlocks.COPPER_RAIL.value());
         this.add(ModRegistry.ROTATABLE_BLOCK_TAG)
@@ -99,5 +107,20 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
                         Blocks.GREEN_GLAZED_TERRACOTTA,
                         Blocks.RED_GLAZED_TERRACOTTA,
                         Blocks.BLACK_GLAZED_TERRACOTTA);
+        this.add(ModRegistry.PEDESTALS_BLOCK_TAG)
+                .add(ModBlocks.POLISHED_ANDESITE_PEDESTAL.value(),
+                        ModBlocks.POLISHED_GRANITE_PEDESTAL.value(),
+                        ModBlocks.POLISHED_DIORITE_PEDESTAL.value(),
+                        ModBlocks.STONE_BRICK_PEDESTAL.value(),
+                        ModBlocks.MOSSY_STONE_BRICK_PEDESTAL.value(),
+                        ModBlocks.CRACKED_STONE_BRICK_PEDESTAL.value(),
+                        ModBlocks.CUT_SANDSTONE_PEDESTAL.value(),
+                        ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(),
+                        ModBlocks.CHISELED_SANDSTONE_PEDESTAL.value(),
+                        ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL.value(),
+                        ModBlocks.PRISMARINE_BRICK_PEDESTAL.value(),
+                        ModBlocks.BLACKSTONE_PEDESTAL.value(),
+                        ModBlocks.NETHER_BRICK_PEDESTAL.value(),
+                        ModBlocks.PURPUR_BLOCK_PEDESTAL.value());
     }
 }

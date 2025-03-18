@@ -19,5 +19,22 @@ public class ModBlockLootProvider extends AbstractLootProvider.Blocks {
         this.dropSelf(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value());
         this.dropSelf(ModBlocks.COPPER_RAIL.value());
         this.dropSelf(ModBlocks.COPPER_HOPPER.value());
+        this.dropSelf(ModBlocks.SOUL_JACK_O_LANTERN.value());
+        this.dropSelf(ModBlocks.REDSTONE_JACK_O_LANTERN.value());
+        this.dropSelf(ModBlocks.REDSTONE_LANTERN.value());
+        this.dropSelf(ModBlocks.POLISHED_ANDESITE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.POLISHED_GRANITE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.POLISHED_DIORITE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.STONE_BRICK_PEDESTAL.value());
+        this.dropSelf(ModBlocks.MOSSY_STONE_BRICK_PEDESTAL.value());
+        this.dropSelf(ModBlocks.CRACKED_STONE_BRICK_PEDESTAL.value());
+        this.dropSelf(ModBlocks.CUT_SANDSTONE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.CHISELED_SANDSTONE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.PRISMARINE_BRICK_PEDESTAL.value());
+        this.dropSelf(ModBlocks.BLACKSTONE_PEDESTAL.value());
+        this.dropSelf(ModBlocks.NETHER_BRICK_PEDESTAL.value());
+        this.dropSelf(ModBlocks.PURPUR_BLOCK_PEDESTAL.value());
     }
 }
