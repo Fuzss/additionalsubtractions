@@ -243,6 +243,15 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
         pedestal(recipeOutput, ModItems.BLACKSTONE_PEDESTAL.value(), Items.BLACKSTONE, Items.BLACKSTONE_SLAB);
         pedestal(recipeOutput, ModItems.NETHER_BRICK_PEDESTAL.value(), Items.NETHER_BRICKS, Items.NETHER_BRICK_SLAB);
         pedestal(recipeOutput, ModItems.PURPUR_BLOCK_PEDESTAL.value(), Items.PURPUR_BLOCK, Items.PURPUR_SLAB);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.TIMER.value())
+                .define('#', Items.STONE)
+                .define('X', Items.QUARTZ)
+                .define('@', Items.REDSTONE_TORCH)
+                .pattern(" @ ")
+                .pattern("X@X")
+                .pattern("###")
+                .unlockedBy(getHasName(Items.QUARTZ), has(Items.QUARTZ))
+                .save(recipeOutput);
     }
 
     public static void pedestal(RecipeOutput recipeOutput, ItemLike resultItem, ItemLike blockItem, ItemLike slabItem) {

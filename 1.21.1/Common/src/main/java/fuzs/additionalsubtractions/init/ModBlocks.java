@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import fuzs.additionalsubtractions.world.level.block.*;
 import fuzs.additionalsubtractions.world.level.block.entity.CopperHopperBlockEntity;
 import fuzs.additionalsubtractions.world.level.block.entity.PedestalBlockEntity;
+import fuzs.additionalsubtractions.world.level.block.entity.TimerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -160,6 +161,9 @@ public class ModBlocks {
             "purpur_block_pedestal",
             PedestalBlock::new,
             () -> BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK).forceSolidOn());
+    public static final Holder.Reference<Block> TIMER = ModRegistry.REGISTRIES.registerBlock("timer",
+            TimerBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.REPEATER));
 
     public static final Holder.Reference<BlockEntityType<CopperHopperBlockEntity>> COPPER_HOPPER_BLOCK_ENTITY_TYPE = ModRegistry.REGISTRIES.registerBlockEntityType(
             "copper_hopper",
@@ -181,6 +185,9 @@ public class ModBlocks {
                     BLACKSTONE_PEDESTAL.value(),
                     NETHER_BRICK_PEDESTAL.value(),
                     PURPUR_BLOCK_PEDESTAL.value()));
+    public static final Holder.Reference<BlockEntityType<TimerBlockEntity>> TIMER_BLOCK_ENTITY_TYPE = ModRegistry.REGISTRIES.registerBlockEntityType(
+            "timer",
+            () -> BlockEntityType.Builder.of(TimerBlockEntity::new, TIMER.value()));
 
     public static final Holder.Reference<PoiType> AMETHYST_LAMP_POI_TYPE = ModRegistry.REGISTRIES.registerPoiType(
             "amethyst_lamp",

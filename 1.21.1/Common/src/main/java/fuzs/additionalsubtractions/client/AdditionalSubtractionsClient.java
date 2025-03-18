@@ -1,9 +1,11 @@
 package fuzs.additionalsubtractions.client;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
+import fuzs.additionalsubtractions.client.gui.screens.inventory.TimerScreen;
 import fuzs.additionalsubtractions.client.handler.CrossbowInHandHandler;
 import fuzs.additionalsubtractions.client.init.ModModelLayerLocations;
 import fuzs.additionalsubtractions.client.renderer.blockentity.PedestalRenderer;
+import fuzs.additionalsubtractions.client.renderer.blockentity.TimerRenderer;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModRegistry;
@@ -63,6 +65,12 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
     @Override
     public void onRegisterBlockEntityRenderers(BlockEntityRenderersContext context) {
         context.registerBlockEntityRenderer(ModBlocks.PEDESTAL_BLOCK_ENTITY.value(), PedestalRenderer::new);
+        context.registerBlockEntityRenderer(ModBlocks.TIMER_BLOCK_ENTITY_TYPE.value(), TimerRenderer::new);
+    }
+
+    @Override
+    public void onRegisterMenuScreens(MenuScreensContext context) {
+        context.registerMenuScreen(ModRegistry.TIMER_MENU_TYPE.value(), TimerScreen::new);
     }
 
     @Override
@@ -72,12 +80,14 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
                 ModBlocks.GLOW_STICK.value(),
                 ModBlocks.COPPER_RAIL.value(),
                 ModBlocks.COPPER_HOPPER.value(),
-                ModBlocks.REDSTONE_LANTERN.value());
+                ModBlocks.REDSTONE_LANTERN.value(),
+                ModBlocks.TIMER.value());
     }
 
     @Override
     public void onRegisterLayerDefinitions(LayerDefinitionsContext context) {
         context.registerLayerDefinition(ModModelLayerLocations.COPPER_HOPPER_MINECART, MinecartModel::createBodyLayer);
+        context.registerLayerDefinition(ModModelLayerLocations.TIMER, TimerRenderer::createBodyLayer);
     }
 
     @Override
@@ -102,24 +112,25 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
                 ModItems.POCKET_JUKEBOX.value());
         context.registerItemProperty(ANGLE_ITEM_MODEL_PROPERTY,
                 (ItemStack itemStack, ClientLevel clientLevel, LivingEntity livingEntity, int i) -> {
+                    float defaultNeedlePosition = 0.3125F;
                     if (livingEntity != null && clientLevel != null) {
-                        float seaLevel = clientLevel.getSeaLevel();
                         float blockY = livingEntity.getBlockY();
                         float maxBuildHeight = clientLevel.getMaxBuildHeight();
                         float minBuildHeight = clientLevel.getMinBuildHeight();
-                        if (blockY > maxBuildHeight) {
-                            return 0.0F;
-                        } else if (blockY < minBuildHeight) {
-                            return 1.0F;
-                        } else if (blockY >= seaLevel) {
-                            return Mth.clamp((blockY / (2.0F * (seaLevel - maxBuildHeight))) + 0.25F -
-                                    ((seaLevel + maxBuildHeight) / (4.0F * (seaLevel - maxBuildHeight))), 0.0F, 1.0F);
+                        float seaLevel = clientLevel.getSeaLevel();
+                        if (!clientLevel.dimensionType().natural()) {
+                            return Mth.clamp((blockY - minBuildHeight) / (maxBuildHeight - minBuildHeight), 0.0F, 1.0F);
                         } else {
-                            return Mth.clamp((blockY / (2.0F * (minBuildHeight - seaLevel)) + 0.75F -
-                                    (minBuildHeight + seaLevel) / (4.0F * (minBuildHeight - seaLevel))), 0.0F, 1.0F);
+                            float aboveSeaLevel =
+                                    Mth.clamp((blockY - seaLevel) / (maxBuildHeight - seaLevel), 0.0F, 1.0F) *
+                                            defaultNeedlePosition;
+                            float belowSeaLevel =
+                                    Mth.clamp((blockY - minBuildHeight) / (seaLevel - minBuildHeight), 0.0F, 1.0F) *
+                                            (1.0F - defaultNeedlePosition);
+                            return 1.0F - (aboveSeaLevel + belowSeaLevel);
                         }
                     } else {
-                        return 0.3125F;
+                        return defaultNeedlePosition;
                     }
                 },
                 ModItems.DEPTH_METER.value());

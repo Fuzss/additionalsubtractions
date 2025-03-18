@@ -28,6 +28,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public class ModModelProvider extends AbstractModelProvider {
+    public static final TextureSlot SLAB_TEXTURE_SLOT = TextureSlot.create("slab");
+    public static final TextureSlot UNLIT_TEXTURE_SLOT = TextureSlot.create("unlit");
+    public static final TextureSlot LIT_TEXTURE_SLOT = TextureSlot.create("lit");
     public static final ModelTemplate BUILTIN_GENERATED_TEMPLATE = new ModelTemplate(Optional.of(ResourceLocationHelper.withDefaultNamespace(
             "builtin/generated")), Optional.empty(), TextureSlot.LAYER0);
     public static final ModelTemplate HOPPER_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
@@ -57,6 +60,24 @@ public class ModModelProvider extends AbstractModelProvider {
             TextureSlot.BOTTOM,
             TextureSlot.TOP,
             TextureSlot.SIDE);
+    public static final ModelTemplate TIMER_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_timer"),
+            SLAB_TEXTURE_SLOT,
+            TextureSlot.TOP,
+            LIT_TEXTURE_SLOT,
+            UNLIT_TEXTURE_SLOT);
+    public static final ModelTemplate TIMER_ON_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_timer_on"),
+            "_on",
+            SLAB_TEXTURE_SLOT,
+            TextureSlot.TOP,
+            LIT_TEXTURE_SLOT);
+    public static final ModelTemplate TIMER_LOCKED_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_timer_locked"),
+            "_locked",
+            SLAB_TEXTURE_SLOT,
+            TextureSlot.TOP,
+            UNLIT_TEXTURE_SLOT);
     public static final TexturedModel.Provider PEDESTAL_TEXTURE_MODEL = TexturedModel.createDefault(TextureMapping::column,
             PEDESTAL_TEMPLATE);
 
@@ -90,16 +111,21 @@ public class ModModelProvider extends AbstractModelProvider {
         blockModelGenerators.createTrivialBlock(ModBlocks.CRACKED_STONE_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         blockModelGenerators.createTrivialBlock(ModBlocks.CUT_SANDSTONE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         blockModelGenerators.createTrivialBlock(ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
-        this.createPedestal(ModBlocks.CHISELED_SANDSTONE_PEDESTAL.value(),
-                ModBlocks.CUT_SANDSTONE_PEDESTAL.value(),
-                blockModelGenerators);
-        this.createPedestal(ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL.value(),
-                ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(),
-                blockModelGenerators);
+        blockModelGenerators.createTrivialBlock(ModBlocks.CHISELED_SANDSTONE_PEDESTAL.value(),
+                PEDESTAL_TEXTURE_MODEL.updateTexture((TextureMapping textureMapping) -> {
+                    textureMapping.put(TextureSlot.END,
+                            ModelLocationHelper.getBlockTexture(ModBlocks.CUT_SANDSTONE_PEDESTAL.value(), "_top"));
+                }));
+        blockModelGenerators.createTrivialBlock(ModBlocks.CHISELED_RED_SANDSTONE_PEDESTAL.value(),
+                PEDESTAL_TEXTURE_MODEL.updateTexture((TextureMapping textureMapping) -> {
+                    textureMapping.put(TextureSlot.END,
+                            ModelLocationHelper.getBlockTexture(ModBlocks.CUT_RED_SANDSTONE_PEDESTAL.value(), "_top"));
+                }));
         blockModelGenerators.createTrivialBlock(ModBlocks.PRISMARINE_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         blockModelGenerators.createTrivialBlock(ModBlocks.BLACKSTONE_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         blockModelGenerators.createTrivialBlock(ModBlocks.NETHER_BRICK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         blockModelGenerators.createTrivialBlock(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
+        this.createTimer(ModBlocks.TIMER.value(), blockModelGenerators);
     }
 
     public final void createRedstoneLamp(Block block, BlockModelGenerators blockModelGenerators) {
@@ -328,13 +354,39 @@ public class ModModelProvider extends AbstractModelProvider {
                         Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90));
     }
 
-    public final void createPedestal(Block block, Block topBlock, BlockModelGenerators blockModelGenerators) {
-        TextureMapping textureMapping = TextureMapping.column(block)
-                .put(TextureSlot.END, ModelLocationHelper.getBlockTexture(topBlock, "_top"));
-        ResourceLocation resourceLocation = PEDESTAL_TEMPLATE.create(block,
-                textureMapping,
+    public static TextureMapping timer(ResourceLocation resourceLocation) {
+        return new TextureMapping().put(SLAB_TEXTURE_SLOT, ModelLocationHelper.getBlockTexture(Blocks.SMOOTH_STONE))
+                .put(TextureSlot.TOP, resourceLocation)
+                .put(LIT_TEXTURE_SLOT, ModelLocationHelper.getBlockTexture(Blocks.REDSTONE_TORCH))
+                .put(UNLIT_TEXTURE_SLOT, ModelLocationHelper.getBlockTexture(Blocks.REDSTONE_TORCH, "_off"));
+    }
+
+    public final void createTimer(Block block, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation resourceLocation = TIMER_TEMPLATE.create(block,
+                timer(ModelLocationHelper.getBlockModel(block)),
                 blockModelGenerators.modelOutput);
-        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, resourceLocation));
+        ResourceLocation resourceLocation2 = TIMER_ON_TEMPLATE.create(block,
+                timer(ModelLocationHelper.getBlockModel(block, "_on")),
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation3 = TIMER_LOCKED_TEMPLATE.create(block,
+                timer(ModelLocationHelper.getBlockModel(block, "_locked")),
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.properties(BlockStateProperties.POWERED, BlockStateProperties.LOCKED)
+                        .select(Boolean.FALSE,
+                                Boolean.FALSE,
+                                Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+                        .select(Boolean.TRUE,
+                                Boolean.FALSE,
+                                Variant.variant().with(VariantProperties.MODEL, resourceLocation2))
+                        .select(Boolean.FALSE,
+                                Boolean.TRUE,
+                                Variant.variant().with(VariantProperties.MODEL, resourceLocation3))
+                        .select(Boolean.TRUE,
+                                Boolean.TRUE,
+                                Variant.variant().with(VariantProperties.MODEL, resourceLocation3)))
+                .with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+        blockModelGenerators.createSimpleFlatItemModel(block.asItem());
     }
 
     @Override

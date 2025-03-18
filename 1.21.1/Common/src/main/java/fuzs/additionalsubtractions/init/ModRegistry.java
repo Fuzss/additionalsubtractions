@@ -5,6 +5,7 @@ import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.entity.item.PatinaBlockEntity;
 import fuzs.additionalsubtractions.world.entity.projectile.GlowStick;
 import fuzs.additionalsubtractions.world.entity.vehicle.MinecartCopperHopper;
+import fuzs.additionalsubtractions.world.inventory.TimerMenu;
 import fuzs.additionalsubtractions.world.item.crafting.ModFireworkStarRecipe;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
 import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
@@ -20,6 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
@@ -69,6 +71,8 @@ public class ModRegistry {
             () -> new Potion("hurry", new MobEffectInstance(MobEffects.DIG_SPEED, 1600, 1)));
     public static final Holder.Reference<Potion> LONG_HURRY_POTION = REGISTRIES.registerPotion("long_hurry",
             () -> new Potion("hurry", new MobEffectInstance(MobEffects.DIG_SPEED, 9600)));
+    public static final Holder.Reference<MenuType<TimerMenu>> TIMER_MENU_TYPE = REGISTRIES.registerMenuType("timer",
+            () -> TimerMenu::new);
     public static final Holder.Reference<CreativeModeTab> CREATIVE_MODE_TAB = REGISTRIES.registerCreativeModeTab(
             ModItems.CROSSBOW_WITH_SPYGLASS);
     public static final Holder.Reference<RecipeSerializer<ModFireworkStarRecipe>> FIREWORK_STAR_RECIPE_SERIALIZER = REGISTRIES.register(

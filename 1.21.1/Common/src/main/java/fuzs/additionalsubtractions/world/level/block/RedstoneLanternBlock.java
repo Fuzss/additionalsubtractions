@@ -24,7 +24,7 @@ public class RedstoneLanternBlock extends LanternBlock {
 
     public RedstoneLanternBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(POWER, Integer.valueOf(0)));
+        this.registerDefaultState(this.defaultBlockState().setValue(POWER, Integer.valueOf(15)));
     }
 
     @Override
@@ -34,14 +34,15 @@ public class RedstoneLanternBlock extends LanternBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        level.setBlockAndUpdate(pos, state.cycle(POWER));
+        state = state.cycle(POWER);
+        level.setBlockAndUpdate(pos, state);
         level.updateNeighborsAt(pos, this);
         level.playSound(player,
                 pos,
                 SoundEvents.LEVER_CLICK,
                 SoundSource.BLOCKS,
                 0.3F,
-                0.3F + state.getValue(POWER) / 30.0F);
+                0.5F + state.getValue(POWER) / 30.0F);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

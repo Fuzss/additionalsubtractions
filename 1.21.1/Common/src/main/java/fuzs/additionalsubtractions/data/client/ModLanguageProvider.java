@@ -1,6 +1,7 @@
 package fuzs.additionalsubtractions.data.client;
 
 import fuzs.additionalsubtractions.AdditionalSubtractions;
+import fuzs.additionalsubtractions.client.gui.screens.inventory.TimerScreen;
 import fuzs.additionalsubtractions.data.ModAdvancementProvider;
 import fuzs.additionalsubtractions.init.*;
 import fuzs.additionalsubtractions.world.item.DepthMeterItem;
@@ -46,6 +47,7 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(ModBlocks.BLACKSTONE_PEDESTAL.value(), "Blackstone Pedestal");
         translationBuilder.add(ModBlocks.NETHER_BRICK_PEDESTAL.value(), "Nether Brick Pedestal");
         translationBuilder.add(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), "Purpur Block Pedestal");
+        translationBuilder.add(ModBlocks.TIMER.value(), "Timer");
 
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
         translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");
@@ -101,6 +103,13 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(Items.FIREWORK_STAR,
                 "shape." + ModEnumConstants.HEART_EXPLOSION_SHAPE.getSerializedName(),
                 "Heart");
+        translationBuilder.add(TimerScreen.KEY_TIMER_INTERVAL, "Timer Interval: %ss");
+        translationBuilder.add(TimerScreen.COMPONENT_MINUS_MILLI_100, "-%sms");
+        translationBuilder.add(TimerScreen.COMPONENT_MINUS_SECOND_1, "-%ss");
+        translationBuilder.add(TimerScreen.COMPONENT_MINUS_MINUTE_1, "-%sm");
+        translationBuilder.add(TimerScreen.COMPONENT_PLUS_MILLI_100, "+%sms");
+        translationBuilder.add(TimerScreen.COMPONENT_PLUS_SECOND_1, "+%ss");
+        translationBuilder.add(TimerScreen.COMPONENT_PLUS_MINUTE_1, "+%sm");
 
         translationBuilder.add(ResourceKeyHelper.getTranslationKey(ModJukeboxSongs.ZERO_THREE_ZERO_EIGHT_JUKEBOX_SONG),
                 "Adoghr - 0308");

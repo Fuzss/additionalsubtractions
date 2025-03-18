@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-18T00:43:06.398238	Block Loot Tables
+// 1.21.1	2025-03-18T13:33:12.562912	Block Loot Tables
 c79af7f674e2a07f75179dbbfdfaa23bf5e2ac6e data/additionalsubtractions/loot_table/blocks/amethyst_lamp.json
 e44e7a91bfc9012cbe294844e3268246f860d62c data/additionalsubtractions/loot_table/blocks/blackstone_pedestal.json
 4b4f8106be48af891c0b899e17696568aa487c87 data/additionalsubtractions/loot_table/blocks/chiseled_red_sandstone_pedestal.json
@@ -23,3 +23,4 @@ ee798f9c80beb747e44a878ee6e4f9238face6d9 data/additionalsubtractions/loot_table/
 459f4ea770c4557704878a83a5c1ed08b3dbeb68 data/additionalsubtractions/loot_table/blocks/rope.json
 04767d5ada11bd4315f7b0085cf5a78daf51ff80 data/additionalsubtractions/loot_table/blocks/soul_jack_o_lantern.json
 3781c6d115888038f4845daa48808029f16fa9e2 data/additionalsubtractions/loot_table/blocks/stone_brick_pedestal.json
+c53d17462f948f2c4d40b946f6388ccf772cb27e data/additionalsubtractions/loot_table/blocks/timer.json

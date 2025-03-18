@@ -1,0 +1,8 @@
+{
+  "parent": "additionalsubtractions:block/template_timer_locked",
+  "textures": {
+    "slab": "minecraft:block/smooth_stone",
+    "top": "additionalsubtractions:block/timer_locked",
+    "unlit": "minecraft:block/redstone_torch_off"
+  }
+}

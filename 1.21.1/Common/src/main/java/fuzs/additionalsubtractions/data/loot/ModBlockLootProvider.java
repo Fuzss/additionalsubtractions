@@ -36,5 +36,6 @@ public class ModBlockLootProvider extends AbstractLootProvider.Blocks {
         this.dropSelf(ModBlocks.BLACKSTONE_PEDESTAL.value());
         this.dropSelf(ModBlocks.NETHER_BRICK_PEDESTAL.value());
         this.dropSelf(ModBlocks.PURPUR_BLOCK_PEDESTAL.value());
+        this.dropSelf(ModBlocks.TIMER.value());
     }
 }
