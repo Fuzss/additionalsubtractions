@@ -1,0 +1,13 @@
+{
+  "parent": "additionalsubtractions:block/template_bookshelf_switch_on",
+  "textures": {
+    "down": "additionalsubtractions:block/bookshelf_switch_bottom",
+    "east": "additionalsubtractions:block/bookshelf_switch_side_on",
+    "north": "additionalsubtractions:block/bookshelf_switch_front_on",
+    "particle": "additionalsubtractions:block/bookshelf_switch_front_on",
+    "south": "additionalsubtractions:block/bookshelf_switch_back_on",
+    "texture": "additionalsubtractions:block/bookshelf_switch_book",
+    "up": "minecraft:block/oak_planks",
+    "west": "additionalsubtractions:block/bookshelf_switch_side_alt_on"
+  }
+}

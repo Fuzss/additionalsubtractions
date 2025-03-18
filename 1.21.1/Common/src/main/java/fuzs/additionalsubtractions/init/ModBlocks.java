@@ -164,6 +164,23 @@ public class ModBlocks {
     public static final Holder.Reference<Block> TIMER = ModRegistry.REGISTRIES.registerBlock("timer",
             TimerBlock::new,
             () -> BlockBehaviour.Properties.ofFullCopy(Blocks.REPEATER));
+    public static final Holder.Reference<Block> BOOKSHELF_SWITCH = ModRegistry.REGISTRIES.registerBlock(
+            "bookshelf_switch",
+            BookshelfSwitchBlock::new,
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .strength(1.5F)
+                    .sound(SoundType.WOOD)
+                    .requiresCorrectToolForDrops()
+                    .isRedstoneConductor(Blocks::never));
+    public static final Holder.Reference<Block> REDSTONE_CROSSING = ModRegistry.REGISTRIES.registerBlock(
+            "redstone_crossing",
+            RedstoneCrossingBlock::new,
+            () -> BlockBehaviour.Properties.of()
+                    .instabreak()
+                    .sound(SoundType.STONE)
+                    .pushReaction(PushReaction.DESTROY));
 
     public static final Holder.Reference<BlockEntityType<CopperHopperBlockEntity>> COPPER_HOPPER_BLOCK_ENTITY_TYPE = ModRegistry.REGISTRIES.registerBlockEntityType(
             "copper_hopper",

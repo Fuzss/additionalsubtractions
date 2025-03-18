@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "&": {
+      "tag": "minecraft:planks"
+    },
+    "@": {
+      "item": "minecraft:book"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "&&&",
+    "X@X",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "additionalsubtractions:bookshelf_switch"
+  }
+}

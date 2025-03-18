@@ -70,3 +70,5 @@ accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    
 accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    getSourceContainer  (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/Container;
 accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    tryTakeInItemFromSlot   (Lnet/minecraft/world/level/block/entity/Hopper;Lnet/minecraft/world/Container;ILnet/minecraft/core/Direction;)Z
 accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    getSlots    (Lnet/minecraft/world/Container;Lnet/minecraft/core/Direction;)[I
+accessible  method  net/minecraft/world/level/block/RedStoneOreBlock    spawnParticles  (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+extendable  method  net/minecraft/world/level/block/LeverBlock  updateNeighbours    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V

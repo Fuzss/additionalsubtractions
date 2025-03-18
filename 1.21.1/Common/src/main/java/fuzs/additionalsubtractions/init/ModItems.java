@@ -92,6 +92,8 @@ public class ModItems {
     public static final Holder.Reference<Item> PURPUR_BLOCK_PEDESTAL = ModRegistry.REGISTRIES.registerBlockItem(
             ModBlocks.PURPUR_BLOCK_PEDESTAL);
     public static final Holder.Reference<Item> TIMER = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.TIMER);
+    public static final Holder.Reference<Item> BOOKSHELF_SWITCH = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.BOOKSHELF_SWITCH);
+    public static final Holder.Reference<Item> REDSTONE_CROSSING = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.REDSTONE_CROSSING);
 
     public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
             CopperPatinaItem::new);

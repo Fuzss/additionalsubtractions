@@ -58,6 +58,12 @@ public class RedstoneLanternBlock extends LanternBlock {
     }
 
     @Override
+    protected int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return direction == (state.getValue(HANGING) ? Direction.DOWN : Direction.UP) ?
+                state.getSignal(level, pos, direction) : 0;
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(POWER);

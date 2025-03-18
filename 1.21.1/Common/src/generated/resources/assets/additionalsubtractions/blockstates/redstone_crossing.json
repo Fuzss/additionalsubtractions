@@ -1,0 +1,36 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/redstone_crossing_x"
+      },
+      "when": {
+        "powered_x": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/redstone_crossing_x_on"
+      },
+      "when": {
+        "powered_x": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/redstone_crossing_z"
+      },
+      "when": {
+        "powered_z": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "additionalsubtractions:block/redstone_crossing_z_on"
+      },
+      "when": {
+        "powered_z": "true"
+      }
+    }
+  ]
+}

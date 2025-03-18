@@ -8,6 +8,7 @@ import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -251,6 +252,23 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern("X@X")
                 .pattern("###")
                 .unlockedBy(getHasName(Items.QUARTZ), has(Items.QUARTZ))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.BOOKSHELF_SWITCH.value())
+                .define('#', Items.COBBLESTONE)
+                .define('X', Items.REDSTONE)
+                .define('@', Items.BOOK)
+                .define('&', ItemTags.PLANKS)
+                .pattern("&&&")
+                .pattern("X@X")
+                .pattern("###")
+                .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.REDSTONE_CROSSING.value())
+                .define('#', Items.STONE)
+                .define('X', Items.REDSTONE)
+                .pattern("XXX")
+                .pattern("###")
+                .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
                 .save(recipeOutput);
     }
 

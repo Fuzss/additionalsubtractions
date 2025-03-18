@@ -47,7 +47,9 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(ModBlocks.BLACKSTONE_PEDESTAL.value(), "Blackstone Pedestal");
         translationBuilder.add(ModBlocks.NETHER_BRICK_PEDESTAL.value(), "Nether Brick Pedestal");
         translationBuilder.add(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), "Purpur Block Pedestal");
-        translationBuilder.add(ModBlocks.TIMER.value(), "Timer");
+        translationBuilder.add(ModBlocks.TIMER.value(), "Redstone Timer");
+        translationBuilder.add(ModBlocks.BOOKSHELF_SWITCH.value(), "Bookshelf Switch");
+        translationBuilder.add(ModBlocks.REDSTONE_CROSSING.value(), "Redstone Crossing");
 
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
         translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");
