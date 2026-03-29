@@ -1,6 +1,4 @@
 accessWidener   v2  named
-accessible  field   net/minecraft/data/registries/RegistriesDatapackGenerator   registries  Ljava/util/concurrent/CompletableFuture;
-mutable field   net/minecraft/data/registries/RegistriesDatapackGenerator   registries  Ljava/util/concurrent/CompletableFuture;
 transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_HELMET   Lnet/minecraft/resources/ResourceLocation;
 transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_CHESTPLATE   Lnet/minecraft/resources/ResourceLocation;
 transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   EMPTY_SLOT_LEGGINGS Lnet/minecraft/resources/ResourceLocation;
@@ -26,10 +24,6 @@ transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   
 transitive-accessible   field   net/minecraft/world/item/SmithingTemplateItem   upgradeDescription  Lnet/minecraft/network/chat/Component;
 accessible  field   net/minecraft/world/level/storage/loot/parameters/LootContextParamSets  REGISTRY    Lcom/google/common/collect/BiMap;
 transitive-accessible   method  net/minecraft/server/commands/GiveCommand   giveItem    (Lnet/minecraft/commands/CommandSourceStack;Lnet/minecraft/commands/arguments/item/ItemInput;Ljava/util/Collection;I)I
-accessible  field   net/minecraft/world/item/JukeboxSongPlayer  ticksSinceSongStarted   J
-accessible  field   net/minecraft/world/item/JukeboxSongPlayer  song    Lnet/minecraft/core/Holder;
-accessible  method  net/minecraft/world/item/JukeboxSongPlayer  shouldEmitJukeboxPlayingEvent   ()Z
-accessible  method  net/minecraft/world/item/JukeboxSongPlayer  spawnMusicParticles (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V
 accessible  method  net/minecraft/client/renderer/ItemInHandRenderer    applyItemArmTransform   (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V
 accessible  method  net/minecraft/client/renderer/ItemInHandRenderer    applyItemArmAttackTransform (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V
 accessible  field   net/minecraft/world/entity/item/FallingBlockEntity  blockState  Lnet/minecraft/world/level/block/state/BlockState;
@@ -72,3 +66,9 @@ accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    
 accessible  method  net/minecraft/world/level/block/entity/HopperBlockEntity    getSlots    (Lnet/minecraft/world/Container;Lnet/minecraft/core/Direction;)[I
 accessible  method  net/minecraft/world/level/block/RedStoneOreBlock    spawnParticles  (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
 extendable  method  net/minecraft/world/level/block/LeverBlock  updateNeighbours    (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+extendable  method  net/minecraft/world/level/block/piston/PistonHeadBlock  isFittingBase   (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible  method  net/minecraft/world/level/block/FireBlock   getBurnOdds (Lnet/minecraft/world/level/block/state/BlockState;)I
+extendable  method  net/minecraft/world/level/block/FireBlock   getBurnOdds (Lnet/minecraft/world/level/block/state/BlockState;)I
+accessible  method  net/minecraft/world/level/block/FireBlock   getIgniteOdds   (Lnet/minecraft/world/level/block/state/BlockState;)I
+extendable  method  net/minecraft/world/level/block/FireBlock   getIgniteOdds   (Lnet/minecraft/world/level/block/state/BlockState;)I
+extendable  method  net/minecraft/world/level/block/FireBlock   getStateWithAge (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;I)Lnet/minecraft/world/level/block/state/BlockState;

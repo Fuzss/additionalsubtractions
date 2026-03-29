@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "additionalsubtractions:block/golden_spike_trap_bottom",
+    "side": "additionalsubtractions:block/golden_spike_trap_side",
+    "top": "additionalsubtractions:block/golden_spike_trap_top"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "additionalsubtractions:block/template_redstone_crossing_x",
+  "textures": {
+    "particle": "minecraft:block/smooth_stone",
+    "texture": "additionalsubtractions:block/redstone_crossing"
+  }
+}

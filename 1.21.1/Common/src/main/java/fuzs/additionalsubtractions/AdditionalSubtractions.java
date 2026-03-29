@@ -1,6 +1,7 @@
 package fuzs.additionalsubtractions;
 
 import fuzs.additionalsubtractions.handler.MobSpawnPreventionHandler;
+import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
 import fuzs.additionalsubtractions.init.ModLootTables;
 import fuzs.additionalsubtractions.init.ModRegistry;
@@ -12,6 +13,7 @@ import fuzs.additionalsubtractions.world.item.WrenchItem;
 import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.api.core.v1.context.GameplayContentContext;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
+import fuzs.puzzleslib.api.event.v1.AddBlockEntityTypeBlocksCallback;
 import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
 import fuzs.puzzleslib.api.event.v1.entity.EntityTickEvents;
 import fuzs.puzzleslib.api.event.v1.entity.player.PlayerInteractEvents;
@@ -39,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
@@ -47,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.function.BiConsumer;
 
 public class AdditionalSubtractions implements ModConstructor {
     public static final String MOD_ID = "additionalsubtractions";
@@ -104,6 +108,9 @@ public class AdditionalSubtractions implements ModConstructor {
                     }
                 }
             }
+        });
+        AddBlockEntityTypeBlocksCallback.EVENT.register((BiConsumer<BlockEntityType<?>, Block> consumer) -> {
+            consumer.accept(BlockEntityType.CAMPFIRE, ModBlocks.COPPER_SULFATE_CAMPFIRE.value());
         });
     }
 

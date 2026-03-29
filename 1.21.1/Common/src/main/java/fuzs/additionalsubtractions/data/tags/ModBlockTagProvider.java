@@ -1,7 +1,7 @@
 package fuzs.additionalsubtractions.data.tags;
 
 import fuzs.additionalsubtractions.init.ModBlocks;
-import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.init.ModTags;
 import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
 import fuzs.puzzleslib.api.data.v2.tags.AbstractTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -22,21 +22,38 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
         this.add(BlockTags.MINEABLE_WITH_AXE)
                 .add(ModBlocks.ROPE.value(),
                         ModBlocks.SOUL_JACK_O_LANTERN.value(),
-                        ModBlocks.REDSTONE_JACK_O_LANTERN.value());
+                        ModBlocks.REDSTONE_JACK_O_LANTERN.value(),
+                        ModBlocks.COPPER_SULFATE_JACK_O_LANTERN.value(),
+                        ModBlocks.COPPER_SULFATE_CAMPFIRE.value())
+                .remove(ModBlocks.NETHER_BRICK_FENCE_GATE.value());
         this.add(BlockTags.SWORD_EFFICIENT)
                 .add(ModBlocks.ROPE.value(),
                         ModBlocks.SOUL_JACK_O_LANTERN.value(),
-                        ModBlocks.REDSTONE_JACK_O_LANTERN.value());
+                        ModBlocks.REDSTONE_JACK_O_LANTERN.value(),
+                        ModBlocks.COPPER_SULFATE_JACK_O_LANTERN.value());
         this.add(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.AMETHYST_LAMP.value(),
                         Blocks.REDSTONE_LAMP,
                         ModBlocks.OBSIDIAN_PRESSURE_PLATE.value(),
                         ModBlocks.COPPER_HOPPER.value(),
-                        ModBlocks.REDSTONE_LANTERN.value())
-                .addTag(ModRegistry.PEDESTALS_BLOCK_TAG);
+                        ModBlocks.REDSTONE_LANTERN.value(),
+                        ModBlocks.NETHER_BRICK_FENCE_GATE.value(),
+                        ModBlocks.COPPER_SULFATE_LANTERN.value())
+                .addTag(ModTags.PEDESTALS_BLOCK_TAG)
+                .addTag(ModTags.BRAZIERS_BLOCK_TAG)
+                .addTag(ModTags.SPIKES_BLOCK_TAG)
+                .addTag(ModTags.SPIKE_TRAPS_BLOCK_TAG);
         this.add(BlockTags.PRESSURE_PLATES).add(ModBlocks.OBSIDIAN_PRESSURE_PLATE.value());
+        this.add(BlockTags.FENCE_GATES).add(ModBlocks.NETHER_BRICK_FENCE_GATE.value());
         this.add(BlockTags.RAILS).add(ModBlocks.COPPER_RAIL.value());
-        this.add(ModRegistry.ROTATABLE_BLOCK_TAG)
+        this.add(BlockTags.FIRE).add(ModBlocks.COPPER_SULFATE_FIRE.value());
+        this.add(ModTags.BRAZIERS_BLOCK_TAG)
+                .add(ModBlocks.BRAZIER.value(),
+                        ModBlocks.SOUL_BRAZIER.value(),
+                        ModBlocks.COPPER_SULFATE_BRAZIER.value());
+        this.add(BlockTags.WALL_POST_OVERRIDE).add(ModBlocks.COPPER_SULFATE_TORCH.value());
+        this.add(BlockTags.CAMPFIRES).add(ModBlocks.COPPER_SULFATE_CAMPFIRE.value());
+        this.add(ModTags.ROTATABLE_BLOCK_TAG)
                 .addTag(BlockTags.STANDING_SIGNS,
                         BlockTags.ANVIL,
                         BlockTags.STAIRS,
@@ -107,7 +124,7 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
                         Blocks.GREEN_GLAZED_TERRACOTTA,
                         Blocks.RED_GLAZED_TERRACOTTA,
                         Blocks.BLACK_GLAZED_TERRACOTTA);
-        this.add(ModRegistry.PEDESTALS_BLOCK_TAG)
+        this.add(ModTags.PEDESTALS_BLOCK_TAG)
                 .add(ModBlocks.POLISHED_ANDESITE_PEDESTAL.value(),
                         ModBlocks.POLISHED_GRANITE_PEDESTAL.value(),
                         ModBlocks.POLISHED_DIORITE_PEDESTAL.value(),
@@ -122,5 +139,15 @@ public class ModBlockTagProvider extends AbstractTagProvider<Block> {
                         ModBlocks.BLACKSTONE_PEDESTAL.value(),
                         ModBlocks.NETHER_BRICK_PEDESTAL.value(),
                         ModBlocks.PURPUR_BLOCK_PEDESTAL.value());
+        this.add(ModTags.SPIKES_BLOCK_TAG)
+                .add(ModBlocks.IRON_SPIKES.value(),
+                        ModBlocks.GOLDEN_SPIKES.value(),
+                        ModBlocks.DIAMOND_SPIKES.value(),
+                        ModBlocks.NETHERITE_SPIKES.value());
+        this.add(ModTags.SPIKE_TRAPS_BLOCK_TAG)
+                .add(ModBlocks.IRON_SPIKE_TRAP.value(),
+                        ModBlocks.GOLDEN_SPIKE_TRAP.value(),
+                        ModBlocks.DIAMOND_SPIKE_TRAP.value(),
+                        ModBlocks.NETHERITE_SPIKE_TRAP.value());
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.redstone.Redstone;
 
 public class PlayerPressurePlateBlock extends PressurePlateBlock {
     public static final MapCodec<? extends PressurePlateBlock> CODEC = RecordCodecBuilder.<PlayerPressurePlateBlock>mapCodec(
@@ -25,6 +26,7 @@ public class PlayerPressurePlateBlock extends PressurePlateBlock {
 
     @Override
     protected int getSignalStrength(Level level, BlockPos pos) {
-        return getEntityCount(level, TOUCH_AABB.move(pos), Player.class) > 0 ? 15 : 0;
+        return getEntityCount(level, TOUCH_AABB.move(pos), Player.class) > 0 ? Redstone.SIGNAL_MAX :
+                Redstone.SIGNAL_NONE;
     }
 }

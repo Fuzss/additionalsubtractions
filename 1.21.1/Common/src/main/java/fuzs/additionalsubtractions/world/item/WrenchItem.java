@@ -3,7 +3,7 @@ package fuzs.additionalsubtractions.world.item;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
-import fuzs.additionalsubtractions.init.ModRegistry;
+import fuzs.additionalsubtractions.init.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -44,7 +44,7 @@ public class WrenchItem extends Item {
 
     public InteractionResult useOn(Level level, BlockPos blockPos, @Nullable Player player) {
         BlockState blockState = level.getBlockState(blockPos);
-        if (blockState.is(ModRegistry.ROTATABLE_BLOCK_TAG)) {
+        if (blockState.is(ModTags.ROTATABLE_BLOCK_TAG)) {
             BlockState newBlockState = this.rotateBlockState(level, blockPos, blockState, blockState);
             if (newBlockState == blockState) {
                 return InteractionResult.PASS;
@@ -117,7 +117,7 @@ public class WrenchItem extends Item {
 
     static void printRotatableBlocks() {
         AdditionalSubtractions.LOGGER.info("{}:\n{}",
-                ModRegistry.ROTATABLE_BLOCK_TAG,
+                ModTags.ROTATABLE_BLOCK_TAG,
                 gatherRotatableBlocks().collect(Collectors.joining("\n")));
     }
 

@@ -1,0 +1,99 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "#texture"
+	},
+	"elements": [
+		{
+			"name": "cross_A_02",
+			"from": [4, 0, 8.5],
+			"to": [4, 10, 15.5],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [4, 0, 12], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"east": {"uv": [0, 6, 7, 16], "texture": "#texture"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"west": {"uv": [0, 6, 7, 16], "texture": "#texture"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "cross_B_00",
+			"from": [0.5, 0, 4],
+			"to": [7.5, 10, 4],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [4, 0, 4], "rescale": true},
+			"faces": {
+				"north": {"uv": [8, 6, 15, 16], "texture": "#texture"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"south": {"uv": [8, 6, 15, 16], "texture": "#texture"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "cross_B_01",
+			"from": [0.5, 0, 8],
+			"to": [15.5, 10, 8],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 6, 15, 16], "texture": "#texture"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"south": {"uv": [0, 6, 15, 16], "texture": "#texture"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "cross_B_02",
+			"from": [8.5, 0, 12],
+			"to": [15.5, 10, 12],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [12, 0, 12], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 6, 7, 16], "texture": "#texture"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"south": {"uv": [0, 6, 7, 16], "texture": "#texture"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "cross_A_00",
+			"from": [8.5, 0, 4],
+			"to": [15.5, 10, 4],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [12, 0, 4], "rescale": true},
+			"faces": {
+				"north": {"uv": [8, 6, 15, 16], "texture": "#texture"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"south": {"uv": [8, 6, 15, 16], "texture": "#texture"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#texture"}
+			}
+		},
+		{
+			"name": "cross_A_01",
+			"from": [0.5, 0, 8],
+			"to": [15.5, 10, 8],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 6, 15, 16], "texture": "#texture"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"south": {"uv": [0, 6, 15, 16], "texture": "#texture"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#texture"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#texture"}
+			}
+		}
+	]
+}

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Redstone;
 
 public class RedstoneCarvedPumpkinBlock extends CarvedPumpkinBlock {
     public static final MapCodec<RedstoneCarvedPumpkinBlock> CODEC = simpleCodec(RedstoneCarvedPumpkinBlock::new);
@@ -74,7 +75,8 @@ public class RedstoneCarvedPumpkinBlock extends CarvedPumpkinBlock {
 
     @Override
     public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        return state.getValue(FACING) == direction.getOpposite() && state.getValue(LIT) ? 15 : 0;
+        return state.getValue(FACING) == direction.getOpposite() && state.getValue(LIT) ? Redstone.SIGNAL_MAX :
+                Redstone.SIGNAL_NONE;
     }
 
     @Override

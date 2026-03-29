@@ -5,6 +5,11 @@
     "additionalsubtractions:obsidian_pressure_plate",
     "additionalsubtractions:copper_hopper",
     "additionalsubtractions:redstone_lantern",
-    "#additionalsubtractions:pedestals"
+    "additionalsubtractions:nether_brick_fence_gate",
+    "additionalsubtractions:copper_sulfate_lantern",
+    "#additionalsubtractions:pedestals",
+    "#additionalsubtractions:braziers",
+    "#additionalsubtractions:spikes",
+    "#additionalsubtractions:spike_traps"
   ]
 }

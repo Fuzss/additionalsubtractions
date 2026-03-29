@@ -49,6 +49,24 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
         translationBuilder.add(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), "Purpur Block Pedestal");
         translationBuilder.add(ModBlocks.TIMER.value(), "Redstone Timer");
         translationBuilder.add(ModBlocks.BOOKSHELF_SWITCH.value(), "Bookshelf Switch");
+        translationBuilder.add(ModBlocks.REDSTONE_CROSSING.value(), "Redstone Crossing");
+        translationBuilder.add(ModBlocks.NETHER_BRICK_FENCE_GATE.value(), "Nether Brick Fence Gate");
+        translationBuilder.add(ModBlocks.COPPER_SULFATE_FIRE.value(), "Copper Patina Fire");
+        translationBuilder.add(ModBlocks.COPPER_SULFATE_JACK_O_LANTERN.value(), "Copper Sulfate Jack o'Lantern");
+        translationBuilder.add(ModBlocks.COPPER_SULFATE_TORCH.value(), "Copper Sulfate Torch");
+        translationBuilder.add(ModBlocks.COPPER_SULFATE_CAMPFIRE.value(), "Copper Sulfate Campfire");
+        translationBuilder.add(ModBlocks.COPPER_SULFATE_LANTERN.value(), "Copper Sulfate Lantern");
+        translationBuilder.add(ModBlocks.BRAZIER.value(), "Brazier");
+        translationBuilder.add(ModBlocks.SOUL_BRAZIER.value(), "Soul Brazier");
+        translationBuilder.add(ModBlocks.COPPER_SULFATE_BRAZIER.value(), "Copper Sulfate Brazier");
+        translationBuilder.add(ModBlocks.IRON_SPIKES.value(), "Iron Spikes");
+        translationBuilder.add(ModBlocks.GOLDEN_SPIKES.value(), "Golden Spikes");
+        translationBuilder.add(ModBlocks.DIAMOND_SPIKES.value(), "Diamond Spikes");
+        translationBuilder.add(ModBlocks.NETHERITE_SPIKES.value(), "Netherite Spikes");
+        translationBuilder.add(ModBlocks.IRON_SPIKE_TRAP.value(), "Iron Spike Trap");
+        translationBuilder.add(ModBlocks.GOLDEN_SPIKE_TRAP.value(), "Golden Spike Trap");
+        translationBuilder.add(ModBlocks.DIAMOND_SPIKE_TRAP.value(), "Diamond Spike Trap");
+        translationBuilder.add(ModBlocks.NETHERITE_SPIKE_TRAP.value(), "Netherite Spike Trap");
 
         translationBuilder.add(ModRegistry.GLOW_STICK_ENTITY_TYPE.value(), "Glow Stick");
         translationBuilder.add(ModRegistry.PATINA_BLOCK_ENTITY_TYPE.value(), "Patina Block");

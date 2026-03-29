@@ -1,0 +1,6 @@
+{
+  "parent": "additionalsubtractions:block/template_spikes",
+  "textures": {
+    "texture": "additionalsubtractions:block/golden_spikes"
+  }
+}

@@ -1,7 +1,5 @@
 package fuzs.additionalsubtractions.world.level.block;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
 import fuzs.puzzleslib.api.shape.v1.ShapesHelper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -9,7 +7,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -29,22 +26,18 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Quaternionf;
 
 import java.util.Map;
 
 public class RopeBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<RopeBlock> CODEC = simpleCodec(RopeBlock::new);
     public static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 16.0, 10.0);
-    public static final VoxelShape SIDE_SHAPE = Block.box(7.0, 13.0, 0.0, 9.0, 15.0, 6.0);
-    public static final Map<Direction, VoxelShape> SIDE_SHAPES = Maps.immutableEnumMap(ImmutableMap.of(Direction.NORTH,
-            SIDE_SHAPE,
-            Direction.SOUTH,
-            ShapesHelper.rotate(new Quaternionf().rotationY(Mth.PI), SIDE_SHAPE),
-            Direction.WEST,
-            ShapesHelper.rotate(new Quaternionf().rotationY(Mth.HALF_PI), SIDE_SHAPE),
-            Direction.EAST,
-            ShapesHelper.rotate(new Quaternionf().rotationY(-Mth.HALF_PI), SIDE_SHAPE)));
+    public static final Map<Direction, VoxelShape> SIDE_SHAPES = ShapesHelper.rotateHorizontally(Block.box(7.0,
+            13.0,
+            10.0,
+            9.0,
+            15.0,
+            16.0));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -56,8 +49,7 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
 
     public RopeBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition()
-                .any()
+        this.registerDefaultState(this.stateDefinition.any()
                 .setValue(WATERLOGGED, Boolean.FALSE)
                 .setValue(NORTH, Boolean.FALSE)
                 .setValue(SOUTH, Boolean.FALSE)
@@ -165,8 +157,7 @@ public class RopeBlock extends Block implements SimpleWaterloggedBlock {
         Level level = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
         FluidState fluidState = level.getFluidState(blockPos);
-        BlockState blockState = super.getStateForPlacement(context)
-                .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        BlockState blockState = this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         if (!this.hasSupportAbove(level, blockPos)) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 if (this.isFaceSturdy(level, blockPos, direction)) {

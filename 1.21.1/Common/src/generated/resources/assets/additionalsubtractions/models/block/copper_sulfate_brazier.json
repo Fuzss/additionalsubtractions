@@ -1,0 +1,10 @@
+{
+  "parent": "additionalsubtractions:block/template_brazier",
+  "textures": {
+    "bottom": "additionalsubtractions:block/brazier_bottom",
+    "fire": "additionalsubtractions:block/copper_sulfate_campfire_fire",
+    "inside": "additionalsubtractions:block/copper_sulfate_brazier_inside",
+    "side": "additionalsubtractions:block/brazier_side",
+    "top": "additionalsubtractions:block/brazier_top"
+  }
+}

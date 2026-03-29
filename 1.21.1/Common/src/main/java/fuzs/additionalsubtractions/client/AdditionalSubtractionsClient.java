@@ -16,6 +16,8 @@ import fuzs.puzzleslib.api.client.event.v1.renderer.RenderHandEvents;
 import fuzs.puzzleslib.api.core.v1.utility.ResourceLocationHelper;
 import net.minecraft.client.model.MinecartModel;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.particle.LavaParticle;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
@@ -81,13 +83,34 @@ public class AdditionalSubtractionsClient implements ClientModConstructor {
                 ModBlocks.COPPER_RAIL.value(),
                 ModBlocks.COPPER_HOPPER.value(),
                 ModBlocks.REDSTONE_LANTERN.value(),
-                ModBlocks.TIMER.value());
+                ModBlocks.TIMER.value(),
+                ModBlocks.COPPER_SULFATE_FIRE.value(),
+                ModBlocks.COPPER_SULFATE_TORCH.value(),
+                ModBlocks.COPPER_SULFATE_WALL_TORCH.value(),
+                ModBlocks.COPPER_SULFATE_CAMPFIRE.value(),
+                ModBlocks.COPPER_SULFATE_LANTERN.value(),
+                ModBlocks.BRAZIER.value(),
+                ModBlocks.SOUL_BRAZIER.value(),
+                ModBlocks.COPPER_SULFATE_BRAZIER.value(),
+                ModBlocks.IRON_SPIKES.value(),
+                ModBlocks.GOLDEN_SPIKES.value(),
+                ModBlocks.DIAMOND_SPIKES.value(),
+                ModBlocks.NETHERITE_SPIKES.value());
     }
 
     @Override
     public void onRegisterLayerDefinitions(LayerDefinitionsContext context) {
         context.registerLayerDefinition(ModModelLayerLocations.COPPER_HOPPER_MINECART, MinecartModel::createBodyLayer);
         context.registerLayerDefinition(ModModelLayerLocations.TIMER, TimerRenderer::createBodyLayer);
+    }
+
+    @Override
+    public void onRegisterParticleProviders(ParticleProvidersContext context) {
+        context.registerParticleProvider(ModRegistry.SOUL_LAVA_PARTICLE_TYPE.value(), LavaParticle.Provider::new);
+        context.registerParticleProvider(ModRegistry.COPPER_SULFATE_LAVA_PARTICLE_TYPE.value(),
+                LavaParticle.Provider::new);
+        context.registerParticleProvider(ModRegistry.COPPER_SULFATE_FIRE_FLAME_PARTICLE_TYPE.value(),
+                FlameParticle.Provider::new);
     }
 
     @Override

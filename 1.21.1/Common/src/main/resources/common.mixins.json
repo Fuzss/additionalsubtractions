@@ -5,6 +5,7 @@
   "package": "${modGroup}.mixin",
   "mixins": [
     "AbstractMinecartMixin",
+    "BaseFireBlockMixin",
     "BlockMixin",
     "CarvedPumpkinBlockMixin",
     "FallingBlockEntityMixin",

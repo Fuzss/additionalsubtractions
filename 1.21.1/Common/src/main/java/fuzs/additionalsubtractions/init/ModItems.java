@@ -4,6 +4,7 @@ import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.world.item.*;
 import fuzs.puzzleslib.api.item.v2.ItemEquipmentFactories;
 import net.minecraft.Util;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.Collections;
@@ -93,6 +95,28 @@ public class ModItems {
             ModBlocks.PURPUR_BLOCK_PEDESTAL);
     public static final Holder.Reference<Item> TIMER = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.TIMER);
     public static final Holder.Reference<Item> BOOKSHELF_SWITCH = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.BOOKSHELF_SWITCH);
+    public static final Holder.Reference<Item> REDSTONE_CROSSING = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.REDSTONE_CROSSING);
+    public static final Holder.Reference<Item> NETHER_BRICK_FENCE_GATE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.NETHER_BRICK_FENCE_GATE);
+    public static final Holder.Reference<Item> COPPER_SULFATE_TORCH = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.COPPER_SULFATE_TORCH,
+            (Block block, Item.Properties properties) -> new StandingAndWallBlockItem(block,
+                    ModBlocks.COPPER_SULFATE_WALL_TORCH.value(),
+                    properties,
+                    Direction.DOWN));
+    public static final Holder.Reference<Item> COPPER_SULFATE_JACK_O_LANTERN = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.COPPER_SULFATE_JACK_O_LANTERN);
+    public static final Holder.Reference<Item> COPPER_SULFATE_CAMPFIRE = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.COPPER_SULFATE_CAMPFIRE);
+    public static final Holder.Reference<Item> COPPER_SULFATE_LANTERN = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.COPPER_SULFATE_LANTERN);
+    public static final Holder.Reference<Item> BRAZIER = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.BRAZIER);
+    public static final Holder.Reference<Item> SOUL_BRAZIER = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.SOUL_BRAZIER);
+    public static final Holder.Reference<Item> COPPER_SULFATE_BRAZIER = ModRegistry.REGISTRIES.registerBlockItem(
+            ModBlocks.COPPER_SULFATE_BRAZIER);
+    public static final Holder.Reference<Item> IRON_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.IRON_SPIKE_TRAP);
+    public static final Holder.Reference<Item> GOLDEN_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.GOLDEN_SPIKE_TRAP);
+    public static final Holder.Reference<Item> DIAMOND_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.DIAMOND_SPIKE_TRAP);
+    public static final Holder.Reference<Item> NETHERITE_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlockItem(ModBlocks.NETHERITE_SPIKE_TRAP);
 
     public static final Holder.Reference<Item> COPPER_PATINA = ModRegistry.REGISTRIES.registerItem("copper_patina",
             CopperPatinaItem::new);

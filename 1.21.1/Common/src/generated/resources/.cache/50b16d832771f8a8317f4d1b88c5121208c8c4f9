@@ -1,9 +1,16 @@
-// 1.21.1	2025-03-18T00:43:06.399341	Tags for minecraft:block mod id vanilla
+// 1.21.1	2025-03-23T17:50:32.719991	Tags for minecraft:block mod id vanilla
+1f4c1f568cbcc791f6ad301d75eccab1654b4c09 data/additionalsubtractions/tags/block/braziers.json
 b446030df1799bc45c14731a8a95856bd616a9ba data/additionalsubtractions/tags/block/pedestals.json
 0af9bd6c682b1ff792a84663ee2ef4303502b74a data/additionalsubtractions/tags/block/rotatable.json
+73fc7dc2e46003f61e529adf61f361604e36eccb data/additionalsubtractions/tags/block/spike_traps.json
+252cec48b9dcb9819d7904cd715c5147c495b3f8 data/additionalsubtractions/tags/block/spikes.json
+1a5bbea5c11ef65739100655b6fe8242e0858c45 data/minecraft/tags/block/campfires.json
 aa029d1233b7f5f554177b4b36c3dc6e09e0e19b data/minecraft/tags/block/climbable.json
-bcd115b2ac0289587ec359f98f502039c984c11a data/minecraft/tags/block/mineable/axe.json
-d80ffdfd32c1d55da2e8386f91281af2231b9e03 data/minecraft/tags/block/mineable/pickaxe.json
+301cbaf9aae36dd1b972e14f6c3909953a3949f8 data/minecraft/tags/block/fence_gates.json
+63a5af191aad73b5e81371aa1b4e07b3d11b0dee data/minecraft/tags/block/fire.json
+3f4956bebddc9641e38f4b4bd4fabcae0efb1960 data/minecraft/tags/block/mineable/axe.json
+ee8222d6a5f15a9954a6b5c54ed07792244363a8 data/minecraft/tags/block/mineable/pickaxe.json
 f64d0583ef39a75abad841339f38620e83797668 data/minecraft/tags/block/pressure_plates.json
 ec0719ef1a1c71e717b0475f091e4a849a3c80b2 data/minecraft/tags/block/rails.json
-bcd115b2ac0289587ec359f98f502039c984c11a data/minecraft/tags/block/sword_efficient.json
+1e9407b94a02319810b20a27f3cb7d6953a6c149 data/minecraft/tags/block/sword_efficient.json
+f4537a15bd2fd7506a2a58387a317c8049d3b80b data/minecraft/tags/block/wall_post_override.json

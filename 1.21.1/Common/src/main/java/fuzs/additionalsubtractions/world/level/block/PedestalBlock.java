@@ -122,8 +122,7 @@ public class PedestalBlock extends BaseEntityBlock implements SimpleWaterloggedB
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        boolean bl = fluidState.getType() == Fluids.WATER;
-        return super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(bl));
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override

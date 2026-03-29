@@ -3,6 +3,7 @@ package fuzs.additionalsubtractions.data.client;
 import fuzs.additionalsubtractions.AdditionalSubtractions;
 import fuzs.additionalsubtractions.init.ModBlocks;
 import fuzs.additionalsubtractions.init.ModItems;
+import fuzs.additionalsubtractions.world.level.block.SpikeTrapBlock;
 import fuzs.puzzleslib.api.client.data.v2.AbstractModelProvider;
 import fuzs.puzzleslib.api.client.data.v2.models.ModelLocationHelper;
 import fuzs.puzzleslib.api.client.data.v2.models.ModelTemplateHelper;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -88,6 +90,24 @@ public class ModModelProvider extends AbstractModelProvider {
             TextureSlot.UP,
             TextureSlot.DOWN,
             TextureSlot.TEXTURE);
+    public static final ModelTemplate REDSTONE_CROSSING_X_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_redstone_crossing_x"),
+            TextureSlot.PARTICLE,
+            TextureSlot.TEXTURE);
+    public static final ModelTemplate REDSTONE_CROSSING_Z_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_redstone_crossing_z"),
+            TextureSlot.PARTICLE,
+            TextureSlot.TEXTURE);
+    public static final ModelTemplate BRAZIER_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_brazier"),
+            TextureSlot.SIDE,
+            TextureSlot.TOP,
+            TextureSlot.BOTTOM,
+            TextureSlot.INSIDE,
+            TextureSlot.FIRE);
+    public static final ModelTemplate SPIKES_TEMPLATE = ModelTemplateHelper.createBlockModelTemplate(
+            AdditionalSubtractions.id("template_spikes"),
+            TextureSlot.TEXTURE);
     public static final TexturedModel.Provider PEDESTAL_TEXTURE_MODEL = TexturedModel.createDefault(TextureMapping::column,
             PEDESTAL_TEMPLATE);
 
@@ -137,6 +157,28 @@ public class ModModelProvider extends AbstractModelProvider {
         blockModelGenerators.createTrivialBlock(ModBlocks.PURPUR_BLOCK_PEDESTAL.value(), PEDESTAL_TEXTURE_MODEL);
         this.createTimer(ModBlocks.TIMER.value(), blockModelGenerators);
         this.createBookshelfSwitch(ModBlocks.BOOKSHELF_SWITCH.value(), Blocks.OAK_PLANKS, blockModelGenerators);
+        this.createRedstoneCrossing(ModBlocks.REDSTONE_CROSSING.value(), blockModelGenerators);
+        this.createFenceGate(ModBlocks.NETHER_BRICK_FENCE_GATE.value(), Blocks.NETHER_BRICKS, blockModelGenerators);
+        this.createFire(ModBlocks.COPPER_SULFATE_FIRE.value(), blockModelGenerators);
+        blockModelGenerators.createNormalTorch(ModBlocks.COPPER_SULFATE_TORCH.value(),
+                ModBlocks.COPPER_SULFATE_WALL_TORCH.value());
+        blockModelGenerators.createPumpkinVariant(ModBlocks.COPPER_SULFATE_JACK_O_LANTERN.value(),
+                TextureMapping.column(Blocks.PUMPKIN));
+        blockModelGenerators.createCampfires(ModBlocks.COPPER_SULFATE_CAMPFIRE.value());
+        blockModelGenerators.createLantern(ModBlocks.COPPER_SULFATE_LANTERN.value());
+        this.createBrazier(ModBlocks.BRAZIER.value(), Blocks.CAMPFIRE, blockModelGenerators);
+        this.createBrazier(ModBlocks.SOUL_BRAZIER.value(), Blocks.SOUL_CAMPFIRE, blockModelGenerators);
+        this.createBrazier(ModBlocks.COPPER_SULFATE_BRAZIER.value(),
+                ModBlocks.COPPER_SULFATE_CAMPFIRE.value(),
+                blockModelGenerators);
+        this.createSpikes(ModBlocks.IRON_SPIKES.value(), blockModelGenerators);
+        this.createSpikes(ModBlocks.GOLDEN_SPIKES.value(), blockModelGenerators);
+        this.createSpikes(ModBlocks.DIAMOND_SPIKES.value(), blockModelGenerators);
+        this.createSpikes(ModBlocks.NETHERITE_SPIKES.value(), blockModelGenerators);
+        this.createSpikeTrap(ModBlocks.IRON_SPIKE_TRAP.value(), blockModelGenerators);
+        this.createSpikeTrap(ModBlocks.GOLDEN_SPIKE_TRAP.value(), blockModelGenerators);
+        this.createSpikeTrap(ModBlocks.DIAMOND_SPIKE_TRAP.value(), blockModelGenerators);
+        this.createSpikeTrap(ModBlocks.NETHERITE_SPIKE_TRAP.value(), blockModelGenerators);
     }
 
     public final void createRedstoneLamp(Block block, BlockModelGenerators blockModelGenerators) {
@@ -156,7 +198,7 @@ public class ModModelProvider extends AbstractModelProvider {
                 TextureMapping.layer0(block.asItem()),
                 blockModelGenerators.modelOutput);
         blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block,
-                Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createFacingDispatch()));
+                Variant.variant().with(VariantProperties.MODEL, resourceLocation)).with(createItemFacingDispatch()));
         blockModelGenerators.skipAutoItemBlock(block);
     }
 
@@ -337,7 +379,8 @@ public class ModModelProvider extends AbstractModelProvider {
                 blockModelGenerators.modelOutput);
         ResourceLocation resourceLocation2 = ModelTemplates.CUBE_ORIENTABLE.createWithSuffix(block,
                 "_on",
-                columnTextureMapping.copyAndUpdate(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_on")),
+                columnTextureMapping.copyAndUpdate(TextureSlot.FRONT,
+                        ModelLocationHelper.getBlockTexture(block, "_on")),
                 blockModelGenerators.modelOutput);
         blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(BlockModelGenerators.createHorizontalFacingDispatch())
@@ -346,7 +389,7 @@ public class ModModelProvider extends AbstractModelProvider {
                         resourceLocation)));
     }
 
-    public static PropertyDispatch createFacingDispatch() {
+    public static PropertyDispatch createItemFacingDispatch() {
         return PropertyDispatch.property(BlockStateProperties.FACING)
                 .select(Direction.UP,
                         Variant.variant()
@@ -425,6 +468,131 @@ public class ModModelProvider extends AbstractModelProvider {
                         resourceLocation2,
                         resourceLocation))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));
+    }
+
+    public final void createRedstoneCrossing(Block block, BlockModelGenerators blockModelGenerators) {
+        TextureMapping textureMapping = TextureMapping.defaultTexture(ModelLocationHelper.getBlockTexture(block))
+                .put(TextureSlot.PARTICLE, ModelLocationHelper.getBlockTexture(Blocks.SMOOTH_STONE));
+        TextureMapping textureMapping1 = TextureMapping.defaultTexture(ModelLocationHelper.getBlockTexture(block,
+                "_on")).put(TextureSlot.PARTICLE, ModelLocationHelper.getBlockTexture(Blocks.SMOOTH_STONE));
+        ResourceLocation resourceLocation = REDSTONE_CROSSING_X_TEMPLATE.createWithSuffix(block,
+                "_x",
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = REDSTONE_CROSSING_X_TEMPLATE.createWithSuffix(block,
+                "_x_on",
+                textureMapping1,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation3 = REDSTONE_CROSSING_Z_TEMPLATE.createWithSuffix(block,
+                "_z",
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation4 = REDSTONE_CROSSING_Z_TEMPLATE.createWithSuffix(block,
+                "_z_on",
+                textureMapping1,
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                .with(Condition.and(Condition.condition().term(BlockStateProperties.EAST, false),
+                                Condition.condition().term(BlockStateProperties.WEST, false)),
+                        Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.EAST, true),
+                                Condition.condition().term(BlockStateProperties.WEST, true)),
+                        Variant.variant().with(VariantProperties.MODEL, resourceLocation2))
+                .with(Condition.and(Condition.condition().term(BlockStateProperties.SOUTH, false),
+                                Condition.condition().term(BlockStateProperties.NORTH, false)),
+                        Variant.variant().with(VariantProperties.MODEL, resourceLocation3))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.SOUTH, true),
+                                Condition.condition().term(BlockStateProperties.NORTH, true)),
+                        Variant.variant().with(VariantProperties.MODEL, resourceLocation4)));
+        blockModelGenerators.createSimpleFlatItemModel(block.asItem());
+    }
+
+    public final void createFenceGate(Block block, Block textureBlock, BlockModelGenerators blockModelGenerators) {
+        TextureMapping textureMapping = TextureMapping.defaultTexture(textureBlock);
+        ResourceLocation resourceLocation = ModelTemplates.FENCE_GATE_OPEN.create(block,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = ModelTemplates.FENCE_GATE_CLOSED.create(block,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation3 = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation4 = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block,
+                textureMapping,
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createFenceGate(block,
+                resourceLocation,
+                resourceLocation2,
+                resourceLocation3,
+                resourceLocation4,
+                true));
+    }
+
+    public final void createFire(Block block, BlockModelGenerators blockModelGenerators) {
+        Condition condition = Condition.condition()
+                .term(BlockStateProperties.NORTH, false)
+                .term(BlockStateProperties.EAST, false)
+                .term(BlockStateProperties.SOUTH, false)
+                .term(BlockStateProperties.WEST, false)
+                .term(BlockStateProperties.UP, false);
+        List<ResourceLocation> list = blockModelGenerators.createFloorFireModels(block);
+        List<ResourceLocation> list2 = blockModelGenerators.createSideFireModels(block);
+        List<ResourceLocation> list3 = blockModelGenerators.createTopFireModels(block);
+        blockModelGenerators.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                .with(condition, BlockModelGenerators.wrapModels(list, variant -> variant))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.NORTH, true), condition),
+                        BlockModelGenerators.wrapModels(list2, variant -> variant))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.EAST, true), condition),
+                        BlockModelGenerators.wrapModels(list2,
+                                variant -> variant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.SOUTH, true), condition),
+                        BlockModelGenerators.wrapModels(list2,
+                                variant -> variant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)))
+                .with(Condition.or(Condition.condition().term(BlockStateProperties.WEST, true), condition),
+                        BlockModelGenerators.wrapModels(list2,
+                                variant -> variant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)))
+                .with(Condition.condition().term(BlockStateProperties.UP, true),
+                        BlockModelGenerators.wrapModels(list3, variant -> variant)));
+    }
+
+    public static TextureMapping brazier(Block block, Block brazierBlock, Block campfireBlock) {
+        return new TextureMapping().put(TextureSlot.SIDE, ModelLocationHelper.getBlockTexture(brazierBlock, "_side"))
+                .put(TextureSlot.TOP, ModelLocationHelper.getBlockTexture(brazierBlock, "_top"))
+                .put(TextureSlot.BOTTOM, ModelLocationHelper.getBlockTexture(brazierBlock, "_bottom"))
+                .put(TextureSlot.INSIDE, ModelLocationHelper.getBlockTexture(block, "_inside"))
+                .put(TextureSlot.FIRE, ModelLocationHelper.getBlockTexture(campfireBlock, "_fire"));
+    }
+
+    public final void createBrazier(Block block, Block campfireBlock, BlockModelGenerators blockModelGenerators) {
+        TextureMapping textureMapping = brazier(block, ModBlocks.BRAZIER.value(), campfireBlock);
+        blockModelGenerators.createTrivialBlock(block, textureMapping, BRAZIER_TEMPLATE);
+    }
+
+    public final void createSpikes(Block block, BlockModelGenerators blockModelGenerators) {
+        blockModelGenerators.skipAutoItemBlock(block);
+        ResourceLocation resourceLocation = SPIKES_TEMPLATE.create(block,
+                TextureMapping.defaultTexture(block),
+                blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block,
+                        Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+                .with(blockModelGenerators.createColumnWithFacing()));
+    }
+
+    public final void createSpikeTrap(Block block, BlockModelGenerators blockModelGenerators) {
+        ResourceLocation resourceLocation = TextureMapping.getBlockTexture(block, "_side_on");
+        ResourceLocation resourceLocation1 = TexturedModel.CUBE_TOP_BOTTOM.create(block,
+                blockModelGenerators.modelOutput);
+        ResourceLocation resourceLocation2 = TexturedModel.CUBE_TOP_BOTTOM.get(block)
+                .updateTextures((TextureMapping textureMapping) -> textureMapping.put(TextureSlot.SIDE,
+                        resourceLocation))
+                .createWithSuffix(block, "_on", blockModelGenerators.modelOutput);
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(blockModelGenerators.createColumnWithFacing())
+                .with(PropertyDispatch.property(SpikeTrapBlock.EXTENDED).generate((Integer i) -> {
+                    return Variant.variant()
+                            .with(VariantProperties.MODEL, i == 0 ? resourceLocation1 : resourceLocation2);
+                })));
     }
 
     @Override

@@ -6,6 +6,7 @@ import fuzs.additionalsubtractions.client.handler.FireworkExplosionShapeClientHe
 import fuzs.additionalsubtractions.data.client.ModLanguageProvider;
 import fuzs.additionalsubtractions.data.client.ModModelProvider;
 import fuzs.additionalsubtractions.init.ModEnumConstants;
+import fuzs.additionalsubtractions.neoforge.data.client.ModParticleProvider;
 import fuzs.additionalsubtractions.neoforge.data.client.ModSoundProvider;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
@@ -26,7 +27,8 @@ public class AdditionalSubtractionsNeoForgeClient {
         DataProviderHelper.registerDataProviders(AdditionalSubtractions.MOD_ID,
                 ModLanguageProvider::new,
                 ModModelProvider::new,
-                ModSoundProvider::new);
+                ModSoundProvider::new,
+                ModParticleProvider::new);
         registerLoadingHandlers(modContainer.getEventBus());
     }
 

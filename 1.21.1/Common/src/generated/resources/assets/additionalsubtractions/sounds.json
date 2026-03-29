@@ -1,4 +1,17 @@
 {
+  "block.spike_trap.extend": {
+    "sounds": [
+      "additionalsubtractions:block/spike_trap/extend1",
+      "additionalsubtractions:block/spike_trap/extend2"
+    ],
+    "subtitle": "subtitles.block.spike_trap.extend"
+  },
+  "block.spike_trap.retract": {
+    "sounds": [
+      "additionalsubtractions:block/spike_trap/retract"
+    ],
+    "subtitle": "subtitles.block.spike_trap.retract"
+  },
   "music_disc.0308": {
     "sounds": [
       {

@@ -1,0 +1,10 @@
+{
+  "parent": "additionalsubtractions:block/template_brazier",
+  "textures": {
+    "bottom": "additionalsubtractions:block/brazier_bottom",
+    "fire": "minecraft:block/soul_campfire_fire",
+    "inside": "additionalsubtractions:block/soul_brazier_inside",
+    "side": "additionalsubtractions:block/brazier_side",
+    "top": "additionalsubtractions:block/brazier_top"
+  }
+}

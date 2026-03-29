@@ -18,7 +18,8 @@ abstract class BlockMixin extends BlockBehaviour {
 
     @Inject(method = "isExceptionForConnection", at = @At("HEAD"), cancellable = true)
     private static void isExceptionForConnection(BlockState state, CallbackInfoReturnable<Boolean> callback) {
-        if (state.is(ModBlocks.SOUL_JACK_O_LANTERN) || state.is(ModBlocks.REDSTONE_JACK_O_LANTERN)) {
+        if (state.is(ModBlocks.SOUL_JACK_O_LANTERN) || state.is(ModBlocks.REDSTONE_JACK_O_LANTERN) ||
+                state.is(ModBlocks.COPPER_SULFATE_JACK_O_LANTERN)) {
             callback.setReturnValue(true);
         }
     }

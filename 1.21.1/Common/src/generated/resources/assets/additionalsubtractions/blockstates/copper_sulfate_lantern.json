@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "additionalsubtractions:block/copper_sulfate_lantern"
+    },
+    "hanging=true": {
+      "model": "additionalsubtractions:block/copper_sulfate_lantern_hanging"
+    }
+  }
+}

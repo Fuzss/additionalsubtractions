@@ -43,7 +43,7 @@ public class TimerBlock extends DiodeBlock implements TickingEntityBlock<TimerBl
     }
 
     @Override
-    protected MapCodec<? extends DiodeBlock> codec() {
+    protected MapCodec<? extends TimerBlock> codec() {
         return CODEC;
     }
 

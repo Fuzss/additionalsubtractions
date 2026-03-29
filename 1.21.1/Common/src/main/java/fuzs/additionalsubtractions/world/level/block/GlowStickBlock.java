@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
@@ -31,7 +32,7 @@ public class GlowStickBlock extends Block implements SimpleWaterloggedBlock {
 
     public GlowStickBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState()
+        this.registerDefaultState(this.stateDefinition.any()
                 .setValue(WATERLOGGED, Boolean.FALSE)
                 .setValue(FACING, Direction.UP));
     }
@@ -67,19 +68,19 @@ public class GlowStickBlock extends Block implements SimpleWaterloggedBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        LevelAccessor levelAccessor = context.getLevel();
+        Level level = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = this.defaultBlockState()
-                .setValue(WATERLOGGED,
-                        Boolean.valueOf(levelAccessor.getFluidState(blockPos).getType() == Fluids.WATER));
+                .setValue(WATERLOGGED, level.getFluidState(blockPos).getType() == Fluids.WATER);
         Direction[] directions = context.getPlayer() != null ? context.getNearestLookingDirections() :
                 new Direction[]{context.getClickedFace().getOpposite()};
         for (Direction direction : directions) {
             BlockState newBlockState = blockState.setValue(FACING, direction.getOpposite());
-            if (newBlockState.canSurvive(levelAccessor, blockPos)) {
+            if (newBlockState.canSurvive(level, blockPos)) {
                 return newBlockState;
             }
         }
+
         return null;
     }
 

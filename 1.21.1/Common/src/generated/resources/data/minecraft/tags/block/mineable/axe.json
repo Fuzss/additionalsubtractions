@@ -1,7 +1,12 @@
 {
+  "remove": [
+    "additionalsubtractions:nether_brick_fence_gate"
+  ],
   "values": [
     "additionalsubtractions:rope",
     "additionalsubtractions:soul_jack_o_lantern",
-    "additionalsubtractions:redstone_jack_o_lantern"
+    "additionalsubtractions:redstone_jack_o_lantern",
+    "additionalsubtractions:copper_sulfate_jack_o_lantern",
+    "additionalsubtractions:copper_sulfate_campfire"
   ]
 }

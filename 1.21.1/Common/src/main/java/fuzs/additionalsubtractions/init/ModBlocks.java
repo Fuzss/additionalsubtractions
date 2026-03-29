@@ -8,6 +8,9 @@ import fuzs.additionalsubtractions.world.level.block.entity.TimerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
@@ -17,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
@@ -174,6 +178,114 @@ public class ModBlocks {
                     .sound(SoundType.WOOD)
                     .requiresCorrectToolForDrops()
                     .isRedstoneConductor(Blocks::never));
+    public static final Holder.Reference<Block> REDSTONE_CROSSING = ModRegistry.REGISTRIES.registerBlock(
+            "redstone_crossing",
+            RedstoneCrossingBlock::new,
+            () -> BlockBehaviour.Properties.of()
+                    .instabreak()
+                    .sound(SoundType.STONE)
+                    .pushReaction(PushReaction.DESTROY));
+    public static final Holder.Reference<Block> NETHER_BRICK_FENCE_GATE = ModRegistry.REGISTRIES.registerBlock(
+            "nether_brick_fence_gate",
+            (BlockBehaviour.Properties properties) -> new FenceGateBlock(WoodType.OAK, properties),
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NETHER)
+                    .forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F, 6.0F)
+                    .sound(SoundType.NETHER_BRICKS));
+    public static final Holder.Reference<Block> COPPER_SULFATE_FIRE = ModRegistry.REGISTRIES.whenOnFabricLike()
+            .registerBlock("copper_sulfate_fire",
+                    ModFireBlock::new,
+                    () -> BlockBehaviour.Properties.ofFullCopy(Blocks.FIRE).lightLevel((BlockState blockState) -> 12));
+    public static final Holder.Reference<Block> COPPER_SULFATE_TORCH = ModRegistry.REGISTRIES.registerBlock(
+            "copper_sulfate_torch",
+            (BlockBehaviour.Properties properties) -> new ModTorchBlock(ModRegistry.COPPER_SULFATE_FIRE_FLAME_PARTICLE_TYPE,
+                    properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.TORCH).lightLevel((BlockState blockState) -> 12));
+    public static final Holder.Reference<Block> COPPER_SULFATE_WALL_TORCH = ModRegistry.REGISTRIES.registerBlock(
+            "copper_sulfate_wall_torch",
+            (BlockBehaviour.Properties properties) -> new ModWallTorchBlock(ModRegistry.COPPER_SULFATE_FIRE_FLAME_PARTICLE_TYPE,
+                    properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.WALL_TORCH)
+                    .lightLevel((BlockState blockState) -> 12)
+                    .dropsLike(COPPER_SULFATE_TORCH.value()));
+    public static final Holder.Reference<Block> COPPER_SULFATE_JACK_O_LANTERN = ModRegistry.REGISTRIES.registerBlock(
+            "copper_sulfate_jack_o_lantern",
+            CarvedPumpkinBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.JACK_O_LANTERN));
+    public static final Holder.Reference<Block> COPPER_SULFATE_CAMPFIRE = ModRegistry.REGISTRIES.registerBlock(
+            "copper_sulfate_campfire",
+            (BlockBehaviour.Properties properties) -> new ModCampfireBlock(ModRegistry.COPPER_SULFATE_LAVA_PARTICLE_TYPE,
+                    1,
+                    properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.CAMPFIRE).lightLevel(Blocks.litBlockEmission(12)));
+    public static final Holder.Reference<Block> COPPER_SULFATE_LANTERN = ModRegistry.REGISTRIES.registerBlock(
+            "copper_sulfate_lantern",
+            LanternBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).lightLevel((BlockState blockState) -> 12));
+    public static final Holder.Reference<Block> BRAZIER = ModRegistry.REGISTRIES.registerBlock("brazier",
+            (BlockBehaviour.Properties properties) -> new BrazierBlock((Holder<SimpleParticleType>) (Holder<?>) BuiltInRegistries.PARTICLE_TYPE.wrapAsHolder(
+                    ParticleTypes.LAVA), 1, properties),
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .forceSolidOn()
+                    .requiresCorrectToolForDrops()
+                    .strength(5.0F, 6.0F)
+                    .sound(SoundType.METAL)
+                    .lightLevel((BlockState blockState) -> 15)
+                    .noOcclusion());
+    public static final Holder.Reference<Block> SOUL_BRAZIER = ModRegistry.REGISTRIES.registerBlock("soul_brazier",
+            (BlockBehaviour.Properties properties) -> new BrazierBlock(ModRegistry.SOUL_LAVA_PARTICLE_TYPE,
+                    2,
+                    properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(BRAZIER.value()).lightLevel((BlockState blockState) -> 10));
+    public static final Holder.Reference<Block> COPPER_SULFATE_BRAZIER = ModRegistry.REGISTRIES.registerBlock(
+            "copper_sulfate_brazier",
+            (BlockBehaviour.Properties properties) -> new BrazierBlock(ModRegistry.COPPER_SULFATE_LAVA_PARTICLE_TYPE,
+                    1,
+                    properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(BRAZIER.value()).lightLevel((BlockState blockState) -> 12));
+    public static final Holder.Reference<Block> IRON_SPIKES = ModRegistry.REGISTRIES.registerBlock("iron_spikes",
+            (BlockBehaviour.Properties properties) -> new SpikesBlock(ModBlocks.IRON_SPIKE_TRAP, 1, 0, properties),
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .strength(2.5F)
+                    .noLootTable()
+                    .noOcclusion()
+                    .noCollission()
+                    .pushReaction(PushReaction.BLOCK));
+    public static final Holder.Reference<Block> GOLDEN_SPIKES = ModRegistry.REGISTRIES.registerBlock("golden_spikes",
+            (BlockBehaviour.Properties properties) -> new SpikesBlock(ModBlocks.GOLDEN_SPIKE_TRAP, 2, 1, properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(IRON_SPIKES.value()).mapColor(MapColor.GOLD));
+    public static final Holder.Reference<Block> DIAMOND_SPIKES = ModRegistry.REGISTRIES.registerBlock("diamond_spikes",
+            (BlockBehaviour.Properties properties) -> new SpikesBlock(ModBlocks.DIAMOND_SPIKE_TRAP, 3, 2, properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(IRON_SPIKES.value()).mapColor(MapColor.DIAMOND));
+    public static final Holder.Reference<Block> NETHERITE_SPIKES = ModRegistry.REGISTRIES.registerBlock(
+            "netherite_spikes",
+            (BlockBehaviour.Properties properties) -> new SpikesBlock(ModBlocks.NETHERITE_SPIKE_TRAP, 4, 2, properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(IRON_SPIKES.value()).mapColor(MapColor.COLOR_BLACK));
+    public static final Holder.Reference<Block> IRON_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlock("iron_spike_trap",
+            (BlockBehaviour.Properties properties) -> new SpikeTrapBlock(IRON_SPIKES, 1, properties),
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F)
+                    .pushReaction(PushReaction.BLOCK));
+    public static final Holder.Reference<Block> GOLDEN_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlock(
+            "golden_spike_trap",
+            (BlockBehaviour.Properties properties) -> new SpikeTrapBlock(GOLDEN_SPIKES, 3, properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(IRON_SPIKE_TRAP.value()));
+    public static final Holder.Reference<Block> DIAMOND_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlock(
+            "diamond_spike_trap",
+            (BlockBehaviour.Properties properties) -> new SpikeTrapBlock(DIAMOND_SPIKES, 6, properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(IRON_SPIKE_TRAP.value()));
+    public static final Holder.Reference<Block> NETHERITE_SPIKE_TRAP = ModRegistry.REGISTRIES.registerBlock(
+            "netherite_spike_trap",
+            (BlockBehaviour.Properties properties) -> new SpikeTrapBlock(NETHERITE_SPIKES, 15, properties),
+            () -> BlockBehaviour.Properties.ofFullCopy(IRON_SPIKE_TRAP.value()));
 
     public static final Holder.Reference<BlockEntityType<CopperHopperBlockEntity>> COPPER_HOPPER_BLOCK_ENTITY_TYPE = ModRegistry.REGISTRIES.registerBlockEntityType(
             "copper_hopper",

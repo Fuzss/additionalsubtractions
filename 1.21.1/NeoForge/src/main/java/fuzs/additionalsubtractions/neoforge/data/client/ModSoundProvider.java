@@ -1,5 +1,6 @@
 package fuzs.additionalsubtractions.neoforge.data.client;
 
+import fuzs.additionalsubtractions.init.ModRegistry;
 import fuzs.additionalsubtractions.init.ModSoundEvents;
 import fuzs.puzzleslib.neoforge.api.data.v2.client.AbstractSoundDefinitionProvider;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.NeoForgeDataProviderContext;
@@ -19,6 +20,10 @@ public class ModSoundProvider extends AbstractSoundDefinitionProvider {
         this.addRecord(ModSoundEvents.MUSIC_DISC_0308_SOUND_EVENT, "0308");
         this.addRecord(ModSoundEvents.MUSIC_DISC_1007_SOUND_EVENT, "1007");
         this.addRecord(ModSoundEvents.MUSIC_DISC_1507_SOUND_EVENT, "1507");
+        this.add(ModRegistry.SPIKE_TRAP_EXTEND_SOUND_EVENT.value(),
+                this.id("block/spike_trap/extend1"),
+                this.id("block/spike_trap/extend2"));
+        this.add(ModRegistry.SPIKE_TRAP_RETRACT_SOUND_EVENT.value(), this.id("block/spike_trap/retract"));
     }
 
     protected void addRecord(Holder<SoundEvent> soundEvent, String fileName) {

@@ -8,26 +8,24 @@ import fuzs.additionalsubtractions.world.entity.vehicle.MinecartCopperHopper;
 import fuzs.additionalsubtractions.world.inventory.TimerMenu;
 import fuzs.additionalsubtractions.world.item.crafting.ModFireworkStarRecipe;
 import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
-import fuzs.puzzleslib.api.init.v3.tags.TagFactory;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -40,6 +38,12 @@ public class ModRegistry {
             ModEnchantments::bootstrap).add(Registries.JUKEBOX_SONG, ModJukeboxSongs::bootstrap);
 
     static final RegistryManager REGISTRIES = RegistryManager.from(AdditionalSubtractions.MOD_ID);
+    public static final Holder.Reference<SimpleParticleType> SOUL_LAVA_PARTICLE_TYPE = REGISTRIES.registerParticleType(
+            "soul_lava");
+    public static final Holder.Reference<SimpleParticleType> COPPER_SULFATE_FIRE_FLAME_PARTICLE_TYPE = REGISTRIES.registerParticleType(
+            "copper_sulfate_fire_flame");
+    public static final Holder.Reference<SimpleParticleType> COPPER_SULFATE_LAVA_PARTICLE_TYPE = REGISTRIES.registerParticleType(
+            "copper_sulfate_lava");
     public static final Holder.Reference<DataComponentType<Long>> POCKET_JUKEBOX_SONG_STARTED_TIME_DATA_COMPONENT_TYPE = REGISTRIES.registerDataComponentType(
             "pocket_jukebox_song_started_time",
             (DataComponentType.Builder<Long> builder) -> builder.persistent(Codec.LONG)
@@ -79,21 +83,21 @@ public class ModRegistry {
             Registries.RECIPE_SERIALIZER,
             "crafting_special_firework_star",
             () -> new SimpleCraftingRecipeSerializer<>(ModFireworkStarRecipe::new));
+    public static final Holder.Reference<SoundEvent> SPIKE_TRAP_EXTEND_SOUND_EVENT = REGISTRIES.registerSoundEvent(
+            "block.spike_trap.extend");
+    public static final Holder.Reference<SoundEvent> SPIKE_TRAP_RETRACT_SOUND_EVENT = REGISTRIES.registerSoundEvent(
+            "block.spike_trap.retract");
 
     public static final LootContextParamSet MYSTERIOUS_BUNDLE_LOOT_CONTEXT_PARAM_SET = registerLootContextParamSet(
             AdditionalSubtractions.id("mysterious_bundle"),
             (LootContextParamSet.Builder builder) -> builder.required(LootContextParams.ORIGIN)
                     .optional(LootContextParams.THIS_ENTITY));
 
-    static final TagFactory TAGS = TagFactory.make(AdditionalSubtractions.MOD_ID);
-    public static final TagKey<Block> ROTATABLE_BLOCK_TAG = TAGS.registerBlockTag("rotatable");
-    public static final TagKey<Block> PEDESTALS_BLOCK_TAG = TAGS.registerBlockTag("pedestals");
-    public static final TagKey<Item> MUSIC_DISCS_ITEM_TAG = TagFactory.COMMON.registerItemTag("music_discs");
-
     public static void bootstrap() {
         ModBlocks.bootstrap();
         ModItems.bootstrap();
         ModSoundEvents.bootstrap();
+        ModTags.bootstrap();
         ModLootTables.bootstrap();
         ModEnumConstants.bootstrap();
     }

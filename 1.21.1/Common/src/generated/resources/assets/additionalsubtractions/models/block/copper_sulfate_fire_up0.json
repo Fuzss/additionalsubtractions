@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_up",
+  "textures": {
+    "fire": "additionalsubtractions:block/copper_sulfate_fire_0"
+  }
+}

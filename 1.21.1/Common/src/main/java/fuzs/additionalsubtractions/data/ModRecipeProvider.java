@@ -263,6 +263,57 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern("###")
                 .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
                 .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.REDSTONE_CROSSING.value())
+                .define('#', Items.STONE)
+                .define('X', Items.REDSTONE)
+                .pattern("XXX")
+                .pattern("###")
+                .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModItems.NETHER_BRICK_FENCE_GATE.value())
+                .define('#', Items.NETHER_BRICK)
+                .define('W', Items.NETHER_BRICKS)
+                .pattern("#W#")
+                .pattern("#W#")
+                .unlockedBy(getHasName(Items.NETHER_BRICKS), has(Items.NETHER_BRICKS))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.COPPER_SULFATE_TORCH.value(), 4)
+                .define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
+                .define('#', Items.STICK)
+                .define('S', ModItems.COPPER_PATINA.value())
+                .pattern("X")
+                .pattern("#")
+                .pattern("S")
+                .unlockedBy(getHasName(ModItems.COPPER_PATINA.value()), has(ModItems.COPPER_PATINA.value()))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.COPPER_SULFATE_JACK_O_LANTERN.value())
+                .define('#', Items.CARVED_PUMPKIN)
+                .define('X', ModItems.COPPER_SULFATE_TORCH.value())
+                .pattern("X")
+                .pattern("#")
+                .unlockedBy(getHasName(Items.CARVED_PUMPKIN), has(Items.CARVED_PUMPKIN))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.COPPER_SULFATE_CAMPFIRE.value())
+                .define('L', ItemTags.LOGS)
+                .define('S', Items.STICK)
+                .define('#', ModItems.COPPER_PATINA.value())
+                .pattern(" S ")
+                .pattern("S#S")
+                .pattern("LLL")
+                .unlockedBy(getHasName(ModItems.COPPER_PATINA.value()), has(ModItems.COPPER_PATINA.value()))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModItems.COPPER_SULFATE_LANTERN.value())
+                .define('#', ModItems.COPPER_SULFATE_TORCH.value())
+                .define('X', Items.IRON_NUGGET)
+                .pattern("XXX")
+                .pattern("X#X")
+                .pattern("XXX")
+                .unlockedBy(getHasName(ModItems.COPPER_SULFATE_TORCH.value()),
+                        has(ModItems.COPPER_SULFATE_TORCH.value()))
+                .save(recipeOutput);
+        brazier(recipeOutput, ModItems.BRAZIER.value(), Items.CAMPFIRE);
+        brazier(recipeOutput, ModItems.SOUL_BRAZIER.value(), Items.SOUL_CAMPFIRE);
+        brazier(recipeOutput, ModItems.COPPER_SULFATE_BRAZIER.value(), ModItems.COPPER_SULFATE_CAMPFIRE.value());
     }
 
     public static void pedestal(RecipeOutput recipeOutput, ItemLike resultItem, ItemLike blockItem, ItemLike slabItem) {
@@ -273,6 +324,17 @@ public class ModRecipeProvider extends AbstractRecipeProvider {
                 .pattern(" # ")
                 .pattern("XXX")
                 .unlockedBy(getHasName(blockItem), has(blockItem))
+                .save(recipeOutput);
+    }
+
+    public static void brazier(RecipeOutput recipeOutput, ItemLike resultItem, ItemLike ingredientItem) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, resultItem)
+                .define('#', Items.IRON_BARS)
+                .define('X', ingredientItem)
+                .pattern(" # ")
+                .pattern("#X#")
+                .pattern(" # ")
+                .unlockedBy(getHasName(ingredientItem), has(ingredientItem))
                 .save(recipeOutput);
     }
 

@@ -23,7 +23,8 @@ abstract class CarvedPumpkinBlockMixin extends HorizontalDirectionalBlock {
     )
     private static void isPumpkinState(BlockState blockState, CallbackInfoReturnable<Boolean> callback) {
         if (blockState != null &&
-                (blockState.is(ModBlocks.SOUL_JACK_O_LANTERN) || blockState.is(ModBlocks.REDSTONE_JACK_O_LANTERN))) {
+                (blockState.is(ModBlocks.SOUL_JACK_O_LANTERN) || blockState.is(ModBlocks.REDSTONE_JACK_O_LANTERN) ||
+                        blockState.is(ModBlocks.COPPER_SULFATE_JACK_O_LANTERN))) {
             callback.setReturnValue(true);
         }
     }

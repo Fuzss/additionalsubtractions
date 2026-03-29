@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "additionalsubtractions:block/copper_sulfate_lantern"
+  }
+}
